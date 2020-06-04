@@ -1,5 +1,6 @@
 package com.accesscontrol.services.impl;
 
+import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.services.AccessControlService;
 import org.apache.commons.configuration2.Configuration;
@@ -43,13 +44,13 @@ public class DefaultAccessControlService implements AccessControlService {
 
             try {
                 Configuration configuration=getConfigurationFromClassPath();
-                this.properties.put("accesscontrol.datasource.url",configuration.getString("accesscontrol.datasource.url"));
-                this.properties.put("accesscontrol.datasource.username",configuration.getString("accesscontrol.datasource.username"));
-                this.properties.put("accesscontrol.datasource.password",configuration.getString("accesscontrol.datasource.password"));
-                this.properties.put("accesscontrol.datasource.driver-class-name",configuration.getString("accesscontrol.datasource.driver-class-name"));
-                this.properties.put("accesscontrol.jpa.database-platform",configuration.getString("accesscontrol.jpa.database-platform"));
-                this.properties.put("accesscontrol.jpa.show-sql",configuration.getString("accesscontrol.jpa.show-sql"));
-                this.properties.put("accesscontrol.jpa.hibernate.ddl-auto",configuration.getString("accesscontrol.jpa.hibernate.ddl-auto"));
+                this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_URL,configuration.getString(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_URL));
+                this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_USERNAME,configuration.getString(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_USERNAME));
+                this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_PASSWORD,configuration.getString(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_PASSWORD));
+                this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_SHOW_SQL,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_SHOW_SQL));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_DDL_AUTO,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_DDL_AUTO));
 
             } catch (ConfigurationException|FileNotFoundException e) {
                 log.error("Exception occurred while loading access control application context",e);
@@ -62,6 +63,11 @@ public class DefaultAccessControlService implements AccessControlService {
             return this.applicationContext;
         }
 
+
+    }
+
+    private void validateProperties()
+    {
 
     }
 
@@ -87,7 +93,7 @@ public class DefaultAccessControlService implements AccessControlService {
             log.error("Exception occurred while loading Access Control Application context",ex);
             throw new AccessControlException("Exception occurred while loading access control application context",ex);
         }
-        return applicationContext;
+        return this.applicationContext;
     }
 
     private Configuration getConfigurationFromClassPath() throws ConfigurationException, FileNotFoundException {
