@@ -36,6 +36,20 @@ public interface AccessControlConfigConstants {
 
     String BASE_PACKAGE_FOR_SCAN="com.accesscontrol.*";
     String ACCESS_CONTROL_CONFIG="accessControlConfigProperties";
+    String CLASSPATH_CONFIG_FILE="classpath:accesscontrol.properties";
 
+    interface HibernateConfiguration
+    {
+        String DDL_AUTO="hibernate.hbm2ddl.auto";
+        String DIALECT="hibernate.dialect";
+        String AUTO_COMMIT="hibernate.connection.autocommit";
+
+        String MIN_POOL_SIZE="hibernate.c3p0.min_size";
+        String MAX_POOL_SIZE="hibernate.c3p0.max_size";
+        String TIMEOUT="hibernate.c3p0.timeout";
+        String MAX_STATEMENTS="hibernate.c3p0.max_statements";
+
+        String FORMAT_SQL="hibernate.format_sql";
+    }
 
 }

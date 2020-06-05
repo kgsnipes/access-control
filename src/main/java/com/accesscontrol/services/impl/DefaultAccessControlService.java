@@ -11,6 +11,7 @@ import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.util.ResourceUtils;
@@ -103,14 +104,24 @@ public class DefaultAccessControlService implements AccessControlService {
             {
                 log.info("validating the mandatory configuration");
                 validateMandatoryConfiguration(properties);
-                this.applicationContext=new AnnotationConfigApplicationContext(AccessControlConfigConstants.BASE_PACKAGE_FOR_SCAN);
-                this.applicationContext.start();
+                this.applicationContext=new AnnotationConfigApplicationContext();
+
+
                 log.info("injecting the configuration properties");
-                this.applicationContext.registerBean(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG,Properties.class,()->this.properties,bd->bd.setAutowireCandidate(true));
+                this.applicationContext.registerBean(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG,Properties.class,()->this.getProperties(),bd->bd.setAutowireCandidate(true));
+
+                this.applicationContext.scan(AccessControlConfigConstants.BASE_PACKAGE_FOR_SCAN);
+
+                this.applicationContext.refresh();
+
+                this.applicationContext.start();
+
                 this.applicationContext.registerShutdownHook();
+
+                loaded=true;
+                log.info("Loaded access control application context !!");
             }
-            loaded=true;
-            log.info("Loaded access control application context !!");
+
         }
         catch (Exception ex)
         {
@@ -126,7 +137,7 @@ public class DefaultAccessControlService implements AccessControlService {
         final Parameters params = new Parameters();
         final FileBasedConfigurationBuilder<FileBasedConfiguration> builder =
                 new FileBasedConfigurationBuilder<FileBasedConfiguration>(PropertiesConfiguration.class)
-                        .configure(params.properties().setFile(ResourceUtils.getFile("classpath:accesscontrol.properties")));
+                        .configure(params.properties().setFile(ResourceUtils.getFile(AccessControlConfigConstants.CLASSPATH_CONFIG_FILE)));
         return builder.getConfiguration();
     }
 
