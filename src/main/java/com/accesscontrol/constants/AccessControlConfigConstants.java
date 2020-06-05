@@ -34,5 +34,8 @@ public interface AccessControlConfigConstants {
             JPAConfigConstants.JPA_DDL_AUTO
     };
 
+    String BASE_PACKAGE_FOR_SCAN="com.accesscontrol.*";
+    String ACCESS_CONTROL_CONFIG="accessControlConfigProperties";
+
 
 }

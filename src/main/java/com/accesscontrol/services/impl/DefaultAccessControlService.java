@@ -16,6 +16,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.util.ResourceUtils;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Properties;
 
 public class DefaultAccessControlService implements AccessControlService {
@@ -43,14 +45,26 @@ public class DefaultAccessControlService implements AccessControlService {
         {
 
             try {
+                log.info("Loading the configuration from the properties file from class path");
                 Configuration configuration=getConfigurationFromClassPath();
                 this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_URL,configuration.getString(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_URL));
                 this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_USERNAME,configuration.getString(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_USERNAME));
                 this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_PASSWORD,configuration.getString(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_PASSWORD));
-                this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT));
+                this.properties.put(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS,configuration.getString(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS));
+
                 this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT));
                 this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_SHOW_SQL,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_SHOW_SQL));
                 this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_DDL_AUTO,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_DDL_AUTO));
+
+
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_AUTO_COMMIT,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_AUTO_COMMIT,"true"));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_FORMAT_SQL,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_FORMAT_SQL,"true"));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_MAX_STATEMENTS,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_MAX_STATEMENTS,"50"));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MIN,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MIN,"2"));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MAX,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MAX,"10"));
+                this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_TIMEOUT,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_TIMEOUT,"1800"));
+                log.info("Done! Loading the configuration from the properties file from class path");
+
 
             } catch (ConfigurationException|FileNotFoundException e) {
                 log.error("Exception occurred while loading access control application context",e);
@@ -66,9 +80,17 @@ public class DefaultAccessControlService implements AccessControlService {
 
     }
 
-    private void validateProperties()
+    private void validateMandatoryConfiguration(Properties properties) throws AccessControlException
     {
-
+        log.info("validating the mandatory configuration");
+        for(String key:Arrays.asList(AccessControlConfigConstants.MANDATORY_CONFIG))
+        {
+            if(Objects.isNull(properties.getProperty(key)))
+            {
+                throw new AccessControlException("Configuration not found for key "+ key);
+            }
+        }
+        log.info("Done! validating the mandatory configuration");
     }
 
     @Override
@@ -79,8 +101,12 @@ public class DefaultAccessControlService implements AccessControlService {
             log.info("Starting to load access control application context");
             if(!loaded)
             {
-                this.applicationContext=new AnnotationConfigApplicationContext("com.accesscontrol.*");
+                log.info("validating the mandatory configuration");
+                validateMandatoryConfiguration(properties);
+                this.applicationContext=new AnnotationConfigApplicationContext(AccessControlConfigConstants.BASE_PACKAGE_FOR_SCAN);
                 this.applicationContext.start();
+                log.info("injecting the configuration properties");
+                this.applicationContext.registerBean(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG,Properties.class,()->this.properties,bd->bd.setAutowireCandidate(true));
                 this.applicationContext.registerShutdownHook();
             }
             loaded=true;
