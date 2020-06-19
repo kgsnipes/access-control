@@ -3,15 +3,19 @@ package com.accesscontrol.services.impl;
 import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
+import com.accesscontrol.repository.UserRepository;
 import com.accesscontrol.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class DefaultUserService implements UserService {
 
     private static Logger log= LogManager.getLogger(DefaultUserService.class);
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public User createUser(User user) {

@@ -1,6 +1,8 @@
 package com.accesscontrol.config;
 
 import com.accesscontrol.constants.AccessControlConfigConstants;
+import com.accesscontrol.services.UserService;
+import com.accesscontrol.services.impl.DefaultUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,12 @@ public class AccessControlConfig {
         transactionManager.setEntityManagerFactory(
                 entityManagerFactory().getObject() );
         return transactionManager;
+    }
+
+    @Bean
+    public UserService userService()
+    {
+        return new DefaultUserService();
     }
 
 }
