@@ -26,13 +26,7 @@ public interface AccessControlConfigConstants {
 
     }
 
-    String MANDATORY_CONFIG[]=new String[]{DataSourceConfigConstants.DATASOURCE_URL,
-            DataSourceConfigConstants.DATASOURCE_USERNAME,
-            DataSourceConfigConstants.DATASOURCE_PASSWORD,
-            DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS,
-            JPAConfigConstants.JPA_DATABASE_DIALECT,
-            JPAConfigConstants.JPA_DDL_AUTO
-    };
+
 
     String BASE_PACKAGE_FOR_SCAN="com.accesscontrol.*";
     String ACCESS_CONTROL_CONFIG="accessControlConfigProperties";
@@ -51,5 +45,24 @@ public interface AccessControlConfigConstants {
 
         String FORMAT_SQL="hibernate.format_sql";
     }
+
+    interface PasswordEncryption
+    {
+        String PASSWORD_SALT="accesscontrol.password.salt";
+        String PASSWORD_PEPPER="accesscontrol.password.pepper";
+        String PASSWORD_DIGEST="accesscontrol.password.digest";
+        String PASSWORD_ENCRYTPION_FLAG="accesscontrol.password.encryptionflag";
+    }
+
+
+    String MANDATORY_CONFIG[]=new String[]{
+            DataSourceConfigConstants.DATASOURCE_URL,
+            DataSourceConfigConstants.DATASOURCE_USERNAME,
+            DataSourceConfigConstants.DATASOURCE_PASSWORD,
+            DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS,
+            JPAConfigConstants.JPA_DATABASE_DIALECT,
+            JPAConfigConstants.JPA_DDL_AUTO,
+            PasswordEncryption.PASSWORD_DIGEST
+        };
 
 }

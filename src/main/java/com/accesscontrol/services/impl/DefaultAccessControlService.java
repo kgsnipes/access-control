@@ -64,6 +64,12 @@ public class DefaultAccessControlService implements AccessControlService {
                 this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MIN,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MIN,"2"));
                 this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MAX,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MAX,"10"));
                 this.properties.put(AccessControlConfigConstants.JPAConfigConstants.JPA_TIMEOUT,configuration.getString(AccessControlConfigConstants.JPAConfigConstants.JPA_TIMEOUT,"1800"));
+
+                this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_ENCRYTPION_FLAG,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_ENCRYTPION_FLAG,"__IS_ENCRYPTED__"));
+                this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_PEPPER,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_PEPPER,""));
+                this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_SALT,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_SALT,""));
+                this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST,"MD5"));
+
                 log.info("Done! Loading the configuration from the properties file from class path");
 
 

@@ -1,13 +1,23 @@
 package com.accesscontrol.services.impl;
 
 import com.accesscontrol.beans.PageResult;
+import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 import com.accesscontrol.repository.UserRepository;
+import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class DefaultUserService implements UserService {
@@ -17,14 +27,59 @@ public class DefaultUserService implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ValidatorFactory validatorFactory;
+
+    @Autowired
+    private PasswordEncryptionService passwordEncryptionService;
+
     @Override
     public User createUser(User user) {
-        return null;
+
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            User existingUser=userRepository.findByUserId(user.getUserId());
+            if(Objects.nonNull(existingUser))
+            {
+                log.error("User ID already existing "+user.getUserId());
+                throw new AccessControlException("User ID already existing "+user.getUserId());
+            }
+            encryptPasswordIfNotEncrypted(user);
+            user=userRepository.save(user);
+        }
+        return user;
+    }
+
+    private void encryptPasswordIfNotEncrypted(User user)
+    {
+        if(!passwordEncryptionService.isPasswordEncrypted(user.getPassword()))
+        {
+            user.setPassword(passwordEncryptionService.encryptPassword(user.getPassword()));
+        }
     }
 
     @Override
     public User saveUser(User user) {
-        return null;
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            encryptPasswordIfNotEncrypted(user);
+            user=userRepository.save(user);
+        }
+        return user;
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,15 +14,19 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message="First name cannot be null")
     private String firstName;
 
     private String lastName;
 
+    @NotNull(message="user id name cannot be null")
     @Column(unique = true)
     private String userId;
 
+    @NotNull(message="password cannot be null")
     private String password;
 
+    @NotNull(message="enabled flag cannot be null")
     private Boolean enabled;
 
     @CreationTimestamp
