@@ -41,6 +41,14 @@ public class UserServiceTest {
     }
 
     @Test
+    public void createUserTestWithIllegalArgumentException() throws AccessControlException {
+   
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createUser(null);
+        });
+    }
+
+    @Test
     public void createUserTestWithoutException() throws AccessControlException {
 
         User user=new User();

@@ -8,6 +8,7 @@ import com.accesscontrol.repository.UserRepository;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,6 +37,11 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User createUser(User user) {
+
+        if(Objects.isNull(user))
+        {
+            throw new IllegalArgumentException("User object cannot be null");
+        }
 
         Validator validator=validatorFactory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -67,6 +74,12 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User saveUser(User user) {
+
+        if(Objects.isNull(user))
+        {
+            throw new IllegalArgumentException("User object cannot be null");
+        }
+
         Validator validator=validatorFactory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         if(CollectionUtils.isNotEmpty(violations))
@@ -84,6 +97,11 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void disableUser(String userId) {
+
+        if(StringUtils.isEmpty(userId))
+        {
+            throw new IllegalArgumentException("UserId cannot be null or empty");
+        }
 
     }
 
