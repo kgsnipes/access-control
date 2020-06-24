@@ -1,6 +1,7 @@
 package com.accesscontrol.services;
 
 import com.accesscontrol.exception.AccessControlException;
+import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
 import org.apache.logging.log4j.LogManager;
@@ -81,6 +82,29 @@ public class UserServiceTest {
         Assertions.assertThrows(AccessControlException.class,()->{
             userService.createUser(user2);
         });
+    }
+
+    @Test
+    public void disableUserWithNullUserId()throws AccessControlException{
+        Assertions.assertThrows(AccessControlException.class,()->{
+            userService.disableUser(null);
+        });
+    }
+
+    @Test
+    public void disableUserWithUnknownUserId()throws AccessControlException{
+        Assertions.assertThrows(UserNotFoundException.class,()->{
+            userService.disableUser("unknownuser@test.com");
+        });
+    }
+
+
+    @Test
+    public void disableUserWithKnownUserId()throws AccessControlException{
+        String userId="testuser2@test.com";
+        userService.disableUser(userId);
+        Assertions.assertEquals(false,userService.getUserById(userId).getEnabled());
+
     }
 
 }

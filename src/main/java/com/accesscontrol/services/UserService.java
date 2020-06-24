@@ -15,6 +15,8 @@ public interface UserService {
 
     void disableUser(String userId);
 
+    void enableUser(String userId);
+
     void deleteUser(String userId);
 
     User getUserById(String userId);

@@ -118,6 +118,25 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public void enableUser(String userId) {
+        if(StringUtils.isEmpty(userId))
+        {
+            throw new IllegalArgumentException("UserId cannot be null or empty");
+        }
+
+        User user=userRepository.findByUserId(userId);
+        if(Objects.isNull(user))
+        {
+            throw new UserNotFoundException("No such user available");
+        }
+        else
+        {
+            user.setEnabled(true);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
     public void deleteUser(String userId) {
 
         if(StringUtils.isEmpty(userId))
