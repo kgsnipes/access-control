@@ -2,6 +2,7 @@ package com.accesscontrol.services.impl;
 
 import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.exception.AccessControlException;
+import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 import com.accesscontrol.repository.UserRepository;
@@ -103,16 +104,56 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException("UserId cannot be null or empty");
         }
 
+        User user=userRepository.findByUserId(userId);
+        if(Objects.isNull(user))
+        {
+            throw new UserNotFoundException("No such user available");
+        }
+        else
+        {
+            user.setEnabled(false);
+            userRepository.save(user);
+        }
+
     }
 
     @Override
     public void deleteUser(String userId) {
 
+        if(StringUtils.isEmpty(userId))
+        {
+            throw new IllegalArgumentException("UserId cannot be null or empty");
+        }
+
+        User user=userRepository.findByUserId(userId);
+        if(Objects.isNull(user))
+        {
+            throw new UserNotFoundException("No such user available");
+        }
+        else
+        {
+            userRepository.delete(user);
+        }
+
     }
 
     @Override
     public User getUserById(String userId) {
-        return null;
+
+        if(StringUtils.isEmpty(userId))
+        {
+            throw new IllegalArgumentException("UserId cannot be null or empty");
+        }
+
+        User user=userRepository.findByUserId(userId);
+        if(Objects.isNull(user))
+        {
+            throw new UserNotFoundException("No such user available");
+        }
+        else
+        {
+            return user;
+        }
     }
 
     @Override
