@@ -86,7 +86,7 @@ public class UserServiceTest {
 
     @Test
     public void disableUserWithNullUserId()throws AccessControlException{
-        Assertions.assertThrows(AccessControlException.class,()->{
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
             userService.disableUser(null);
         });
     }
