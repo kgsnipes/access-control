@@ -32,12 +32,12 @@ public class DefaultAccessControlService implements AccessControlService {
 
     private Boolean loaded=false;
 
-    public DefaultAccessControlService() throws AccessControlException {
-        init();
+    public DefaultAccessControlService()  {
+            this.init();
     }
 
-    public DefaultAccessControlService(Properties properties) throws AccessControlException {
-        init(properties);
+    public DefaultAccessControlService(Properties properties)  {
+        this.init(properties);
     }
 
     @Override
@@ -78,14 +78,13 @@ public class DefaultAccessControlService implements AccessControlService {
                 log.error("Exception occurred while loading access control application context",e);
                 throw new AccessControlException("Exception occurred while loading access control application context",e);
             }
-            init(properties);
+            this.init(properties);
             //return getApplicationContext(properties);
         }
         else
         {
-            //return this.applicationContext;
+            log.info("user service is already loaded");
         }
-
 
     }
 
@@ -129,6 +128,10 @@ public class DefaultAccessControlService implements AccessControlService {
                 loaded=true;
                 log.info("Loaded access control application context !!");
             }
+            else
+            {
+                log.info("user service is already loaded");
+            }
 
         }
         catch (Exception ex)
@@ -138,7 +141,7 @@ public class DefaultAccessControlService implements AccessControlService {
             log.error("Exception occurred while loading Access Control Application context",ex);
             throw new AccessControlException("Exception occurred while loading access control application context",ex);
         }
-       // return this.applicationContext;
+
     }
 
     @Override

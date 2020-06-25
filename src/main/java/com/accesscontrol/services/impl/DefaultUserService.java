@@ -1,5 +1,6 @@
 package com.accesscontrol.services.impl;
 
+import com.accesscontrol.beans.AccessControlContext;
 import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserNotFoundException;
@@ -39,7 +40,7 @@ public class DefaultUserService implements UserService {
 
     @Transactional
     @Override
-    public User createUser(User user) {
+    public User createUser(User user, AccessControlContext ctx) {
 
         if(Objects.isNull(user))
         {
@@ -77,7 +78,7 @@ public class DefaultUserService implements UserService {
 
     @Transactional
     @Override
-    public User saveUser(User user) {
+    public User saveUser(User user, AccessControlContext ctx) {
 
         if(Objects.isNull(user))
         {
@@ -101,7 +102,7 @@ public class DefaultUserService implements UserService {
 
     @Transactional
     @Override
-    public void disableUser(String userId) {
+    public void disableUser(String userId, AccessControlContext ctx) {
 
         if(StringUtils.isEmpty(userId))
         {
@@ -123,7 +124,7 @@ public class DefaultUserService implements UserService {
 
     @Transactional
     @Override
-    public void enableUser(String userId) {
+    public void enableUser(String userId, AccessControlContext ctx) {
         if(StringUtils.isEmpty(userId))
         {
             throw new IllegalArgumentException("UserId cannot be null or empty");
@@ -143,7 +144,7 @@ public class DefaultUserService implements UserService {
 
     @Transactional
     @Override
-    public void deleteUser(String userId) {
+    public void deleteUser(String userId, AccessControlContext ctx) {
 
         if(StringUtils.isEmpty(userId))
         {
@@ -189,25 +190,25 @@ public class DefaultUserService implements UserService {
 
     @Transactional
     @Override
-    public UserGroup createUserGroup(UserGroup userGroup) {
+    public UserGroup createUserGroup(UserGroup userGroup, AccessControlContext ctx) {
         return null;
     }
 
     @Transactional
     @Override
-    public UserGroup saveUserGroup(UserGroup userGroup) {
+    public UserGroup saveUserGroup(UserGroup userGroup, AccessControlContext ctx) {
         return null;
     }
 
     @Transactional
     @Override
-    public void disableUserGroup(String userGroupCode) {
+    public void disableUserGroup(String userGroupCode, AccessControlContext ctx) {
 
     }
 
     @Transactional
     @Override
-    public void deleteUserGroup(String userGroupCode) {
+    public void deleteUserGroup(String userGroupCode, AccessControlContext ctx) {
 
     }
 

@@ -24,12 +24,12 @@ public class UserServiceTest {
     public static void setup() throws AccessControlException {
         log.info("Setting up accessControlService");
         accessControlService=new DefaultAccessControlService();
-        userService= (UserService) accessControlService.getApplicationContext().getBean("userService");
+        userService= accessControlService.getUserService();
     }
 
     @Test
     public void userServiceTest() throws AccessControlException {
-        Assertions.assertEquals(true,accessControlService.getApplicationContext().getBean("userService") instanceof UserService);
+        Assertions.assertEquals(true,Objects.nonNull( accessControlService.getUserService()));
     }
 
     @Test
