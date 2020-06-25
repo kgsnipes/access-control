@@ -1,15 +1,16 @@
 package com.accesscontrol.services;
 
 import com.accesscontrol.exception.AccessControlException;
-import org.springframework.context.ApplicationContext;
 
 import java.util.Properties;
 
 public interface AccessControlService {
 
-    ApplicationContext getApplicationContext() throws AccessControlException;
+    void init() throws AccessControlException;
 
-    ApplicationContext getApplicationContext(Properties properties) throws AccessControlException;
+    void init(Properties properties) throws AccessControlException;
+
+    UserService getUserService();
 
 
 }

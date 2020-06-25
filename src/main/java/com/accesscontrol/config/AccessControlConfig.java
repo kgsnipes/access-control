@@ -19,6 +19,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import javax.validation.Validation;
@@ -28,6 +29,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableAspectJAutoProxy
+@EnableTransactionManagement
 @EnableJpaRepositories(AccessControlConfigConstants.BASE_PACKAGE_FOR_SCAN)
 @ComponentScan(basePackages = {AccessControlConfigConstants.BASE_PACKAGE_FOR_SCAN})
 public class AccessControlConfig {

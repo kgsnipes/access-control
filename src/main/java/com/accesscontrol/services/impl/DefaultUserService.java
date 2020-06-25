@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -36,6 +37,7 @@ public class DefaultUserService implements UserService {
     @Autowired
     private PasswordEncryptionService passwordEncryptionService;
 
+    @Transactional
     @Override
     public User createUser(User user) {
 
@@ -73,6 +75,7 @@ public class DefaultUserService implements UserService {
         }
     }
 
+    @Transactional
     @Override
     public User saveUser(User user) {
 
@@ -96,6 +99,7 @@ public class DefaultUserService implements UserService {
         return user;
     }
 
+    @Transactional
     @Override
     public void disableUser(String userId) {
 
@@ -117,6 +121,7 @@ public class DefaultUserService implements UserService {
 
     }
 
+    @Transactional
     @Override
     public void enableUser(String userId) {
         if(StringUtils.isEmpty(userId))
@@ -136,6 +141,7 @@ public class DefaultUserService implements UserService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteUser(String userId) {
 
@@ -155,6 +161,7 @@ public class DefaultUserService implements UserService {
         }
 
     }
+
 
     @Override
     public User getUserById(String userId) {
@@ -180,21 +187,25 @@ public class DefaultUserService implements UserService {
         return null;
     }
 
+    @Transactional
     @Override
     public UserGroup createUserGroup(UserGroup userGroup) {
         return null;
     }
 
+    @Transactional
     @Override
     public UserGroup saveUserGroup(UserGroup userGroup) {
         return null;
     }
 
+    @Transactional
     @Override
     public void disableUserGroup(String userGroupCode) {
 
     }
 
+    @Transactional
     @Override
     public void deleteUserGroup(String userGroupCode) {
 

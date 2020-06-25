@@ -3,6 +3,7 @@ package com.accesscontrol.services.impl;
 import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.services.AccessControlService;
+import com.accesscontrol.services.UserService;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.FileBasedConfiguration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
@@ -32,15 +33,15 @@ public class DefaultAccessControlService implements AccessControlService {
     private Boolean loaded=false;
 
     public DefaultAccessControlService() throws AccessControlException {
-        getApplicationContext();
+        init();
     }
 
     public DefaultAccessControlService(Properties properties) throws AccessControlException {
-        getApplicationContext(properties);
+        init(properties);
     }
 
     @Override
-    public ApplicationContext getApplicationContext() throws AccessControlException {
+    public void init() throws AccessControlException {
 
         if(!loaded)
         {
@@ -77,11 +78,12 @@ public class DefaultAccessControlService implements AccessControlService {
                 log.error("Exception occurred while loading access control application context",e);
                 throw new AccessControlException("Exception occurred while loading access control application context",e);
             }
-            return getApplicationContext(properties);
+            init(properties);
+            //return getApplicationContext(properties);
         }
         else
         {
-            return this.applicationContext;
+            //return this.applicationContext;
         }
 
 
@@ -101,7 +103,7 @@ public class DefaultAccessControlService implements AccessControlService {
     }
 
     @Override
-    public ApplicationContext getApplicationContext(Properties properties)throws AccessControlException {
+    public void init(Properties properties)throws AccessControlException {
 
         try
         {
@@ -136,7 +138,12 @@ public class DefaultAccessControlService implements AccessControlService {
             log.error("Exception occurred while loading Access Control Application context",ex);
             throw new AccessControlException("Exception occurred while loading access control application context",ex);
         }
-        return this.applicationContext;
+       // return this.applicationContext;
+    }
+
+    @Override
+    public UserService getUserService() {
+        return this.applicationContext.getBean(UserService.class);
     }
 
     private Configuration getConfigurationFromClassPath() throws ConfigurationException, FileNotFoundException {
