@@ -76,6 +76,12 @@ public class DefaultChangeLogService implements ChangeLogService {
                 {
                     log.setMessage(context.getMessage());
                 }
+
+                try {
+                    log.setContextObject(mapper.writeValueAsString(context));
+                } catch (JsonProcessingException e) {
+                    LOG.error("Exception in parsing object",e);
+                }
             }
 
             if(StringUtils.isNotEmpty(log.getAction())){

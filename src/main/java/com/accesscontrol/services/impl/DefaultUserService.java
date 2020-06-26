@@ -50,7 +50,7 @@ public class DefaultUserService implements UserService {
     @Transactional
     @Override
     public User createUser(User user, AccessControlContext ctx) {
-        User savedUser=user;
+        User savedUser=null;
         if(Objects.isNull(user))
         {
             throw new IllegalArgumentException("User object cannot be null");
@@ -89,7 +89,7 @@ public class DefaultUserService implements UserService {
     @Transactional
     @Override
     public User saveUser(User user, AccessControlContext ctx) {
-        User savedUser=user;
+        User savedUser=null;
         if(Objects.isNull(user))
         {
             throw new IllegalArgumentException("User object cannot be null");
@@ -106,7 +106,7 @@ public class DefaultUserService implements UserService {
         {
             encryptPasswordIfNotEncrypted(user);
             savedUser=userRepository.save(user);
-            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,user,savedUser,ctx);
+            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
 
         }
         return savedUser;
@@ -129,7 +129,9 @@ public class DefaultUserService implements UserService {
         else
         {
             user.setEnabled(false);
-            userRepository.save(user);
+            User savedUser=userRepository.save(user);
+            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
+
         }
 
     }
@@ -150,7 +152,9 @@ public class DefaultUserService implements UserService {
         else
         {
             user.setEnabled(true);
-            userRepository.save(user);
+            User savedUser=userRepository.save(user);
+            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
+
         }
     }
 
@@ -171,6 +175,8 @@ public class DefaultUserService implements UserService {
         else
         {
             userRepository.delete(user);
+            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,user,null,ctx);
+
         }
 
     }
