@@ -31,6 +31,7 @@ public interface AccessControlConfigConstants {
     String BASE_PACKAGE_FOR_SCAN="com.accesscontrol.*";
     String ACCESS_CONTROL_CONFIG="accessControlConfigProperties";
     String CLASSPATH_CONFIG_FILE="classpath:accesscontrol.properties";
+    String CHANGELOG_ENABLED="accesscontrol.changelog.enabled";
 
     interface HibernateConfiguration
     {

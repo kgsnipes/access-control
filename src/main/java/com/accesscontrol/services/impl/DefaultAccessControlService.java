@@ -70,6 +70,7 @@ public class DefaultAccessControlService implements AccessControlService {
                 this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_PEPPER,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_PEPPER,""));
                 this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_SALT,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_SALT,""));
                 this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST,"MD5"));
+                this.properties.put(AccessControlConfigConstants.CHANGELOG_ENABLED,configuration.getString(AccessControlConfigConstants.CHANGELOG_ENABLED,"false"));
 
                 log.info("Done! Loading the configuration from the properties file from class path");
 

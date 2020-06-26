@@ -2,10 +2,12 @@ package com.accesscontrol.services.impl;
 
 import com.accesscontrol.beans.AccessControlContext;
 import com.accesscontrol.beans.PageResult;
+import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
+import com.accesscontrol.repository.ChangeLogRepository;
 import com.accesscontrol.repository.UserRepository;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
@@ -14,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
@@ -21,6 +24,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,6 +41,13 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private PasswordEncryptionService passwordEncryptionService;
+
+    @Autowired
+    private ChangeLogRepository changeLogRepository;
+
+    @Autowired
+    @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
+    private Properties accessControlConfigProperties;
 
     @Transactional
     @Override
@@ -215,5 +226,10 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber) {
         return null;
+    }
+
+    private boolean isChangeLogEnabled()
+    {
+        return
     }
 }
