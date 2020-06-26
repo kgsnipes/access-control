@@ -125,4 +125,82 @@ public class UserServiceTest {
 
     }
 
+    @Order(10)
+    @Test
+    public void enableUserWithKnownUserId()throws AccessControlException{
+        String userId="testuser2@test.com";
+        userService.enableUser(userId,ctx);
+        Assertions.assertEquals(true,userService.getUserById(userId).getEnabled());
+
+    }
+
+    @Order(11)
+    @Test
+    public void enableUserWithunKnownUserId()throws AccessControlException{
+        String userId="testuser3@test.com";
+        userService.enableUser(userId,ctx);
+        Assertions.assertThrows(UserNotFoundException.class,()->{
+            userService.getUserById(userId);
+        });
+
+    }
+
+
+    @Order(12)
+    @Test
+    public void enableUserWithNoUserId()throws AccessControlException{
+        String userId="";
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enableUser(userId,ctx);
+        });
+
+    }
+
+    @Order(13)
+    @Test
+    public void enableUserWithNullUserId()throws AccessControlException{
+        String userId=null;
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enableUser(userId,ctx);
+        });
+
+    }
+
+
+    @Order(14)
+    @Test
+    public void deleteUserWithKnownUser()throws AccessControlException{
+        User user=new User();
+        user.setPassword("123456");
+        user.setEnabled(true);
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setUserId("testuser3@test.com");
+        User persistedUser=userService.createUser(user,ctx);
+        userService.deleteUser(user.getUserId(),ctx);
+        Assertions.assertThrows(UserNotFoundException.class,()->{
+            userService.getUserById(user.getUserId());
+        });
+    }
+
+    @Order(15)
+    @Test
+    public void deleteUserWithunKnownUser()throws AccessControlException{
+
+        Assertions.assertThrows(UserNotFoundException.class,()->{
+            userService.deleteUser("testuser3300@test.com",ctx);
+        });
+    }
+
+    @Order(16)
+    @Test
+    public void deleteUserWithNullUser()throws AccessControlException{
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.deleteUser(null,ctx);
+        });
+    }
+
 }
