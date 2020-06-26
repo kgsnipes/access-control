@@ -22,8 +22,6 @@ public interface UserService {
 
     User getUserById(String userId);
 
-    PageResult<User> findUsers(String searchTerm, Integer pageNumber);
-
     UserGroup createUserGroup(UserGroup userGroup, AccessControlContext ctx);
 
     UserGroup saveUserGroup(UserGroup userGroup, AccessControlContext ctx);
@@ -32,6 +30,9 @@ public interface UserService {
 
     void deleteUserGroup(String userGroupCode, AccessControlContext ctx);
 
+    PageResult<User> findUsers(String searchTerm, Integer pageNumber);
+
     PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber);
+
 
 }

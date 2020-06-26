@@ -90,7 +90,7 @@ public class DefaultUserService implements UserService {
     @Override
     public User saveUser(User user, AccessControlContext ctx) {
         User savedUser=null;
-        if(Objects.isNull(user))
+        if(Objects.isNull(user) || Objects.isNull(user.getId()))
         {
             throw new IllegalArgumentException("User object cannot be null");
         }
@@ -104,9 +104,23 @@ public class DefaultUserService implements UserService {
         }
         else
         {
-            encryptPasswordIfNotEncrypted(user);
-            savedUser=userRepository.save(user);
-            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
+            User retrievedUser=getUserById(user.getUserId());
+
+            if(Objects.nonNull(retrievedUser))
+            {
+                encryptPasswordIfNotEncrypted(user);
+                retrievedUser.setFirstName(user.getFirstName());
+                retrievedUser.setLastName(user.getLastName());
+                retrievedUser.setEnabled(user.getEnabled());
+                retrievedUser.setPassword(user.getPassword());
+                savedUser=userRepository.save(retrievedUser);
+                changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
+
+            }
+            else
+            {
+                return createUser(user,ctx);
+            }
 
         }
         return savedUser;

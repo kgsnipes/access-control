@@ -203,4 +203,69 @@ public class UserServiceTest {
         });
     }
 
+    @Order(17)
+    @Test
+    public void saveUserWithProperUser()throws AccessControlException{
+        User user=new User();
+        user.setPassword("123456");
+        user.setEnabled(true);
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setUserId("testuser4@test.com");
+        User persistedUser=userService.saveUser(user,ctx);
+        Assertions.assertEquals("testuser4@test.com",persistedUser.getUserId());
+    }
+
+    @Order(18)
+    @Test
+    public void saveUserWithoutUserId()throws AccessControlException{
+        User user=new User();
+        user.setPassword("123456");
+        user.setEnabled(true);
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setUserId(null);
+
+        Assertions.assertThrows(AccessControlException.class,()->{
+            User persistedUser=userService.saveUser(user,ctx);
+        });
+    }
+
+    @Order(19)
+    @Test
+    public void saveUserWithExistingUserId()throws AccessControlException{
+        User user=new User();
+        user.setPassword("123456");
+        user.setEnabled(true);
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setUserId("testuser5@test.com");
+        User persistedUser=userService.createUser(user,ctx);
+
+        persistedUser.setLastName("changed");
+        User persistedUser1=userService.saveUser(persistedUser,ctx);
+        Assertions.assertEquals("changed",persistedUser1.getLastName());
+
+    }
+
+    @Order(20)
+    @Test
+    public void saveUserWithExistingUserIdButWithoutID()throws AccessControlException{
+        User user=new User();
+        user.setPassword("123456");
+        user.setEnabled(true);
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setUserId("testuser5@test.com");
+        User persistedUser=userService.createUser(user,ctx);
+
+        persistedUser.setId(null);
+        persistedUser.setLastName("changed");
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            User persistedUser1=userService.saveUser(persistedUser,ctx);
+        });
+
+    }
+
 }
