@@ -23,3 +23,7 @@
 hs_err_pid*
 target/classes/accesscontrol.properties
 target/classes/log4j2.properties
+target/maven-archiver
+target/maven-status
+target/surefire-reports
+target/test-classes
