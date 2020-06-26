@@ -55,6 +55,14 @@ public interface AccessControlConfigConstants {
         String PASSWORD_ENCRYTPION_FLAG="accesscontrol.password.encryptionflag";
     }
 
+    interface CRUD
+    {
+        String CREATE="CREATE";
+        String READ="READ";
+        String UPDATE="UPDATE";
+        String DELETE="DELETE";
+    }
+
 
     String MANDATORY_CONFIG[]=new String[]{
             DataSourceConfigConstants.DATASOURCE_URL,

@@ -22,10 +22,15 @@ public class ChangeLog {
 
     private String message;
 
+    private String action;
+
+    @Lob
     private String contextObject;
 
+    @Lob
     private String previousState;
 
+    @Lob
     private String newState;
 
     @CreationTimestamp
@@ -45,6 +50,14 @@ public class ChangeLog {
         this.contextObject = contextObject;
         this.previousState = previousState;
         this.newState = newState;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 
     public Long getId() {

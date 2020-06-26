@@ -5,10 +5,12 @@ import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserNotFoundException;
+import com.accesscontrol.models.ChangeLog;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 import com.accesscontrol.repository.ChangeLogRepository;
 import com.accesscontrol.repository.UserRepository;
+import com.accesscontrol.services.ChangeLogService;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -43,16 +45,12 @@ public class DefaultUserService implements UserService {
     private PasswordEncryptionService passwordEncryptionService;
 
     @Autowired
-    private ChangeLogRepository changeLogRepository;
-
-    @Autowired
-    @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
-    private Properties accessControlConfigProperties;
+    private ChangeLogService changeLogService;
 
     @Transactional
     @Override
     public User createUser(User user, AccessControlContext ctx) {
-
+        User savedUser=user;
         if(Objects.isNull(user))
         {
             throw new IllegalArgumentException("User object cannot be null");
@@ -74,9 +72,10 @@ public class DefaultUserService implements UserService {
                 throw new AccessControlException("User ID already existing "+user.getUserId());
             }
             encryptPasswordIfNotEncrypted(user);
-            user=userRepository.save(user);
+            savedUser=userRepository.save(user);
+            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,user,savedUser,ctx);
         }
-        return user;
+        return savedUser;
     }
 
     private void encryptPasswordIfNotEncrypted(User user)
@@ -90,7 +89,7 @@ public class DefaultUserService implements UserService {
     @Transactional
     @Override
     public User saveUser(User user, AccessControlContext ctx) {
-
+        User savedUser=user;
         if(Objects.isNull(user))
         {
             throw new IllegalArgumentException("User object cannot be null");
@@ -106,9 +105,11 @@ public class DefaultUserService implements UserService {
         else
         {
             encryptPasswordIfNotEncrypted(user);
-            user=userRepository.save(user);
+            savedUser=userRepository.save(user);
+            changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,user,savedUser,ctx);
+
         }
-        return user;
+        return savedUser;
     }
 
     @Transactional
@@ -228,8 +229,5 @@ public class DefaultUserService implements UserService {
         return null;
     }
 
-    private boolean isChangeLogEnabled()
-    {
-        return
-    }
+
 }
