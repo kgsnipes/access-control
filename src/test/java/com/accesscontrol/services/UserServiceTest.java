@@ -7,12 +7,11 @@ import com.accesscontrol.models.User;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Objects;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserServiceTest {
 
     static Logger log= LogManager.getLogger(UserServiceTest.class);
@@ -30,11 +29,13 @@ public class UserServiceTest {
         userService= accessControlService.getUserService();
     }
 
+    @Order(1)
     @Test
     public void userServiceTest() throws AccessControlException {
         Assertions.assertEquals(true,Objects.nonNull( accessControlService.getUserService()));
     }
 
+    @Order(2)
     @Test
     public void createUserTestWithException() throws AccessControlException {
 
@@ -44,6 +45,7 @@ public class UserServiceTest {
         });
     }
 
+    @Order(3)
     @Test
     public void createUserTestWithIllegalArgumentException() throws AccessControlException {
 
@@ -52,6 +54,7 @@ public class UserServiceTest {
         });
     }
 
+    @Order(4)
     @Test
     public void createUserTestWithoutException() throws AccessControlException {
 
@@ -67,6 +70,7 @@ public class UserServiceTest {
         log.info("ID for the persisted user is "+persistedUser.getId());
     }
 
+    @Order(5)
     @Test
     public void createUserTestWithExceptionForDuplicateUser() throws AccessControlException {
         User user=new User();
@@ -87,6 +91,7 @@ public class UserServiceTest {
         });
     }
 
+    @Order(6)
     @Test
     public void disableUserWithNullUserId()throws AccessControlException{
         Assertions.assertThrows(IllegalArgumentException.class,()->{
@@ -94,6 +99,7 @@ public class UserServiceTest {
         });
     }
 
+    @Order(7)
     @Test
     public void disableUserWithUnknownUserId()throws AccessControlException{
         Assertions.assertThrows(UserNotFoundException.class,()->{
@@ -101,11 +107,20 @@ public class UserServiceTest {
         });
     }
 
-
+    @Order(8)
     @Test
     public void disableUserWithKnownUserId()throws AccessControlException{
         String userId="testuser2@test.com";
         userService.disableUser(userId,ctx);
+        Assertions.assertEquals(false,userService.getUserById(userId).getEnabled());
+
+    }
+
+    @Order(9)
+    @Test
+    public void disableUserWithKnownUserIdWithNullContext()throws AccessControlException{
+        String userId="testuser2@test.com";
+        userService.disableUser(userId,null);
         Assertions.assertEquals(false,userService.getUserById(userId).getEnabled());
 
     }
