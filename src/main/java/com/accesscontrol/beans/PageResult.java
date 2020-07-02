@@ -24,11 +24,11 @@ public class PageResult<T>{
         this.pageSize = pageSize;
     }
 
-    public List getResults() {
+    public List<T> getResults() {
         return results;
     }
 
-    public void setResults(List results) {
+    public void setResults(List<T> results) {
         this.results = results;
     }
 

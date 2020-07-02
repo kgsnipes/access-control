@@ -19,15 +19,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -46,6 +52,13 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private ChangeLogService changeLogService;
+
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
+    private Properties accessControlConfigProperties;
 
     @Transactional
     @Override
@@ -217,7 +230,21 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<User> findUsers(String searchTerm, Integer pageNumber) {
-        return null;
+
+        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber) || pageNumber<0)
+        {
+            throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
+        }
+
+
+
+        Page<User> userList=userRepository.findUsers(searchTerm,PageRequest.of(pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+
+        if(Objects.nonNull(userList))
+        {
+            return new PageResult<User>(userList.getContent(),pageNumber,userList.getSize(), (int) userList.getTotalElements());
+        }
+        return new PageResult<User>(Collections.EMPTY_LIST,pageNumber,0, 0);
     }
 
     @Transactional

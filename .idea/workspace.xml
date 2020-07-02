@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/constants/AccessControlConfigConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/constants/AccessControlConfigConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/accesscontrol.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/accesscontrol.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,12 +26,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="92" column="98" selection-start-line="92" selection-start-column="98" selection-end-line="92" selection-end-column="98" />
+            <state relative-caret-position="179">
+              <caret line="235" column="120" selection-start-line="235" selection-start-column="120" selection-end-line="235" selection-end-column="120" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7383#7384#0" expanded="true" />
-                <element signature="e#7410#7411#0" expanded="true" />
                 <element signature="e#7530#7531#0" expanded="true" />
                 <element signature="e#7557#7558#0" expanded="true" />
                 <element signature="e#7675#7676#0" expanded="true" />
@@ -40,55 +42,63 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/repository/CrudRepository.class">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+            <state relative-caret-position="219">
+              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="e#649#650#0" expanded="true" />
+                <element signature="e#679#680#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.2.7.RELEASE/spring-data-jpa-2.2.7.RELEASE.jar!/org/springframework/data/jpa/repository/support/SimpleJpaRepository.class">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/domain/PageImpl.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4035">
-              <caret line="322" column="29" selection-start-line="322" selection-start-column="29" selection-end-line="322" selection-end-column="29" />
+            <state relative-caret-position="85">
+              <caret line="11" column="57" selection-start-line="11" selection-start-column="53" selection-end-line="11" selection-end-column="57" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2.jar!/javax/persistence/EntityManager.class">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/domain/Pageable.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+            <state relative-caret-position="61">
+              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.4.15.Final/hibernate-core-5.4.15.Final.jar!/org/hibernate/internal/SessionImpl.class">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/domain/PageRequest.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6930">
-              <caret line="639" column="19" selection-start-line="639" selection-start-column="19" selection-end-line="639" selection-end-column="19" />
+            <state relative-caret-position="240">
+              <caret line="21" column="29" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/repository/core/EntityInformation.class">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.2.7.RELEASE/spring-data-jpa-2.2.7.RELEASE.jar!/org/springframework/data/jpa/repository/support/JpaPersistableEntityInformation.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+            <state relative-caret-position="378">
+              <caret line="73" column="156" selection-start-line="73" selection-start-column="156" selection-end-line="73" selection-end-column="156" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1493#1494#0" expanded="true" />
+                <element signature="e#1524#1525#0" expanded="true" />
+                <element signature="e#1590#1591#0" expanded="true" />
+                <element signature="e#1627#1628#0" expanded="true" />
+                <element signature="e#8221#8222#0" expanded="true" />
+                <element signature="e#8294#8295#0" expanded="true" />
+                <element signature="e#8873#8874#0" expanded="true" />
+                <element signature="e#8906#8907#0" expanded="true" />
+                <element signature="e#8962#8963#0" expanded="true" />
+                <element signature="e#9006#9007#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,8 +106,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="257" column="33" selection-start-line="257" selection-start-column="33" selection-end-line="257" selection-end-column="33" />
+            <state relative-caret-position="342">
+              <caret line="339" column="9" lean-forward="true" selection-start-line="339" selection-start-column="9" selection-end-line="339" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -106,10 +116,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="225">
+              <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -117,10 +130,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+            <state relative-caret-position="304">
+              <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="42" column="53" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="42" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6356#6357#0" expanded="true" />
+                <element signature="e#6408#6409#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -158,27 +185,23 @@
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/config/KonfigStartupListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlStartupListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/AccessControlConfigurationService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/AccessPermission.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/User2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/Access2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/AccessPermission2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/UserGroup2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/exception/AccessControlException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/PasswordEncryptionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultPasswordEncryptionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/exception/UserNotFoundException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/AccessControlService.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/AccessControlServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/ChangeLogRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/CRUDOperations.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/ChangeLog.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/ChangeLogService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/constants/AccessControlConfigConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/AccessControlContext.java" />
         <option value="$PROJECT_DIR$/src/main/resources/accesscontrol.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/ChangeLogDTO.java" />
@@ -187,6 +210,11 @@
         <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/AccessControlTestSuite.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/accesscontrol.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/constants/AccessControlConfigConstants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
       </list>
@@ -231,11 +259,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="1440" />
     <option name="y" value="-157" />
     <option name="width" value="1920" />
-    <option name="height" value="1057" />
+    <option name="height" value="1007" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -282,6 +310,42 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
+              <item name="constants" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -314,13 +378,6 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
-              <item name="access-control" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -468,24 +525,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserServiceTest_saveUserWithExistingUserId - 2020.06.26 at 15h 52m 57s.xml">
-      <configuration name="UserServiceTest.saveUserWithExistingUserId" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_saveUserWithExistingUserIdButWithoutID - 2020.06.26 at 15h 53m 08s.xml">
-      <configuration name="UserServiceTest.saveUserWithExistingUserIdButWithoutID" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_saveUserWithExistingUserIdButWithoutID - 2020.06.26 at 16h 01m 40s.xml">
-      <configuration name="UserServiceTest.saveUserWithExistingUserIdButWithoutID" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_saveUserWithExistingUserIdButWithoutID - 2020.06.26 at 16h 08m 26s.xml">
-      <configuration name="UserServiceTest.saveUserWithExistingUserIdButWithoutID" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_getUserByUserIdWithNullInputTest - 2020.07.01 at 23h 05m 15s.xml">
-      <configuration name="UserServiceTest.getUserByUserIdWithNullInputTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_getUserByUserIdTest - 2020.07.01 at 23h 05m 33s.xml">
-      <configuration name="UserServiceTest.getUserByUserIdTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UserServiceTest - 2020.07.01 at 23h 07m 58s.xml">
       <configuration name="UserServiceTest" configurationId="JUnit" />
     </history-entry>
@@ -498,11 +537,30 @@
     <history-entry file="UserServiceTest - 2020.07.01 at 23h 14m 16s.xml">
       <configuration name="UserServiceTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.01 at 23h 15m 18s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.02 at 14h 28m 20s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.02 at 14h 29m 44s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.02 at 14h 30m 16s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.02 at 14h 53m 00s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.02 at 14h 54m 35s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="-157" width="1920" height="1057" extended-state="6" />
+    <frame x="1440" y="-157" width="1920" height="1007" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19382322" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19382322" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -511,7 +569,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34404144" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.44371584" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -532,22 +590,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.2.1.RELEASE/spring-context-5.2.1.RELEASE.jar!/org/springframework/context/annotation/AnnotatedBeanDefinitionReader.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="136" column="47" selection-start-line="136" selection-start-column="47" selection-end-line="136" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/classes/com/accesscontrol/models/User.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-683">
-          <folding>
-            <element signature="e#0#2519#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlStartupListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -562,38 +604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
           <caret line="70" column="32" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/domain/Pageable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-          <folding>
-            <element signature="e#245#246#0" expanded="true" />
-            <element signature="e#276#277#0" expanded="true" />
-            <element signature="e#325#326#0" expanded="true" />
-            <element signature="e#365#366#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#241#242#0" expanded="true" />
-            <element signature="e#285#286#0" expanded="true" />
-            <element signature="e#323#324#0" expanded="true" />
-            <element signature="e#361#362#0" expanded="true" />
-            <element signature="e#394#395#0" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-            <element signature="e#491#492#0" expanded="true" />
-            <element signature="e#531#532#0" expanded="true" />
-            <element signature="e#566#567#0" expanded="true" />
-            <element signature="e#623#624#0" expanded="true" />
-            <element signature="e#671#672#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -655,16 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="263" column="22" selection-start-line="263" selection-start-column="22" selection-end-line="263" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -815,29 +815,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="124" selection-start-line="124" selection-end-line="124" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6356#6357#0" expanded="true" />
-            <element signature="e#6408#6409#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/ChangeLogRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="8" column="68" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/constants/AccessControlConfigConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="62" column="31" selection-start-line="62" selection-start-column="31" selection-end-line="62" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -853,30 +834,6 @@
             <element signature="e#129#130#0" expanded="true" />
             <element signature="e#158#159#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1493#1494#0" expanded="true" />
-            <element signature="e#1524#1525#0" expanded="true" />
-            <element signature="e#1590#1591#0" expanded="true" />
-            <element signature="e#1611#1612#0" expanded="true" />
-            <element signature="e#8294#8295#0" expanded="true" />
-            <element signature="e#8906#8907#0" expanded="true" />
-            <element signature="e#9006#9007#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/accesscontrol.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -977,16 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -994,14 +941,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/accesscontrol.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="92" column="98" selection-start-line="92" selection-start-column="98" selection-end-line="92" selection-end-column="98" />
+        <state relative-caret-position="454">
+          <caret line="31" column="34" selection-start-line="31" selection-end-line="31" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/constants/AccessControlConfigConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="73" column="156" selection-start-line="73" selection-start-column="156" selection-end-line="73" selection-end-column="156" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7383#7384#0" expanded="true" />
-            <element signature="e#7410#7411#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+            <element signature="e#1524#1525#0" expanded="true" />
+            <element signature="e#1590#1591#0" expanded="true" />
+            <element signature="e#1627#1628#0" expanded="true" />
+            <element signature="e#8221#8222#0" expanded="true" />
+            <element signature="e#8294#8295#0" expanded="true" />
+            <element signature="e#8873#8874#0" expanded="true" />
+            <element signature="e#8906#8907#0" expanded="true" />
+            <element signature="e#8962#8963#0" expanded="true" />
+            <element signature="e#9006#9007#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="42" column="53" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="42" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6356#6357#0" expanded="true" />
+            <element signature="e#6408#6409#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/domain/Pageable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/domain/PageRequest.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="21" column="29" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.2.7.RELEASE/spring-data-commons-2.2.7.RELEASE.jar!/org/springframework/data/domain/PageImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="57" selection-start-line="11" selection-start-column="53" selection-end-line="11" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#679#680#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="235" column="120" selection-start-line="235" selection-start-column="120" selection-end-line="235" selection-end-column="120" />
+          <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#7530#7531#0" expanded="true" />
             <element signature="e#7557#7558#0" expanded="true" />
             <element signature="e#7675#7676#0" expanded="true" />
@@ -1014,8 +1057,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="257" column="33" selection-start-line="257" selection-start-column="33" selection-end-line="257" selection-end-column="33" />
+        <state relative-caret-position="342">
+          <caret line="339" column="9" lean-forward="true" selection-start-line="339" selection-start-column="9" selection-end-line="339" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

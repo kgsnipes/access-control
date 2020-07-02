@@ -1,10 +1,12 @@
 package com.accesscontrol.services;
 
 import com.accesscontrol.beans.AccessControlContext;
+import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
@@ -289,6 +291,75 @@ public class UserServiceTest {
     {
         Assertions.assertThrows(UserNotFoundException.class,()->{
             userService.getUserById("testuser1234567890@test.com").getUserId();
+        });
+    }
+
+    @Order(23)
+    @Test
+    public void findUsersWithoutSearchTerm()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.findUsers("",1);
+        });
+    }
+
+    @Order(25)
+    @Test
+    public void findUsersWithNullSearchTerm()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.findUsers(null,1);
+        });
+    }
+
+    @Order(26)
+    @Test
+    public void findUsersWithValidUserId()throws Exception
+    {
+        String searchTerm="testuser1@test.com";
+        PageResult<User> userResults=userService.findUsers(searchTerm,1);
+        log.info(new ObjectMapper().writeValueAsString(userResults));
+        Assertions.assertEquals(true,userResults.getResults().stream().filter(u->u.getUserId().equals(searchTerm)).findAny().isPresent());
+       // Assertions.assertEquals(true,userService.findUsers(searchTerm,1).getResults().stream().filter(u->u.getUserId().equals(searchTerm)).findAny().isPresent());
+
+    }
+
+    @Order(27)
+    @Test
+    public void findUsersWithValidFirstname()throws Exception
+    {
+        String searchTerm="test";
+        PageResult<User> userResults=userService.findUsers(searchTerm,1);
+        log.info(new ObjectMapper().writeValueAsString(userResults));
+        Assertions.assertEquals(true,userResults.getResults().stream().filter(u->u.getFirstName().equals(searchTerm)).findAny().isPresent());
+        // Assertions.assertEquals(true,userService.findUsers(searchTerm,1).getResults().stream().filter(u->u.getUserId().equals(searchTerm)).findAny().isPresent());
+
+    }
+
+    @Order(28)
+    @Test
+    public void findUsersWithoutPageNumber()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.findUsers("",null);
+        });
+    }
+
+    @Order(29)
+    @Test
+    public void findUsersWithNegativePageNumber()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.findUsers("",-1);
+        });
+    }
+
+    @Order(30)
+    @Test
+    public void findUsersWithZeroPageNumber()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.findUsers("hello",0);
         });
     }
 

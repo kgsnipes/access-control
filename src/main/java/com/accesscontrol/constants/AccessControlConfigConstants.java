@@ -32,6 +32,7 @@ public interface AccessControlConfigConstants {
     String ACCESS_CONTROL_CONFIG="accessControlConfigProperties";
     String CLASSPATH_CONFIG_FILE="classpath:accesscontrol.properties";
     String CHANGELOG_ENABLED="accesscontrol.changelog.enabled";
+    String PAGINATION_PAGELIMIT="accesscontrol.pagination.pagelimit";
 
     interface HibernateConfiguration
     {
@@ -62,6 +63,7 @@ public interface AccessControlConfigConstants {
         String UPDATE="UPDATE";
         String DELETE="DELETE";
     }
+
 
 
     String MANDATORY_CONFIG[]=new String[]{
