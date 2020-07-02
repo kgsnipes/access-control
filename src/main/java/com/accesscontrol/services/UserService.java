@@ -30,6 +30,8 @@ public interface UserService {
 
     void deleteUserGroup(String userGroupCode, AccessControlContext ctx);
 
+    UserGroup getUserGroupByCode(String code);
+
     PageResult<User> findUsers(String searchTerm, Integer pageNumber);
 
     PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber);

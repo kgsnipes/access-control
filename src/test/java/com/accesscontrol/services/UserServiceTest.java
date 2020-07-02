@@ -332,7 +332,7 @@ public class UserServiceTest {
         PageResult<User> userResults=userService.findUsers(searchTerm,1);
         log.info(new ObjectMapper().writeValueAsString(userResults));
         Assertions.assertEquals(true,userResults.getResults().stream().filter(u->u.getFirstName().equals(searchTerm)).findAny().isPresent());
-        // Assertions.assertEquals(true,userService.findUsers(searchTerm,1).getResults().stream().filter(u->u.getUserId().equals(searchTerm)).findAny().isPresent());
+        Assertions.assertEquals(true,userResults.getResults().size()>1);
 
     }
 
@@ -361,6 +361,18 @@ public class UserServiceTest {
         Assertions.assertThrows(IllegalArgumentException.class,()->{
             userService.findUsers("hello",0);
         });
+    }
+
+    @Order(31)
+    @Test
+    public void findUsersWithValidLastname()throws Exception
+    {
+        String searchTerm="user";
+        PageResult<User> userResults=userService.findUsers(searchTerm,1);
+        log.info(new ObjectMapper().writeValueAsString(userResults));
+        Assertions.assertEquals(true,userResults.getResults().stream().filter(u->u.getLastName().equals(searchTerm)).findAny().isPresent());
+        Assertions.assertEquals(true,userResults.getResults().size()>1);
+
     }
 
 }

@@ -4,11 +4,13 @@ import com.accesscontrol.beans.AccessControlContext;
 import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.AccessControlException;
+import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.ChangeLog;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 import com.accesscontrol.repository.ChangeLogRepository;
+import com.accesscontrol.repository.UserGroupRepository;
 import com.accesscontrol.repository.UserRepository;
 import com.accesscontrol.services.ChangeLogService;
 import com.accesscontrol.services.PasswordEncryptionService;
@@ -43,6 +45,9 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserGroupRepository userGroupRepository;
 
     @Autowired
     private ValidatorFactory validatorFactory;
@@ -250,13 +255,75 @@ public class DefaultUserService implements UserService {
     @Transactional
     @Override
     public UserGroup createUserGroup(UserGroup userGroup, AccessControlContext ctx) {
-        return null;
+
+        UserGroup savedGroup=null;
+        if(Objects.isNull(userGroup))
+        {
+            throw new IllegalArgumentException("User group object cannot be null");
+        }
+
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<UserGroup>> violations = validator.validate(userGroup);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            UserGroup existingGroup=userGroupRepository.findByCode(userGroup.getCode());
+            if(Objects.nonNull(existingGroup))
+            {
+                log.error("User group with code already existing "+userGroup.getCode());
+                throw new AccessControlException("User group with code already existing "+userGroup.getCode());
+            }
+
+            savedGroup=userGroupRepository.save(userGroup);
+            changeLogService.logChange(userGroup.getId(),userGroup.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,userGroup,savedGroup,ctx);
+        }
+        return savedGroup;
     }
 
     @Transactional
     @Override
     public UserGroup saveUserGroup(UserGroup userGroup, AccessControlContext ctx) {
-        return null;
+
+        UserGroup savedUserGroup=null;
+        if(Objects.isNull(userGroup) || Objects.isNull(userGroup.getCode()) || Objects.isNull(userGroup.getId()))
+        {
+            throw new IllegalArgumentException("User group object cannot be null or code or id is null or empty");
+        }
+
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<UserGroup>> violations = validator.validate(userGroup);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            UserGroup retrievedUserGroup=getUserGroupByCode(userGroup.getCode());
+
+            if(Objects.nonNull(retrievedUserGroup))
+            {
+
+                retrievedUserGroup.setCode(userGroup.getCode());
+                retrievedUserGroup.setName(userGroup.getName());
+
+                savedUserGroup=userGroupRepository.save(retrievedUserGroup);
+                changeLogService.logChange(savedUserGroup.getId(),savedUserGroup.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,userGroup,savedUserGroup,ctx);
+
+            }
+            else
+            {
+                return createUserGroup(userGroup,ctx);
+            }
+
+        }
+        return savedUserGroup;
+
+
     }
 
     @Transactional
@@ -269,6 +336,24 @@ public class DefaultUserService implements UserService {
     @Override
     public void deleteUserGroup(String userGroupCode, AccessControlContext ctx) {
 
+    }
+
+    @Override
+    public UserGroup getUserGroupByCode(String code) {
+        if(StringUtils.isEmpty(code))
+        {
+            throw new IllegalArgumentException("code cannot be null or empty");
+        }
+
+        UserGroup ug=userGroupRepository.findByCode(code);
+        if(Objects.isNull(ug))
+        {
+            throw new UserGroupNotFoundException("No such usergroup available");
+        }
+        else
+        {
+            return ug;
+        }
     }
 
     @Override
