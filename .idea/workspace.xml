@@ -93,8 +93,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="467" column="85" lean-forward="true" selection-start-line="467" selection-start-column="85" selection-end-line="467" selection-end-column="85" />
+            <state relative-caret-position="309">
+              <caret line="481" lean-forward="true" selection-start-line="481" selection-end-line="481" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -498,12 +498,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserServiceTest - 2020.07.02 at 14h 54m 35s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest - 2020.07.02 at 14h 57m 22s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UserServiceTest - 2020.07.02 at 15h 29m 27s.xml">
       <configuration name="UserServiceTest" configurationId="JUnit" />
     </history-entry>
@@ -526,6 +520,12 @@
       <configuration name="UserServiceTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="UserServiceTest - 2020.07.02 at 18h 46m 00s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.02 at 18h 48m 58s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.02 at 18h 51m 53s.xml">
       <configuration name="UserServiceTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -1020,8 +1020,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="467" column="85" lean-forward="true" selection-start-line="467" selection-start-column="85" selection-end-line="467" selection-end-column="85" />
+        <state relative-caret-position="309">
+          <caret line="481" lean-forward="true" selection-start-line="481" selection-end-line="481" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

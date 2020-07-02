@@ -456,8 +456,6 @@ public class UserServiceTest {
 
     }
 
-
-
     @Order(38)
     @Test
     public void saveUserGroupTest()throws Exception
@@ -466,6 +464,20 @@ public class UserServiceTest {
         userGroup.setName("Admin Group changed name");
         UserGroup savedUserGroup=userService.saveUserGroup(userGroup,ctx);
         Assertions.assertEquals("Admin Group changed name",savedUserGroup.getName());
+    }
+
+
+    @Order(39)
+    @Test
+    public void saveUserGroupTestWithException()throws Exception
+    {
+        UserGroup userGroup=new UserGroup();
+        userGroup.setCode("customergroup");
+        userGroup.setName("customer Group");
+        userGroup.setEnabled(true);
+        Assertions.assertThrows(UserGroupNotFoundException.class,()->{
+            UserGroup savedUserGroup=userService.saveUserGroup(userGroup,ctx);
+        });
     }
 
 }
