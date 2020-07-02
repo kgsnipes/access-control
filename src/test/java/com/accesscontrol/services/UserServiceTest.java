@@ -3,6 +3,7 @@ package com.accesscontrol.services;
 import com.accesscontrol.beans.AccessControlContext;
 import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.exception.AccessControlException;
+import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
@@ -419,6 +420,52 @@ public class UserServiceTest {
             Objects.nonNull(userService.createUserGroup(userGroup,ctx).getId());
         });
 
+    }
+
+    @Order(35)
+    @Test
+    public void getUserGroupTest()throws Exception
+    {
+        UserGroup userGroup=userService.getUserGroupByCode("admingroup");
+        Assertions.assertNotNull(userGroup);
+        Assertions.assertTrue(userGroup.getEnabled());
+        Assertions.assertEquals("admingroup",userGroup.getCode());
+
+    }
+
+    @Order(36)
+    @Test
+    public void getUserGroupTestWithUnknownGroupCode()throws Exception
+    {
+
+        Assertions.assertThrows(UserGroupNotFoundException.class,()->{
+           userService.getUserGroupByCode("unknowncode");
+        });
+
+
+    }
+
+    @Order(37)
+    @Test
+    public void getUserGroupTestWithNullGroupCode()throws Exception
+    {
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.getUserGroupByCode(null);
+        });
+
+    }
+
+
+
+    @Order(38)
+    @Test
+    public void saveUserGroupTest()throws Exception
+    {
+        UserGroup userGroup=userService.getUserGroupByCode("admingroup");
+        userGroup.setName("Admin Group changed name");
+        UserGroup savedUserGroup=userService.saveUserGroup(userGroup,ctx);
+        Assertions.assertEquals("Admin Group changed name",savedUserGroup.getName());
     }
 
 }
