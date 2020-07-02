@@ -241,8 +241,6 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
         }
 
-
-
         Page<User> userList=userRepository.findUsers(searchTerm,PageRequest.of(pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
 
         if(Objects.nonNull(userList))
@@ -330,11 +328,46 @@ public class DefaultUserService implements UserService {
     @Override
     public void disableUserGroup(String userGroupCode, AccessControlContext ctx) {
 
+        if(StringUtils.isEmpty(userGroupCode))
+        {
+            throw new IllegalArgumentException("UserId cannot be null or empty");
+        }
+
+        UserGroup userGroup=userGroupRepository.findByCode(userGroupCode);
+        if(Objects.isNull(userGroup))
+        {
+            throw new UserGroupNotFoundException("No such user available");
+        }
+        else
+        {
+            userGroup.setEnabled(false);
+            UserGroup savedUserGroup=userGroupRepository.save(userGroup);
+            changeLogService.logChange(userGroup.getId(),userGroup.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,userGroup,savedUserGroup,ctx);
+
+        }
+
     }
 
     @Transactional
     @Override
     public void deleteUserGroup(String userGroupCode, AccessControlContext ctx) {
+
+        if(StringUtils.isEmpty(userGroupCode))
+        {
+            throw new IllegalArgumentException("user group code cannot be null or empty");
+        }
+
+        UserGroup userGroup=userGroupRepository.findByCode(userGroupCode);
+        if(Objects.isNull(userGroup))
+        {
+            throw new UserGroupNotFoundException("No such user available");
+        }
+        else
+        {
+            userGroupRepository.delete(userGroup);
+            changeLogService.logChange(userGroup.getId(),userGroup.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,userGroup,null,ctx);
+
+        }
 
     }
 
@@ -358,7 +391,19 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber) {
-        return null;
+
+        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber) || pageNumber<0)
+        {
+            throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
+        }
+
+        Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,PageRequest.of(pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+
+        if(Objects.nonNull(userGroupList))
+        {
+            return new PageResult<UserGroup>(userGroupList.getContent(),pageNumber,userGroupList.getSize(), (int) userGroupList.getTotalElements());
+        }
+        return new PageResult<UserGroup>(Collections.EMPTY_LIST,pageNumber,0, 0);
     }
 
 

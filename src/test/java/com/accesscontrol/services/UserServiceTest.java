@@ -5,6 +5,7 @@ import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
+import com.accesscontrol.models.UserGroup;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
@@ -372,6 +373,51 @@ public class UserServiceTest {
         log.info(new ObjectMapper().writeValueAsString(userResults));
         Assertions.assertEquals(true,userResults.getResults().stream().filter(u->u.getLastName().equals(searchTerm)).findAny().isPresent());
         Assertions.assertEquals(true,userResults.getResults().size()>1);
+
+    }
+
+
+    @Order(32)
+    @Test
+    public void createUserGroupWithException()throws Exception
+    {
+        UserGroup userGroup=new UserGroup();
+        userGroup.setCode(null);
+        userGroup.setName("Admin Group");
+        userGroup.setEnabled(true);
+
+        Assertions.assertThrows(AccessControlException.class,()->{
+            Objects.nonNull(userService.createUserGroup(userGroup,ctx).getId());
+        });
+
+    }
+
+    @Order(33)
+    @Test
+    public void createUserGroup()throws Exception
+    {
+        UserGroup userGroup=new UserGroup();
+        userGroup.setCode("admingroup");
+        userGroup.setName("Admin Group");
+        userGroup.setEnabled(true);
+
+        Assertions.assertEquals(true,Objects.nonNull(userService.createUserGroup(userGroup,ctx).getId()));
+
+    }
+
+
+    @Order(34)
+    @Test
+    public void createUserGroupWithAccessControlException()throws Exception
+    {
+        UserGroup userGroup=new UserGroup();
+        userGroup.setCode("admingroup");
+        userGroup.setName("Admin Group");
+        userGroup.setEnabled(true);
+
+        Assertions.assertThrows(AccessControlException.class,()->{
+            Objects.nonNull(userService.createUserGroup(userGroup,ctx).getId());
+        });
 
     }
 
