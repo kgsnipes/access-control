@@ -90,7 +90,7 @@ public class DefaultUserService implements UserService {
     @Override
     public User saveUser(User user, AccessControlContext ctx) {
         User savedUser=null;
-        if(Objects.isNull(user) || Objects.isNull(user.getId()))
+        if(Objects.isNull(user) || Objects.isNull(user.getUserId()) || Objects.isNull(user.getId()))
         {
             throw new IllegalArgumentException("User object cannot be null");
         }

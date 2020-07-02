@@ -138,9 +138,9 @@ public class UserServiceTest {
     @Test
     public void enableUserWithunKnownUserId()throws AccessControlException{
         String userId="testuser3@test.com";
-        userService.enableUser(userId,ctx);
+
         Assertions.assertThrows(UserNotFoundException.class,()->{
-            userService.getUserById(userId);
+            userService.enableUser(userId,ctx);
         });
 
     }
@@ -206,14 +206,13 @@ public class UserServiceTest {
     @Order(17)
     @Test
     public void saveUserWithProperUser()throws AccessControlException{
-        User user=new User();
+        User user=userService.getUserById("testuser1@test.com");
         user.setPassword("123456");
         user.setEnabled(true);
         user.setFirstName("test");
         user.setLastName("user");
-        user.setUserId("testuser4@test.com");
         User persistedUser=userService.saveUser(user,ctx);
-        Assertions.assertEquals("testuser4@test.com",persistedUser.getUserId());
+        Assertions.assertEquals("testuser1@test.com",persistedUser.getUserId());
     }
 
     @Order(18)
@@ -226,7 +225,7 @@ public class UserServiceTest {
         user.setLastName("user");
         user.setUserId(null);
 
-        Assertions.assertThrows(AccessControlException.class,()->{
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
             User persistedUser=userService.saveUser(user,ctx);
         });
     }
@@ -256,7 +255,7 @@ public class UserServiceTest {
         user.setEnabled(true);
         user.setFirstName("test");
         user.setLastName("user");
-        user.setUserId("testuser5@test.com");
+        user.setUserId("testuser6@test.com");
         User persistedUser=userService.createUser(user,ctx);
 
         persistedUser.setId(null);
@@ -266,6 +265,31 @@ public class UserServiceTest {
             User persistedUser1=userService.saveUser(persistedUser,ctx);
         });
 
+    }
+
+    @Order(21)
+    @Test
+    public void getUserByUserIdTest()
+    {
+        Assertions.assertEquals("testuser5@test.com",userService.getUserById("testuser5@test.com").getUserId());
+    }
+
+    @Order(22)
+    @Test
+    public void getUserByUserIdWithNullInputTest()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.getUserById(null).getUserId();
+        });
+    }
+
+    @Order(22)
+    @Test
+    public void getUserByUserIdWithUnknownUserTest()
+    {
+        Assertions.assertThrows(UserNotFoundException.class,()->{
+            userService.getUserById("testuser1234567890@test.com").getUserId();
+        });
     }
 
 }
