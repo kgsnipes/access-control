@@ -5,7 +5,6 @@ import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface UserService {
