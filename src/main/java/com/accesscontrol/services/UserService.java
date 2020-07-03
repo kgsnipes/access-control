@@ -38,5 +38,9 @@ public interface UserService {
 
     PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber);
 
+    PageResult<User> importUsers(List<User> users,AccessControlContext ctx);
+
+    PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,AccessControlContext ctx);
+
 
 }

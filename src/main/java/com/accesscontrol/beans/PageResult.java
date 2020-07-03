@@ -8,6 +8,10 @@ public class PageResult<T>{
     private Integer pageNumber;
     private Integer pageSize;
     private Integer totalResults;
+    private List<Throwable> errors;
+
+    public PageResult() {
+    }
 
     public PageResult(List results, Integer pageNumber, Integer pageSize, Integer totalResults) {
         this.results = results;
@@ -46,5 +50,13 @@ public class PageResult<T>{
 
     public void setTotalResults(Integer totalResults) {
         this.totalResults = totalResults;
+    }
+
+    public List<Throwable> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<Throwable> errors) {
+        this.errors = errors;
     }
 }

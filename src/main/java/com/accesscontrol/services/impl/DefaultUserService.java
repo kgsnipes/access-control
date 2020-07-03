@@ -430,5 +430,51 @@ public class DefaultUserService implements UserService {
         return new PageResult<UserGroup>(Collections.EMPTY_LIST,pageNumber,0, 0);
     }
 
+    @Override
+    public PageResult<User> importUsers(List<User> users, AccessControlContext ctx) {
+        if(CollectionUtils.isEmpty(users))
+        {
+            throw new IllegalArgumentException("list of users cannot be empty");
+        }
+        PageResult<User> result=new PageResult<>();
+        result.setErrors(new ArrayList<>());
+        result.setResults(new ArrayList<>());
+        users.stream().forEach(u->{
+            try {
+                result.getResults().add(createUser(u, ctx));
+                result.getErrors().add(null);
+            }
+            catch (Exception e)
+            {
+                result.getResults().add(u);
+                result.getErrors().add(null);
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, AccessControlContext ctx) {
+        if(CollectionUtils.isEmpty(userGroups))
+        {
+            throw new IllegalArgumentException("list of groups cannot be empty");
+        }
+        PageResult<UserGroup> result=new PageResult<>();
+        result.setErrors(new ArrayList<>());
+        result.setResults(new ArrayList<>());
+        userGroups.stream().forEach(u->{
+            try {
+                result.getResults().add(createUserGroup(u, ctx));
+                result.getErrors().add(null);
+            }
+            catch (Exception e)
+            {
+                result.getResults().add(u);
+                result.getErrors().add(null);
+            }
+        });
+        return result;
+    }
+
 
 }
