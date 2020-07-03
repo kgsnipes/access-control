@@ -608,8 +608,44 @@ public class UserServiceTest {
                 userList.add(user);
             }
         }
+        PageResult<User> result=userService.importUsers(userList,ctx);
+        result.getResults().stream().forEach(user -> {
+            log.info("user id :"+user.getId());
+        });
 
-        Assertions.assertEquals(userList.size(),userService.importUsers(userList,ctx).getResults().size());
+        Assertions.assertEquals(userList.size(),result.getResults().size());
+
+    }
+
+    @Order(51)
+    @Test
+    public void importUserGroupsTest()throws Exception
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup.csv"));
+
+        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
+        List<UserGroup> userGroupList=new ArrayList<>();
+
+
+        Iterator<String[]> itr=csvReader.iterator();
+        while (itr.hasNext())
+        {
+            String arr[]=itr.next();
+            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
+            {
+                UserGroup group=new UserGroup();
+                group.setCode(arr[0]);
+                group.setName(arr[1]);
+                group.setEnabled(Boolean.getBoolean(arr[2]));
+                userGroupList.add(group);
+            }
+        }
+        PageResult<UserGroup> result=userService.importUserGroups(userGroupList,ctx);
+        result.getResults().stream().forEach(ug -> {
+            log.info("user group id :"+ug.getId());
+        });
+
+        Assertions.assertEquals(userGroupList.size(),result.getResults().size());
 
     }
 
