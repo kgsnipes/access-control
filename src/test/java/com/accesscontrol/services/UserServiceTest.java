@@ -9,11 +9,15 @@ import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opencsv.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
 
-import java.util.Objects;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.util.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserServiceTest {
@@ -577,6 +581,38 @@ public class UserServiceTest {
         });
 
     }
+
+
+    @Order(50)
+    @Test
+    public void importUsersTest()throws Exception
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users.csv"));
+
+        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
+        List<User> userList=new ArrayList<>();
+
+
+        Iterator<String[]> itr=csvReader.iterator();
+        while (itr.hasNext())
+        {
+            String arr[]=itr.next();
+            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
+            {
+                User user=new User();
+                user.setUserId(arr[0]);
+                user.setPassword(arr[1]);
+                user.setFirstName(arr[2]);
+                user.setLastName(arr[3]);
+                user.setEnabled(Boolean.getBoolean(arr[4]));
+                userList.add(user);
+            }
+        }
+
+        Assertions.assertEquals(userList.size(),userService.importUsers(userList,ctx).getResults().size());
+
+    }
+
 
 
 }
