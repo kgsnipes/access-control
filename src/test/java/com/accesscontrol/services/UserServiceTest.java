@@ -650,5 +650,107 @@ public class UserServiceTest {
     }
 
 
+    @Order(52)
+    @Test
+    public void importUserGroupsTestWithException()throws Exception
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup.csv"));
+
+        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
+        List<UserGroup> userGroupList=new ArrayList<>();
+
+
+        Iterator<String[]> itr=csvReader.iterator();
+        while (itr.hasNext())
+        {
+            String arr[]=itr.next();
+            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
+            {
+                UserGroup group=new UserGroup();
+                group.setCode(arr[0]);
+                group.setName(arr[1]);
+                group.setEnabled(Boolean.getBoolean(arr[2]));
+                userGroupList.add(group);
+            }
+        }
+
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> result=userService.importUserGroups(userGroupList,null);
+        });
+
+    }
+
+    @Order(53)
+    @Test
+    public void importUsersTestWithException()throws Exception
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users.csv"));
+
+        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
+        List<User> userList=new ArrayList<>();
+
+
+        Iterator<String[]> itr=csvReader.iterator();
+        while (itr.hasNext())
+        {
+            String arr[]=itr.next();
+            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
+            {
+                User user=new User();
+                user.setUserId(arr[0]);
+                user.setPassword(arr[1]);
+                user.setFirstName(arr[2]);
+                user.setLastName(arr[3]);
+                user.setEnabled(Boolean.getBoolean(arr[4]));
+                userList.add(user);
+            }
+        }
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<User> result=userService.importUsers(userList,null);
+
+        });
+
+    }
+
+
+    @Order(53)
+    @Test
+    public void importUsersTestWithNullListAndContext()throws Exception
+    {
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<User> result=userService.importUsers(null,null);
+
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<User> result=userService.importUsers(null,ctx);
+
+        });
+
+    }
+
+    @Order(53)
+    @Test
+    public void importUserGroupsTestWithNullListAndContext()throws Exception
+    {
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+           userService.importUserGroups(Collections.emptyList(),null);
+
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.importUsers(null,ctx);
+
+        });
+
+    }
+
+
+
+
 
 }

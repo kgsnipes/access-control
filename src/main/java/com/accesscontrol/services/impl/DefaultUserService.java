@@ -432,9 +432,9 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<User> importUsers(List<User> users, AccessControlContext ctx) {
-        if(CollectionUtils.isEmpty(users))
+        if(CollectionUtils.isEmpty(users) || Objects.isNull(ctx))
         {
-            throw new IllegalArgumentException("list of users cannot be empty");
+            throw new IllegalArgumentException("list of users cannot be empty or context cannot be null");
         }
         PageResult<User> result=new PageResult<>();
         result.setErrors(new ArrayList<>());
@@ -455,9 +455,9 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, AccessControlContext ctx) {
-        if(CollectionUtils.isEmpty(userGroups))
+        if(CollectionUtils.isEmpty(userGroups) || Objects.isNull(ctx))
         {
-            throw new IllegalArgumentException("list of groups cannot be empty");
+            throw new IllegalArgumentException("list of user groups cannot be empty or context cannot be null");
         }
         PageResult<UserGroup> result=new PageResult<>();
         result.setErrors(new ArrayList<>());
