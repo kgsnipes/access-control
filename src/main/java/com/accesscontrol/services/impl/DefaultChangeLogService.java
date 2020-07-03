@@ -33,6 +33,11 @@ public class DefaultChangeLogService implements ChangeLogService {
 
     @Override
     public void logChange(Long pk, String type, String action, Object previousState, Object newState, AccessControlContext context) {
+        if(Objects.isNull(context))
+        {
+            throw new IllegalArgumentException("context cannnot be null");
+        }
+
         if(isChangeLogEnabled())
         {
             ChangeLog log=new ChangeLog();

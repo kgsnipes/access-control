@@ -124,8 +124,10 @@ public class UserServiceTest {
     @Test
     public void disableUserWithKnownUserIdWithNullContext()throws AccessControlException{
         String userId="testuser2@test.com";
-        userService.disableUser(userId,null);
-        Assertions.assertEquals(false,userService.getUserById(userId).getEnabled());
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.disableUser(userId,null);
+        });
 
     }
 
@@ -475,9 +477,106 @@ public class UserServiceTest {
         userGroup.setCode("customergroup");
         userGroup.setName("customer Group");
         userGroup.setEnabled(true);
-        Assertions.assertThrows(UserGroupNotFoundException.class,()->{
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
             UserGroup savedUserGroup=userService.saveUserGroup(userGroup,ctx);
         });
     }
+
+    @Order(40)
+    @Test
+    public void enableUserGroupTest()throws Exception
+    {
+        userService.enableUserGroup("admingroup",ctx);
+        Assertions.assertTrue(userService.getUserGroupByCode("admingroup").getEnabled());
+    }
+
+    @Order(41)
+    @Test
+    public void disableUserGroupTest()throws Exception
+    {
+        userService.disableUserGroup("admingroup",ctx);
+        Assertions.assertFalse(userService.getUserGroupByCode("admingroup").getEnabled());
+    }
+
+    @Order(42)
+    @Test
+    public void enableUserGroupTestWithNullInput()throws Exception
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enableUserGroup(null,ctx);
+        });
+
+    }
+
+    @Order(43)
+    @Test
+    public void enableUserGroupTestWithNullCtx()throws Exception
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enableUserGroup(null,null);
+        });
+
+    }
+
+    @Order(44)
+    @Test
+    public void enableUserGroupTestWithUnknownGroup()throws Exception
+    {
+        Assertions.assertThrows(UserGroupNotFoundException.class,()->{
+            userService.enableUserGroup("unknowngroup",ctx);
+        });
+
+    }
+
+    @Order(45)
+    @Test
+    public void enableUserGroupTestWithKnownGroupAndNullContext()throws Exception
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enableUserGroup("admingroup",null);
+        });
+
+    }
+
+    @Order(46)
+    @Test
+    public void disableUserGroupTestWithKnownGroupAndNullContext()throws Exception
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.disableUserGroup("admingroup",null);
+        });
+
+    }
+
+    @Order(47)
+    @Test
+    public void disableUserGroupTestWithNullInput()throws Exception
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.disableUserGroup(null,ctx);
+        });
+
+    }
+
+    @Order(48)
+    @Test
+    public void disableUserGroupTestWithNullCtx()throws Exception
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.disableUserGroup(null,null);
+        });
+
+    }
+
+    @Order(49)
+    @Test
+    public void disableUserGroupTestWithUnknownGroup()throws Exception
+    {
+        Assertions.assertThrows(UserGroupNotFoundException.class,()->{
+            userService.disableUserGroup("unknowngroup",ctx);
+        });
+
+    }
+
 
 }

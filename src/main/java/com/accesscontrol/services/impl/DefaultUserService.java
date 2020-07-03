@@ -350,6 +350,30 @@ public class DefaultUserService implements UserService {
 
     @Transactional
     @Override
+    public void enableUserGroup(String userGroupCode, AccessControlContext ctx) {
+
+        if(StringUtils.isEmpty(userGroupCode))
+        {
+            throw new IllegalArgumentException("UserId cannot be null or empty");
+        }
+
+        UserGroup userGroup=userGroupRepository.findByCode(userGroupCode);
+        if(Objects.isNull(userGroup))
+        {
+            throw new UserGroupNotFoundException("No such user available");
+        }
+        else
+        {
+            userGroup.setEnabled(true);
+            UserGroup savedUserGroup=userGroupRepository.save(userGroup);
+            changeLogService.logChange(userGroup.getId(),userGroup.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,userGroup,savedUserGroup,ctx);
+
+        }
+
+    }
+
+    @Transactional
+    @Override
     public void deleteUserGroup(String userGroupCode, AccessControlContext ctx) {
 
         if(StringUtils.isEmpty(userGroupCode))

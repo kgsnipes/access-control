@@ -28,6 +28,8 @@ public interface UserService {
 
     void disableUserGroup(String userGroupCode, AccessControlContext ctx);
 
+    void enableUserGroup(String userGroupCode, AccessControlContext ctx);
+
     void deleteUserGroup(String userGroupCode, AccessControlContext ctx);
 
     UserGroup getUserGroupByCode(String code);
