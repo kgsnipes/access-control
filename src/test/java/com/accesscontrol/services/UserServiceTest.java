@@ -715,6 +715,7 @@ public class UserServiceTest {
     }
 
 
+
     @Order(54)
     @Test
     public void importUsersTestWithNullListAndContext()throws Exception
@@ -749,6 +750,50 @@ public class UserServiceTest {
 
     }
 
+//    @Order(56)
+//    @Test
+//    public void findUserGroupsTest()throws Exception
+//    {
+//        PageResult<UserGroup>
+//        Assertions.assertTrue();
+//
+//    }
+
+    @Order(56)
+    @Test
+    public void importUsersTestWithMissingUserId()throws Exception
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users_without_userId.csv"));
+
+        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
+        List<User> userList=new ArrayList<>();
+
+
+        Iterator<String[]> itr=csvReader.iterator();
+        while (itr.hasNext())
+        {
+            String arr[]=itr.next();
+            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
+            {
+                User user=new User();
+                user.setUserId(arr[0]);
+                user.setPassword(arr[1]);
+                user.setFirstName(arr[2]);
+                user.setLastName(arr[3]);
+                user.setEnabled(Boolean.getBoolean(arr[4]));
+                userList.add(user);
+            }
+        }
+        PageResult<User> result=userService.importUsers(userList,null);
+
+        result.getErrors().stream().forEach(err->{
+            log.info(err.getMessage());
+        });
+
+        Assertions.assertNotNull(result.getErrors());
+        Assertions.assertNotNull(result.getErrors().get(0));
+
+    }
 
 
 
