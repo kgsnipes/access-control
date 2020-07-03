@@ -423,7 +423,7 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public PageResult<User> importUsers(List<User> users, AccessControlContext ctx) {
+    public PageResult<User> importUsers(List<User> users,Boolean updateIfExists, AccessControlContext ctx) {
         if(CollectionUtils.isEmpty(users) || Objects.isNull(ctx))
         {
             throw new IllegalArgumentException("list of users cannot be empty or context cannot be null");
@@ -433,20 +433,40 @@ public class DefaultUserService implements UserService {
         result.setResults(new ArrayList<>());
         users.stream().forEach(u->{
             try {
-                result.getResults().add(createUser(u, ctx));
+
+                User existingUser=null;
+                try
+                {
+                    existingUser=this.getUserById(u.getUserId());
+
+                }
+                catch (UserNotFoundException ex)
+                {
+
+                }
+                if(Objects.nonNull(existingUser) && updateIfExists)
+                {
+                    result.getResults().add(saveUser(u, ctx));
+                }
+                else
+                {
+                    result.getResults().add(createUser(u, ctx));
+                }
+
                 result.getErrors().add(null);
             }
             catch (Exception e)
             {
+                log.error("Exception in creating user");
                 result.getResults().add(u);
-                result.getErrors().add(null);
+                result.getErrors().add(e);
             }
         });
         return result;
     }
 
     @Override
-    public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, AccessControlContext ctx) {
+    public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,Boolean updateIfExists, AccessControlContext ctx) {
         if(CollectionUtils.isEmpty(userGroups) || Objects.isNull(ctx))
         {
             throw new IllegalArgumentException("list of user groups cannot be empty or context cannot be null");
@@ -456,13 +476,32 @@ public class DefaultUserService implements UserService {
         result.setResults(new ArrayList<>());
         userGroups.stream().forEach(u->{
             try {
-                result.getResults().add(createUserGroup(u, ctx));
+                UserGroup existingUserGroup=null;
+                try
+                {
+                    existingUserGroup=this.getUserGroupByCode(u.getCode());
+
+                }
+                catch (UserGroupNotFoundException ex)
+                {
+
+                }
+                if(Objects.nonNull(existingUserGroup) && updateIfExists)
+                {
+                    result.getResults().add(saveUserGroup(u, ctx));
+                }
+                else
+                {
+                    result.getResults().add(createUserGroup(u, ctx));
+                }
+
+
                 result.getErrors().add(null);
             }
             catch (Exception e)
             {
                 result.getResults().add(u);
-                result.getErrors().add(null);
+                result.getErrors().add(e);
             }
         });
         return result;

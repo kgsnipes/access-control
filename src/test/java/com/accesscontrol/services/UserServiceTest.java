@@ -608,7 +608,7 @@ public class UserServiceTest {
                 userList.add(user);
             }
         }
-        PageResult<User> result=userService.importUsers(userList,ctx);
+        PageResult<User> result=userService.importUsers(userList,false,ctx);
         result.getResults().stream().forEach(user -> {
             log.info("user id :"+user.getId());
         });
@@ -640,7 +640,7 @@ public class UserServiceTest {
                 userGroupList.add(group);
             }
         }
-        PageResult<UserGroup> result=userService.importUserGroups(userGroupList,ctx);
+        PageResult<UserGroup> result=userService.importUserGroups(userGroupList,false,ctx);
         result.getResults().stream().forEach(ug -> {
             log.info("user group id :"+ug.getId());
         });
@@ -676,7 +676,7 @@ public class UserServiceTest {
 
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<UserGroup> result=userService.importUserGroups(userGroupList,null);
+            PageResult<UserGroup> result=userService.importUserGroups(userGroupList,false,null);
         });
 
     }
@@ -708,7 +708,7 @@ public class UserServiceTest {
         }
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<User> result=userService.importUsers(userList,null);
+            PageResult<User> result=userService.importUsers(userList,false,null);
 
         });
 
@@ -722,12 +722,12 @@ public class UserServiceTest {
     {
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<User> result=userService.importUsers(null,null);
+            PageResult<User> result=userService.importUsers(null,false,null);
 
         });
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<User> result=userService.importUsers(null,ctx);
+            PageResult<User> result=userService.importUsers(null,false,ctx);
 
         });
 
@@ -739,12 +739,12 @@ public class UserServiceTest {
     {
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-           userService.importUserGroups(Collections.emptyList(),null);
+           userService.importUserGroups(Collections.emptyList(),false,null);
 
         });
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            userService.importUsers(null,ctx);
+            userService.importUsers(null,false,ctx);
 
         });
 
@@ -784,7 +784,7 @@ public class UserServiceTest {
                 userList.add(user);
             }
         }
-        PageResult<User> result=userService.importUsers(userList,null);
+        PageResult<User> result=userService.importUsers(userList,false,ctx);
 
         result.getErrors().stream().forEach(err->{
             log.info(err.getMessage());

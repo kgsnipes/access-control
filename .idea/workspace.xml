@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/data/users_without_userId.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,8 +23,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+            <state relative-caret-position="327">
+              <caret line="497" column="16" lean-forward="true" selection-start-line="497" selection-start-column="16" selection-end-line="497" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -31,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="790" column="11" selection-start-line="790" selection-start-column="11" selection-end-line="790" selection-end-column="11" />
+            <state relative-caret-position="10935">
+              <caret line="729" column="70" selection-start-line="729" selection-start-column="70" selection-end-line="729" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -41,50 +45,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/data/users_without_userId.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup.csv">
           <provider editor-type-id="csv-table-editor">
             <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup.csv">
           <provider selected="true" editor-type-id="csv-text-editor">
             <state relative-caret-position="375">
-              <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+              <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
             </state>
-          </provider>
-          <provider editor-type-id="csv-table-editor">
-            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/data/users.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="262">
-              <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
-            </state>
-          </provider>
           <provider editor-type-id="csv-table-editor">
             <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+          </provider>
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVParser.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-83">
+            <state relative-caret-position="300">
               <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-              <folding>
-                <element signature="e#969#970#0" expanded="true" />
-                <element signature="e#1005#1006#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -92,7 +80,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVReaderBuilder.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
+            <state relative-caret-position="255">
               <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
             </state>
           </provider>
@@ -101,12 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVReader.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
+            <state relative-caret-position="1290">
               <caret line="104" column="118" selection-start-line="104" selection-start-column="104" selection-end-line="104" selection-end-column="118" />
-              <folding>
-                <element signature="e#1335#1336#0" expanded="true" />
-                <element signature="e#1379#1380#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -123,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="37" column="40" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="40" />
+            <state relative-caret-position="354">
+              <caret line="41" column="92" selection-start-line="41" selection-start-column="92" selection-end-line="41" selection-end-column="92" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -197,12 +181,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/exception/UserGroupNotFoundException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultChangeLogService.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" />
         <option value="$PROJECT_DIR$/src/test/resources/data/users.csv" />
         <option value="$PROJECT_DIR$/src/test/resources/data/usergroup.csv" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" />
         <option value="$PROJECT_DIR$/src/test/resources/data/users_without_userId.csv" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
       </list>
     </option>
@@ -246,7 +230,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="827" />
@@ -256,7 +240,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -349,6 +332,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -390,7 +374,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceTest.importUsersTestWithMissingUserId">
+  <component name="RunManager" selected="JUnit.UserServiceTest">
     <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="access-control" />
       <extension name="coverage">
@@ -472,8 +456,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserServiceTest.importUsersTestWithMissingUserId" />
         <item itemvalue="JUnit.UserServiceTest" />
+        <item itemvalue="JUnit.UserServiceTest.importUsersTestWithMissingUserId" />
         <item itemvalue="JUnit.UserServiceTest.importUserGroupsTestWithNullListAndContext" />
         <item itemvalue="JUnit.UserServiceTest.importUserGroupsTest" />
         <item itemvalue="JUnit.UserServiceTest.importUsersTest" />
@@ -494,42 +478,42 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserServiceTest - 2020.07.03 at 08h 46m 57s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUsersTest - 2020.07.03 at 09h 09m 18s.xml">
-      <configuration name="UserServiceTest.importUsersTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUsersTest - 2020.07.03 at 09h 10m 50s.xml">
-      <configuration name="UserServiceTest.importUsersTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUsersTest - 2020.07.03 at 09h 13m 18s.xml">
-      <configuration name="UserServiceTest.importUsersTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUsersTest - 2020.07.03 at 09h 15m 06s.xml">
-      <configuration name="UserServiceTest.importUsersTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUsersTest - 2020.07.03 at 10h 16m 45s.xml">
-      <configuration name="UserServiceTest.importUsersTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUserGroupsTest - 2020.07.03 at 10h 22m 39s.xml">
-      <configuration name="UserServiceTest.importUserGroupsTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUserGroupsTestWithNullListAndContext - 2020.07.03 at 10h 33m 50s.xml">
-      <configuration name="UserServiceTest.importUserGroupsTestWithNullListAndContext" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest - 2020.07.03 at 10h 34m 08s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UserServiceTest - 2020.07.03 at 10h 37m 57s.xml">
       <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 30m 56s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 31m 05s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 42m 05s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 43m 49s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 55m 09s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 56m 22s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 56m 54s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 14h 59m 06s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_importUsersTestWithMissingUserId - 2020.07.03 at 15h 00m 30s.xml">
+      <configuration name="UserServiceTest.importUsersTestWithMissingUserId" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="827" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24749643" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25107297" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -538,7 +522,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.34013605" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19727892" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -559,13 +543,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.14/commons-codec-1.14.jar!/org/apache/commons/codec/digest/MessageDigestAlgorithms.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/exception/UserNotFoundException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -872,13 +849,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/PasswordEncryptionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/PasswordEncryptionTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultPasswordEncryptionService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -939,6 +910,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/data/users_without_userId.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/data/users.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVParser.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVReaderBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVReader.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1290">
+          <caret line="104" column="118" selection-start-line="104" selection-start-column="104" selection-end-line="104" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/stream/reader/LineReader.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -946,86 +968,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVReader.class">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="104" column="118" selection-start-line="104" selection-start-column="104" selection-end-line="104" selection-end-column="118" />
-          <folding>
-            <element signature="e#1335#1336#0" expanded="true" />
-            <element signature="e#1379#1380#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVReaderBuilder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/opencsv/opencsv/4.1/opencsv-4.1.jar!/com/opencsv/CSVParser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-83">
-          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-          <folding>
-            <element signature="e#969#970#0" expanded="true" />
-            <element signature="e#1005#1006#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/data/users.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="262">
-          <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
-        </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
-        </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+        <state relative-caret-position="153">
+          <caret line="1381" column="31" selection-start-line="1381" selection-start-column="31" selection-end-line="1381" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="37" column="40" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="40" />
+        <state relative-caret-position="354">
+          <caret line="41" column="92" selection-start-line="41" selection-start-column="92" selection-end-line="41" selection-end-column="92" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/data/users_without_userId.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="497" column="16" lean-forward="true" selection-start-line="497" selection-start-column="16" selection-end-line="497" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="790" column="11" selection-start-line="790" selection-start-column="11" selection-end-line="790" selection-end-column="11" />
+        <state relative-caret-position="10935">
+          <caret line="729" column="70" selection-start-line="729" selection-start-column="70" selection-end-line="729" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
