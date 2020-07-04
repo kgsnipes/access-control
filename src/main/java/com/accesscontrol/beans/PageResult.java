@@ -1,14 +1,15 @@
 package com.accesscontrol.beans;
 
+import java.util.Collection;
 import java.util.List;
 
 public class PageResult<T>{
 
-    private List<T> results;
+    private Collection<T> results;
     private Integer pageNumber;
     private Integer pageSize;
     private Integer totalResults;
-    private List<Throwable> errors;
+    private Collection<Throwable> errors;
 
     public PageResult() {
     }
@@ -28,11 +29,11 @@ public class PageResult<T>{
         this.pageSize = pageSize;
     }
 
-    public List<T> getResults() {
+    public Collection<T> getResults() {
         return results;
     }
 
-    public void setResults(List<T> results) {
+    public void setResults(Collection<T> results) {
         this.results = results;
     }
 
@@ -52,11 +53,11 @@ public class PageResult<T>{
         this.totalResults = totalResults;
     }
 
-    public List<Throwable> getErrors() {
+    public Collection<Throwable> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<Throwable> errors) {
+    public void setErrors(Collection<Throwable> errors) {
         this.errors = errors;
     }
 }

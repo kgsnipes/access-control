@@ -33,6 +33,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class DefaultUserService implements UserService {
@@ -247,7 +248,7 @@ public class DefaultUserService implements UserService {
 
         if(Objects.nonNull(userList))
         {
-            return new PageResult<User>(userList.getContent(),pageNumber,userList.getSize(), (int) userList.getTotalElements());
+            return new PageResult<User>(Collections.unmodifiableList(userList.getContent()),pageNumber,userList.getSize(), (int) userList.getTotalElements());
         }
         return new PageResult<User>(Collections.EMPTY_LIST,pageNumber,0, 0);
     }
@@ -427,7 +428,7 @@ public class DefaultUserService implements UserService {
 
         if(Objects.nonNull(userGroupList))
         {
-            return new PageResult<UserGroup>(userGroupList.getContent(),pageNumber,userGroupList.getSize(), (int) userGroupList.getTotalElements());
+            return new PageResult<UserGroup>(Collections.unmodifiableList(userGroupList.getContent()),pageNumber,userGroupList.getSize(), (int) userGroupList.getTotalElements());
         }
         return new PageResult<UserGroup>(Collections.EMPTY_LIST,pageNumber,0, 0);
     }
@@ -632,7 +633,27 @@ public class DefaultUserService implements UserService {
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
-        return null;
+        PageResult<UserGroup> result=new PageResult<>();
+        HashSet<UserGroup> allGroups=new HashSet<UserGroup>();
+        User user=getUserById(userId);
+        if(Objects.nonNull(user))
+        {
+            PageResult<UserGroup> immediateUserGroups=getParentUserGroupsForUser(userId,pageNumber);
+            if(Objects.nonNull(immediateUserGroups) && CollectionUtils.isNotEmpty(immediateUserGroups.getResults()))
+            {
+                allGroups.addAll(immediateUserGroups.getResults());
+                immediateUserGroups.getResults().stream().forEach(group->{
+                    allGroups.addAll(getAllUserGroupsForUserGroup(group.getCode(),pageNumber).getResults());
+                });
+            }
+        }
+
+        try {
+            result.setResults(Collections.unmodifiableCollection(getPagedResult(allGroups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT))));
+        } catch (IllegalAccessException | InstantiationException e) {
+           log.error("Error while fetching user groups",e);
+        }
+        return result;
     }
 
     @Override
@@ -658,6 +679,15 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<UserGroup> getChildUserGroupsForUserGroup(String userId, Integer pageNumber) {
         return null;
+    }
+
+
+    private Collection getPagedResult(Collection collection,int page,int limit) throws IllegalAccessException, InstantiationException {
+        Collection retVal=collection.getClass().newInstance();
+        collection.stream().skip((page-1)*limit).limit(limit).forEach(ele->{
+            retVal.add(ele);
+        });
+        return retVal;
     }
 
 }
