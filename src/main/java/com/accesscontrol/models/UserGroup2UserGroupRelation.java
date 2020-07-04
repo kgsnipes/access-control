@@ -12,16 +12,16 @@ public class UserGroup2UserGroupRelation {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private Long parentUserGroupId;
+    private String parentUserGroupCode;
 
-    private Long childUserGroupId;
+    private String childUserGroupCode;
 
     public UserGroup2UserGroupRelation() {
     }
 
-    public UserGroup2UserGroupRelation(Long parentUserGroupId, Long childUserGroupId) {
-        this.parentUserGroupId = parentUserGroupId;
-        this.childUserGroupId = childUserGroupId;
+    public UserGroup2UserGroupRelation(String childUserGroupId, String parentUserGroupId) {
+        this.parentUserGroupCode = parentUserGroupId;
+        this.childUserGroupCode = childUserGroupId;
     }
 
     public Long getId() {
@@ -32,19 +32,19 @@ public class UserGroup2UserGroupRelation {
         this.id = id;
     }
 
-    public Long getParentUserGroupId() {
-        return parentUserGroupId;
+    public String getParentUserGroupId() {
+        return parentUserGroupCode;
     }
 
-    public void setParentUserGroupId(Long parentUserGroupId) {
-        this.parentUserGroupId = parentUserGroupId;
+    public void setParentUserGroupId(String parentUserGroupId) {
+        this.parentUserGroupCode = parentUserGroupId;
     }
 
-    public Long getChildUserGroupId() {
-        return childUserGroupId;
+    public String getChildUserGroupId() {
+        return childUserGroupCode;
     }
 
-    public void setChildUserGroupId(Long childUserGroupId) {
-        this.childUserGroupId = childUserGroupId;
+    public void setChildUserGroupId(String childUserGroupId) {
+        this.childUserGroupCode = childUserGroupId;
     }
 }

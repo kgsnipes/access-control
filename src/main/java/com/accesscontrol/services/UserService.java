@@ -41,8 +41,20 @@ public interface UserService {
 
     PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,Boolean updateIfExists,AccessControlContext ctx);
 
-    void addUserToUserGroup(String userId, String userGroupCode);
+    void addUserToUserGroup(String userId, String userGroupCode,AccessControlContext ctx);
 
-    void addUserToUserGroup(User user, UserGroup userGroup);
+    void addUserToUserGroup(User user, UserGroup userGroup,AccessControlContext ctx );
+
+    void removeUserFromUserGroup(String userId, String userGroupCode,AccessControlContext ctx);
+
+    void removeUserFromUserGroup(User user, UserGroup userGroup,AccessControlContext ctx );
+
+    void addUserGroupToUserGroup(String childUserGroupCode,String parentUserGroupCode,AccessControlContext ctx );
+
+    void addUserGroupToUserGroup(UserGroup childUserGroup,UserGroup parentUserGroup,AccessControlContext ctx );
+
+    void removeUserGroupFromUserGroup(String childUserGroupCode,String parentUserGroupCode,AccessControlContext ctx );
+
+    void removeUserGroupFromUserGroup(UserGroup childUserGroup,UserGroup parentUserGroup,AccessControlContext ctx );
 
 }

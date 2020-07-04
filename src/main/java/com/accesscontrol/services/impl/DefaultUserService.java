@@ -7,7 +7,11 @@ import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
+import com.accesscontrol.models.User2UserGroupRelation;
 import com.accesscontrol.models.UserGroup;
+import com.accesscontrol.models.UserGroup2UserGroupRelation;
+import com.accesscontrol.repository.User2UserGroupRelationRepository;
+import com.accesscontrol.repository.UserGroup2UserGroupRelationRepository;
 import com.accesscontrol.repository.UserGroupRepository;
 import com.accesscontrol.repository.UserRepository;
 import com.accesscontrol.services.ChangeLogService;
@@ -52,6 +56,12 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    private User2UserGroupRelationRepository user2UserGroupRelationRepository;
+
+    @Autowired
+    private UserGroup2UserGroupRelationRepository userGroup2UserGroupRelationRepository;
 
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
@@ -198,8 +208,8 @@ public class DefaultUserService implements UserService {
         }
         else
         {
-            userRepository.delete(user);
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,user,null,ctx);
+            userRepository.delete(user);
 
         }
 
@@ -380,8 +390,8 @@ public class DefaultUserService implements UserService {
         }
         else
         {
-            userGroupRepository.delete(userGroup);
             changeLogService.logChange(userGroup.getId(),userGroup.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,userGroup,null,ctx);
+            userGroupRepository.delete(userGroup);
 
         }
 
@@ -508,24 +518,112 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void addUserToUserGroup(String userId, String userGroupCode) {
-        if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(userGroupCode))
+    public void addUserToUserGroup(String userId, String userGroupCode,AccessControlContext ctx) {
+        if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(userGroupCode) || Objects.isNull(ctx))
         {
-            throw new IllegalArgumentException("userId or userGroupcode cannot be empty");
+            throw new IllegalArgumentException("userId or userGroupcode cannot be empty or context is empty");
         }
-        addUserToUserGroup(this.getUserById(userId),this.getUserGroupByCode(userGroupCode));
+        addUserToUserGroup(this.getUserById(userId),this.getUserGroupByCode(userGroupCode),ctx);
+    }
+
+    @Transactional
+    @Override
+    public void addUserToUserGroup(User user, UserGroup userGroup,AccessControlContext ctx) {
+        if(Objects.isNull(user) || Objects.isNull(userGroup) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("user or usergroup cannot be empty or context is empty");
+        }
+
+        User2UserGroupRelation relation=user2UserGroupRelationRepository.findByUserIdAndUserGroupCode(user.getUserId(),userGroup.getCode());
+        if(Objects.isNull(relation))
+        {
+            User2UserGroupRelation relationToSave=new User2UserGroupRelation();
+            relationToSave.setUserId(user.getUserId());
+            relationToSave.setUserGroupCode(userGroup.getCode());
+            User2UserGroupRelation relationToSaved=user2UserGroupRelationRepository.save(relationToSave);
+            changeLogService.logChange(relationToSaved.getId(),relationToSave.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,relationToSave,relationToSaved,ctx);
+        }
+
     }
 
     @Override
-    public void addUserToUserGroup(User user, UserGroup userGroup) {
-        if(Objects.isNull(user) || Objects.isNull(userGroup))
+    public void removeUserFromUserGroup(String userId, String userGroupCode,AccessControlContext ctx) {
+        if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(userGroupCode) || Objects.isNull(ctx))
         {
-            throw new IllegalArgumentException("user or usergroup cannot be empty");
+            throw new IllegalArgumentException("userId or userGroupcode cannot be empty or context is null");
+        }
+        removeUserFromUserGroup(this.getUserById(userId),this.getUserGroupByCode(userGroupCode),ctx);
+    }
+
+    @Transactional
+    @Override
+    public void removeUserFromUserGroup(User user, UserGroup userGroup,AccessControlContext ctx) {
+        if(Objects.isNull(user) || Objects.isNull(userGroup) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("user or usergroup cannot be empty or context is null");
         }
 
-
+        User2UserGroupRelation relation=user2UserGroupRelationRepository.findByUserIdAndUserGroupCode(user.getUserId(),userGroup.getCode());
+        if(Objects.nonNull(relation))
+        {
+            changeLogService.logChange(relation.getId(),relation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,relation,null,ctx);
+            user2UserGroupRelationRepository.delete(relation);
+        }
 
     }
 
+    @Override
+    public void addUserGroupToUserGroup(String childUserGroupCode, String parentUserGroupCode, AccessControlContext ctx) {
+        if(StringUtils.isEmpty(childUserGroupCode) || StringUtils.isEmpty(parentUserGroupCode) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("usergroup cannot be empty or context is null");
+        }
+        addUserGroupToUserGroup(getUserGroupByCode(childUserGroupCode),getUserGroupByCode(parentUserGroupCode),ctx);
+    }
+
+    @Transactional
+    @Override
+    public void addUserGroupToUserGroup(UserGroup childUserGroup, UserGroup parentUserGroup, AccessControlContext ctx) {
+
+        if(Objects.isNull(childUserGroup) || Objects.isNull(parentUserGroup) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("user or usergroup cannot be empty or context is null");
+        }
+        UserGroup2UserGroupRelation relation=userGroup2UserGroupRelationRepository.findByChildUserGroupCodeAndParentUserGroupCode(childUserGroup.getCode(),parentUserGroup.getCode());
+        if(Objects.isNull(relation))
+        {
+            UserGroup2UserGroupRelation relationToSave=new UserGroup2UserGroupRelation(childUserGroup.getCode(),parentUserGroup.getCode());
+            UserGroup2UserGroupRelation saved=userGroup2UserGroupRelationRepository.save(relationToSave);
+            changeLogService.logChange(saved.getId(),saved.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,relationToSave,saved,ctx);
+        }
+
+    }
+
+    @Override
+    public void removeUserGroupFromUserGroup(String childUserGroupCode, String parentUserGroupCode, AccessControlContext ctx) {
+
+        if(StringUtils.isEmpty(childUserGroupCode) || StringUtils.isEmpty(parentUserGroupCode) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("usergroup cannot be empty or context is null");
+        }
+        removeUserGroupFromUserGroup(getUserGroupByCode(childUserGroupCode),getUserGroupByCode(parentUserGroupCode),ctx);
+
+    }
+
+    @Override
+    public void removeUserGroupFromUserGroup(UserGroup childUserGroup, UserGroup parentUserGroup, AccessControlContext ctx) {
+
+        if(Objects.isNull(childUserGroup) || Objects.isNull(parentUserGroup) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("childusergroup or parentusergroup cannot be empty or context is null");
+        }
+
+        UserGroup2UserGroupRelation relation=userGroup2UserGroupRelationRepository.findByChildUserGroupCodeAndParentUserGroupCode(childUserGroup.getCode(),parentUserGroup.getCode());
+        if(Objects.nonNull(relation))
+        {
+            changeLogService.logChange(relation.getId(),relation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,relation,null,ctx);
+            userGroup2UserGroupRelationRepository.delete(relation);
+        }
+    }
 
 }

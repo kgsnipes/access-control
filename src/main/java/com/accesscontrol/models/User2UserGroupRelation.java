@@ -12,9 +12,9 @@ public class User2UserGroupRelation {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private Long userGroupId;
+    private String userGroupCode;
 
-    private Long userId;
+    private String userId;
 
     public Long getId() {
         return id;
@@ -24,19 +24,19 @@ public class User2UserGroupRelation {
         this.id = id;
     }
 
-    public Long getUserGroupId() {
-        return userGroupId;
+    public String getUserGroupCode() {
+        return userGroupCode;
     }
 
-    public void setUserGroupId(Long userGroupId) {
-        this.userGroupId = userGroupId;
+    public void setUserGroupCode(String userGroupCode) {
+        this.userGroupCode = userGroupCode;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }
