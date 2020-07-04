@@ -12,7 +12,7 @@ public interface UserGroup2UserGroupRelationRepository extends JpaRepository<Use
 
     Page<UserGroup2UserGroupRelation> findByParentUserGroupCode(String userGroupCode);
 
-    Page<UserGroup2UserGroupRelation> findByChildUserGroupCode(String userId);
+    Page<UserGroup2UserGroupRelation> findByChildUserGroupCode(String userGroupCode);
 
     UserGroup2UserGroupRelation findByChildUserGroupCodeAndParentUserGroupCode(String childUserGroupCode, String parentUserGroupCode);
 
