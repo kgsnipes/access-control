@@ -57,4 +57,17 @@ public interface UserService {
 
     void removeUserGroupFromUserGroup(UserGroup childUserGroup,UserGroup parentUserGroup,AccessControlContext ctx );
 
+    PageResult<UserGroup> getAllUserGroupsForUser(String userId, Integer pageNumber);
+
+    PageResult<UserGroup> getParentUserGroupsForUser(String userId, Integer pageNumber);
+
+    PageResult<UserGroup> getAllUserGroupsForUserGroup(String userId, Integer pageNumber);
+
+    PageResult<UserGroup> getParentUserGroupsForUserGroup(String userId, Integer pageNumber);
+
+    PageResult<UserGroup> getAllChildUserGroupsForUserGroup(String userId, Integer pageNumber);
+
+    PageResult<UserGroup> getChildUserGroupsForUserGroup(String userId, Integer pageNumber);
+
+
 }
