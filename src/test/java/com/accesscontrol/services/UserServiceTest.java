@@ -750,14 +750,7 @@ public class UserServiceTest {
 
     }
 
-//    @Order(56)
-//    @Test
-//    public void findUserGroupsTest()throws Exception
-//    {
-//        PageResult<UserGroup>
-//        Assertions.assertTrue();
-//
-//    }
+
 
     @Order(56)
     @Test
@@ -795,7 +788,47 @@ public class UserServiceTest {
 
     }
 
+    @Order(57)
+    @Test
+    public void findUserGroupsTest()throws Exception
+    {
+        PageResult<UserGroup> userGroups=userService.findUserGroups("group",1);
+        Assertions.assertFalse(userGroups.getResults().isEmpty());
 
+    }
+
+    @Order(58)
+    @Test
+    public void findUserGroupsTestWithoutSearchTerm()throws Exception
+    {
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> userGroups=userService.findUserGroups("",1);
+        });
+
+    }
+
+    @Order(59)
+    @Test
+    public void findUserGroupsTestWithSearchTermAndInvalidPageNumber()throws Exception
+    {
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> userGroups=userService.findUserGroups("group",0);
+        });
+
+    }
+
+    @Order(60)
+    @Test
+    public void findUserGroupsTestWithoutSearchTermAndInvalidPageNumber()throws Exception
+    {
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> userGroups=userService.findUserGroups(null,-1);
+        });
+
+    }
 
 
 }

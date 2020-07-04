@@ -41,5 +41,8 @@ public interface UserService {
 
     PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,Boolean updateIfExists,AccessControlContext ctx);
 
+    void addUserToUserGroup(String userId, String userGroupCode);
+
+    void addUserToUserGroup(User user, UserGroup userGroup);
 
 }

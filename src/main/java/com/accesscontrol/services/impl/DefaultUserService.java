@@ -507,5 +507,25 @@ public class DefaultUserService implements UserService {
         return result;
     }
 
+    @Override
+    public void addUserToUserGroup(String userId, String userGroupCode) {
+        if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(userGroupCode))
+        {
+            throw new IllegalArgumentException("userId or userGroupcode cannot be empty");
+        }
+        addUserToUserGroup(this.getUserById(userId),this.getUserGroupByCode(userGroupCode));
+    }
+
+    @Override
+    public void addUserToUserGroup(User user, UserGroup userGroup) {
+        if(Objects.isNull(user) || Objects.isNull(userGroup))
+        {
+            throw new IllegalArgumentException("user or usergroup cannot be empty");
+        }
+
+
+
+    }
+
 
 }
