@@ -12,8 +12,10 @@ import com.accesscontrol.services
 AccessControlService accessControlService=new DefaultAccessControlService();
 //access the user service from the API
 UserService userService= accessControlService.getUserService();
+
 //set the CRUD Context
 AccessControlContext ctx=new AccessControlContext("system-user",null);
+
 //Create a user model
 User user=new User();
 user.setPassword("123456");
@@ -23,9 +25,37 @@ user.setLastName("user");
 user.setUserId("testuser1@test.com");
 //persist the user
 User persistedUser=userService.createUser(user,ctx);
+
+//fetch the user
+User user=userService.getUserById("testuser5@test.com");
+
+//delete user
+userService.deleteUser("testuser3300@test.com",ctx);
+
+//enable the user
+String userId="testuser2@test.com";
+userService.enableUser(userId,ctx);
+
+//disable the user
+String userId="testuser2@test.com";
+userService.disableUser(userId,ctx);
+
+//search for the users
+PageResult<User> userResults=userService.findUsers("test",1);
+
+//create a usergroup
+UserGroup userGroup=new UserGroup();
+userGroup.setCode("admingroup");
+userGroup.setName("Admin Group");
+userGroup.setEnabled(true);
+//persist the usergroup
+userService.createUserGroup(userGroup,ctx)
+
 ```
 
 This API is thoroughly tested and you can find the JUnit test cases in the project.
+
+For more help on using the API explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
 
 
 
