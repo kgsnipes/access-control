@@ -2,6 +2,7 @@ package com.accesscontrol.services;
 
 import com.accesscontrol.beans.AccessControlContext;
 import com.accesscontrol.beans.PageResult;
+import com.accesscontrol.models.AccessPermission;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 
@@ -69,5 +70,18 @@ public interface UserService {
 
     PageResult<UserGroup> getChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber);
 
+    AccessPermission createPermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
+
+    AccessPermission savePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
+
+    AccessPermission enablePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
+
+    AccessPermission disablePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
+
+    AccessPermission getPermissionById(Long permissionId);
+
+    PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode,Boolean onlyEnabled);
+
+    PageResult<AccessPermission> getPermissionsByPermissionTypeAndUserGroup(String permissionType,String userGroupCode,Boolean onlyEnabled);
 
 }

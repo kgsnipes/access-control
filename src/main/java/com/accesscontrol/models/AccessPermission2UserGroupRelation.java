@@ -14,7 +14,7 @@ public class AccessPermission2UserGroupRelation {
 
     private Long accessPermissionId;
 
-    private Long userGroupId;
+    private String userGroupCode;
 
 
     public Long getId() {
@@ -33,11 +33,11 @@ public class AccessPermission2UserGroupRelation {
         this.accessPermissionId = accessPermissionId;
     }
 
-    public Long getUserGroupId() {
-        return userGroupId;
+    public String getUserGroupId() {
+        return userGroupCode;
     }
 
-    public void setUserGroupId(Long userGroupId) {
-        this.userGroupId = userGroupId;
+    public void setUserGroupId(String userGroupId) {
+        this.userGroupCode = userGroupId;
     }
 }

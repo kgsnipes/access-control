@@ -6,10 +6,7 @@ import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
-import com.accesscontrol.models.User;
-import com.accesscontrol.models.User2UserGroupRelation;
-import com.accesscontrol.models.UserGroup;
-import com.accesscontrol.models.UserGroup2UserGroupRelation;
+import com.accesscontrol.models.*;
 import com.accesscontrol.repository.User2UserGroupRelationRepository;
 import com.accesscontrol.repository.UserGroup2UserGroupRelationRepository;
 import com.accesscontrol.repository.UserGroupRepository;
@@ -25,9 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
@@ -36,7 +31,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 
 
 public class DefaultUserService implements UserService {
@@ -792,6 +787,41 @@ public class DefaultUserService implements UserService {
             log.error("Error while fetching user groups",e);
         }
         return result;
+    }
+
+    @Override
+    public AccessPermission createPermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public AccessPermission savePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public AccessPermission enablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public AccessPermission disablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public AccessPermission getPermissionById(Long permissionId) {
+        return null;
+    }
+
+    @Override
+    public PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode, Boolean onlyEnabled) {
+        return null;
+    }
+
+    @Override
+    public PageResult<AccessPermission> getPermissionsByPermissionTypeAndUserGroup(String permissionType, String userGroupCode, Boolean onlyEnabled) {
+        return null;
     }
 
 
