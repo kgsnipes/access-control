@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,17 +21,34 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="651" column="65" selection-start-line="651" selection-start-column="65" selection-end-line="651" selection-end-column="65" />
+            <state relative-caret-position="291">
+              <caret line="691" selection-start-line="691" selection-end-line="691" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#24259#24270#0" expanded="true" />
-                <element signature="e#25441#25442#0" expanded="true" />
-                <element signature="e#25582#25583#0" expanded="true" />
-                <element signature="e#25726#25727#0" expanded="true" />
-                <element signature="e#25872#25873#0" expanded="true" />
-                <element signature="e#26015#26016#0" expanded="true" />
+                <element signature="e#25737#25748#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.2.7.RELEASE/spring-data-jpa-2.2.7.RELEASE.jar!/org/springframework/data/jpa/repository/JpaRepository.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -85,15 +102,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/ChangeLogRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/User2UserGroupRelationRepository.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -117,8 +125,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="69" column="34" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
+            <state relative-caret-position="383">
+              <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -199,10 +207,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/User2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserGroup2UserGroupRelationRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/UserGroup2UserGroupRelation.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
         <option value="$PROJECT_DIR$/Readme.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/PageResult.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" />
       </list>
     </option>
@@ -289,6 +297,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
@@ -545,7 +562,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/CRUDOperations.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/models/ChangeLog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -725,16 +741,6 @@
             <element signature="e#1524#1525#0" expanded="true" />
             <element signature="e#1590#1591#0" expanded="true" />
             <element signature="e#1627#1628#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -938,16 +944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="69" column="34" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/AccessControlService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -992,18 +988,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.2.7.RELEASE/spring-data-jpa-2.2.7.RELEASE.jar!/org/springframework/data/jpa/repository/JpaRepository.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="651" column="65" selection-start-line="651" selection-start-column="65" selection-end-line="651" selection-end-column="65" />
+        <state relative-caret-position="291">
+          <caret line="691" selection-start-line="691" selection-end-line="691" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#24259#24270#0" expanded="true" />
-            <element signature="e#25441#25442#0" expanded="true" />
-            <element signature="e#25582#25583#0" expanded="true" />
-            <element signature="e#25726#25727#0" expanded="true" />
-            <element signature="e#25872#25873#0" expanded="true" />
-            <element signature="e#26015#26016#0" expanded="true" />
+            <element signature="e#25737#25748#0" expanded="true" />
           </folding>
         </state>
       </provider>

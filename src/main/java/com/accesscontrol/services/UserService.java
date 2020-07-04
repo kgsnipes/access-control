@@ -61,13 +61,13 @@ public interface UserService {
 
     PageResult<UserGroup> getParentUserGroupsForUser(String userId, Integer pageNumber);
 
-    PageResult<UserGroup> getAllUserGroupsForUserGroup(String userId, Integer pageNumber);
+    PageResult<UserGroup> getAllUserGroupsForUserGroup(String userGroupCode, Integer pageNumber);
 
-    PageResult<UserGroup> getParentUserGroupsForUserGroup(String userId, Integer pageNumber);
+    PageResult<UserGroup> getParentUserGroupsForUserGroup(String userGroupCode, Integer pageNumber);
 
-    PageResult<UserGroup> getAllChildUserGroupsForUserGroup(String userId, Integer pageNumber);
+    PageResult<UserGroup> getAllChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber);
 
-    PageResult<UserGroup> getChildUserGroupsForUserGroup(String userId, Integer pageNumber);
+    PageResult<UserGroup> getChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber);
 
 
 }

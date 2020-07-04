@@ -25,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
@@ -239,12 +241,12 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<User> findUsers(String searchTerm, Integer pageNumber) {
 
-        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber) || pageNumber<1)
+        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber))
         {
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
         }
 
-        Page<User> userList=userRepository.findUsers(searchTerm,PageRequest.of(pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+        Page<User> userList=userRepository.findUsers(searchTerm,getPageParameter(userRepository,pageNumber));
 
         if(Objects.nonNull(userList))
         {
@@ -419,12 +421,12 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber) {
 
-        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber) || pageNumber<1)
+        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber))
         {
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
         }
 
-        Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,PageRequest.of(pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+        Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,getPageParameter(userGroupRepository,pageNumber));
 
         if(Objects.nonNull(userGroupList))
         {
@@ -638,18 +640,18 @@ public class DefaultUserService implements UserService {
         User user=getUserById(userId);
         if(Objects.nonNull(user))
         {
-            PageResult<UserGroup> immediateUserGroups=getParentUserGroupsForUser(userId,pageNumber);
+            PageResult<UserGroup> immediateUserGroups=getParentUserGroupsForUser(userId,-1);
             if(Objects.nonNull(immediateUserGroups) && CollectionUtils.isNotEmpty(immediateUserGroups.getResults()))
             {
                 allGroups.addAll(immediateUserGroups.getResults());
                 immediateUserGroups.getResults().stream().forEach(group->{
-                    allGroups.addAll(getAllUserGroupsForUserGroup(group.getCode(),pageNumber).getResults());
+                    allGroups.addAll(getAllUserGroupsForUserGroup(group.getCode(),-1).getResults());
                 });
             }
         }
 
         try {
-            result.setResults(Collections.unmodifiableCollection(getPagedResult(allGroups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT))));
+            result.setResults(Collections.unmodifiableCollection(new ArrayList<>(getPagedResult(allGroups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
         } catch (IllegalAccessException | InstantiationException e) {
            log.error("Error while fetching user groups",e);
         }
@@ -658,36 +660,77 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getParentUserGroupsForUser(String userId, Integer pageNumber) {
+        if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber) || pageNumber<1)
+        {
+            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+        }
+        PageResult<UserGroup> result=new PageResult<>();
+        HashSet<UserGroup> groups=new HashSet<UserGroup>();
+        User user=getUserById(userId);
+        if(Objects.nonNull(user)){
+            Page<User2UserGroupRelation> user2UserGroupRelation=user2UserGroupRelationRepository.findByUserId("userId");
+            if(CollectionUtils.isNotEmpty(user2UserGroupRelation.getContent()))
+            {
+                user2UserGroupRelation.getContent().stream().forEach(rel -> groups.add(getUserGroupByCode(rel.getUserGroupCode())));
+            }
+        }
+        try {
+            result.setResults(Collections.unmodifiableCollection(new ArrayList<>(getPagedResult(groups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
+        } catch (IllegalAccessException | InstantiationException e) {
+            log.error("Error while fetching user groups",e);
+        }
+
+        return result;
+    }
+
+    @Override
+    public PageResult<UserGroup> getAllUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
+        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber))
+        {
+            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+        }
+
         return null;
     }
 
     @Override
-    public PageResult<UserGroup> getAllUserGroupsForUserGroup(String userId, Integer pageNumber) {
+    public PageResult<UserGroup> getParentUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
         return null;
     }
 
     @Override
-    public PageResult<UserGroup> getParentUserGroupsForUserGroup(String userId, Integer pageNumber) {
+    public PageResult<UserGroup> getAllChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
         return null;
     }
 
     @Override
-    public PageResult<UserGroup> getAllChildUserGroupsForUserGroup(String userId, Integer pageNumber) {
-        return null;
-    }
-
-    @Override
-    public PageResult<UserGroup> getChildUserGroupsForUserGroup(String userId, Integer pageNumber) {
+    public PageResult<UserGroup> getChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
         return null;
     }
 
 
     private Collection getPagedResult(Collection collection,int page,int limit) throws IllegalAccessException, InstantiationException {
-        Collection retVal=collection.getClass().newInstance();
-        collection.stream().skip((page-1)*limit).limit(limit).forEach(ele->{
-            retVal.add(ele);
-        });
-        return retVal;
+        if(page>=1) {
+            Collection retVal = collection.getClass().newInstance();
+            collection.stream().skip((page - 1) * limit).limit(limit).forEach(ele -> {
+                retVal.add(ele);
+            });
+            return retVal;
+        }
+        return collection;
+    }
+
+    private Pageable getPageParameter(JpaRepository repository, Integer pageNumber)
+    {
+        if(pageNumber<1)
+        {
+            return PageRequest.of(0, (int) repository.count());
+        }
+        else
+        {
+            return PageRequest.of(pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT));
+        }
+
     }
 
 }
