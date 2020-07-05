@@ -803,9 +803,15 @@ public class DefaultUserService implements UserService {
 
         Validator validator=validatorFactory.getValidator();
         Set<ConstraintViolation<AccessPermission>> violations = validator.validate(permission);
+        Set<ConstraintViolation<UserGroup>> violationsForUserGroup = validator.validate(userGroup);
         if(CollectionUtils.isNotEmpty(violations))
         {
             String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else if(CollectionUtils.isNotEmpty(violationsForUserGroup))
+        {
+            String errorMsg= violationsForUserGroup.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
             throw new AccessControlException(errorMsg);
         }
         else
@@ -882,7 +888,7 @@ public class DefaultUserService implements UserService {
     public void disablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
 
     }
-    
+
 
     @Override
     public PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode, Boolean onlyEnabled) {
