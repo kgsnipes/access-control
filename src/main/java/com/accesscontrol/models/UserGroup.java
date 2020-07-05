@@ -23,6 +23,7 @@ public class UserGroup {
     @NotNull(message = "Name cannot be empty")
     private String name;
 
+    @NotNull(message = "Enabled flag cannot be null")
     private Boolean enabled;
 
     @CreationTimestamp

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class AccessPermission2UserGroupRelation {
@@ -12,9 +13,15 @@ public class AccessPermission2UserGroupRelation {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "accessPermissionId  cannot be null")
     private Long accessPermissionId;
 
+    @NotNull(message = "userGroupCode cannot be null")
     private String userGroupCode;
+
+
+    @NotNull(message = "Enabled flag cannot be null")
+    private Boolean enabled;
 
 
     public Long getId() {
@@ -33,11 +40,19 @@ public class AccessPermission2UserGroupRelation {
         this.accessPermissionId = accessPermissionId;
     }
 
-    public String getUserGroupId() {
+    public String getUserGroupCode() {
         return userGroupCode;
     }
 
-    public void setUserGroupId(String userGroupId) {
-        this.userGroupCode = userGroupId;
+    public void setUserGroupCode(String userGroupCode) {
+        this.userGroupCode = userGroupCode;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

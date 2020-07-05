@@ -70,15 +70,13 @@ public interface UserService {
 
     PageResult<UserGroup> getChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber);
 
+    AccessPermission createPermission(AccessPermission permission, AccessControlContext ctx);
+
     AccessPermission createPermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
 
-    AccessPermission savePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
+    void enablePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
 
-    AccessPermission enablePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
-
-    AccessPermission disablePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
-
-    AccessPermission getPermissionById(Long permissionId);
+    void disablePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
 
     PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode,Boolean onlyEnabled);
 

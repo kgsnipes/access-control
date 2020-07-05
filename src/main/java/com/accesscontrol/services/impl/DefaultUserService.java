@@ -7,10 +7,7 @@ import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.*;
-import com.accesscontrol.repository.User2UserGroupRelationRepository;
-import com.accesscontrol.repository.UserGroup2UserGroupRelationRepository;
-import com.accesscontrol.repository.UserGroupRepository;
-import com.accesscontrol.repository.UserRepository;
+import com.accesscontrol.repository.*;
 import com.accesscontrol.services.ChangeLogService;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
@@ -61,6 +58,12 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private UserGroup2UserGroupRelationRepository userGroup2UserGroupRelationRepository;
+
+    @Autowired
+    private AccessPermission2UserGroupRelationRepository accessPermission2UserGroupRelationRepository;
+
+    @Autowired
+    private AccessPermissionRepository accessPermissionRepository;
 
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
@@ -789,30 +792,97 @@ public class DefaultUserService implements UserService {
         return result;
     }
 
+    @Transactional
     @Override
     public AccessPermission createPermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
-        return null;
+        AccessPermission savedPermission=null;
+        if(Objects.isNull(permission) || Objects.isNull(userGroup))
+        {
+            throw new IllegalArgumentException("permission object or user group cannot be null");
+        }
+
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<AccessPermission>> violations = validator.validate(permission);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            AccessPermission existingPermission=accessPermissionRepository.findByPermissionTypeAndPermission(permission.getPermissionType(),permission.getPermission());
+
+            if(Objects.isNull(existingPermission))
+            {
+                savedPermission=accessPermissionRepository.save(permission);
+                AccessPermission2UserGroupRelation relation=new AccessPermission2UserGroupRelation();
+                relation.setAccessPermissionId(savedPermission.getId());
+                relation.setUserGroupCode(userGroup.getCode());
+                relation.setEnabled(true);
+                AccessPermission2UserGroupRelation savedRelation=accessPermission2UserGroupRelationRepository.save(relation);
+                changeLogService.logChange(savedPermission.getId(),savedPermission.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,permission,savedPermission,ctx);
+                changeLogService.logChange(savedRelation.getId(),savedRelation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,relation,savedRelation,ctx);
+            }
+            else
+            {
+                AccessPermission2UserGroupRelation existingRelation=accessPermission2UserGroupRelationRepository.findByUserGroupCodeAndAccessPermissionId(userGroup.getCode(),existingPermission.getId());
+                if(Objects.isNull(existingRelation))
+                {
+                    AccessPermission2UserGroupRelation relation=new AccessPermission2UserGroupRelation();
+                    relation.setAccessPermissionId(savedPermission.getId());
+                    relation.setUserGroupCode(userGroup.getCode());
+                    relation.setEnabled(true);
+                    AccessPermission2UserGroupRelation savedRelation=accessPermission2UserGroupRelationRepository.save(relation);
+                    changeLogService.logChange(savedRelation.getId(),savedRelation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,relation,savedRelation,ctx);
+                }
+                savedPermission=existingPermission;
+            }
+
+
+        }
+        return savedPermission;
+    }
+
+    @Transactional
+    @Override
+    public AccessPermission createPermission(AccessPermission permission, AccessControlContext ctx) {
+        AccessPermission savedPermission=null;
+        if(Objects.isNull(permission))
+        {
+            throw new IllegalArgumentException("permission object or user group cannot be null");
+        }
+
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<AccessPermission>> violations = validator.validate(permission);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            AccessPermission existingPermission=accessPermissionRepository.findByPermissionTypeAndPermission(permission.getPermissionType(),permission.getPermission());
+
+            if(Objects.isNull(existingPermission))
+            {
+                savedPermission=accessPermissionRepository.save(permission);
+                changeLogService.logChange(savedPermission.getId(),savedPermission.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,permission,savedPermission,ctx);
+            }
+
+        }
+        return savedPermission;
     }
 
     @Override
-    public AccessPermission savePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
-        return null;
+    public void enablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
+
     }
 
     @Override
-    public AccessPermission enablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
-        return null;
-    }
+    public void disablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
 
-    @Override
-    public AccessPermission disablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
-        return null;
     }
-
-    @Override
-    public AccessPermission getPermissionById(Long permissionId) {
-        return null;
-    }
+    
 
     @Override
     public PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode, Boolean onlyEnabled) {
