@@ -5,6 +5,8 @@ import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.models.AccessPermission;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -81,5 +83,9 @@ public interface UserService {
     PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode,Boolean onlyEnabled,Integer pageNumber);
 
     PageResult<AccessPermission> getPermissionsByResourceAndUserGroup(String resource,String userGroupCode,Boolean onlyEnabled ,Integer pageNumber);
+
+    UserDetailsService getUserDetailsService();
+
+    PasswordEncoder getPasswordEncoder();
 
 }

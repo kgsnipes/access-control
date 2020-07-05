@@ -1,6 +1,7 @@
 package com.accesscontrol.services.impl;
 
 import com.accesscontrol.beans.AccessControlContext;
+import com.accesscontrol.beans.AccessControlUser;
 import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.AccessControlException;
@@ -20,7 +21,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import javax.persistence.EntityManagerFactory;
@@ -1033,6 +1038,52 @@ public class DefaultUserService implements UserService {
         return result;
     }
 
+    @Override
+    public UserDetailsService getUserDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+                User user=null;
+                try
+                {
+                    user=getUserById(s);
+                }
+                catch (UserNotFoundException e)
+                {
+                    throw new UsernameNotFoundException("User not found");
+                }
+                if(Objects.nonNull(user))
+                {
+                    Collection<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
+                    getAllUserGroupsForUser(user.getUserId(),-1).getResults().stream().forEach(grp->{
+                        simpleGrantedAuthorities.add(new SimpleGrantedAuthority(grp.getCode()));
+                    });
+                    return new AccessControlUser(user.getUserId(),user.getPassword(),user.getEnabled(),Collections.unmodifiableCollection(simpleGrantedAuthorities));
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+        };
+    }
+
+    @Override
+    public PasswordEncoder getPasswordEncoder() {
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence charSequence) {
+                return passwordEncryptionService.encryptPassword((String) charSequence);
+            }
+
+            @Override
+            public boolean matches(CharSequence charSequence, String s) {
+                return passwordEncryptionService.encryptPassword((String) charSequence).equals(s);
+            }
+        };
+    }
+
 
     private void getParentGroupsForUserGroup(String userGroupCode,Collection<UserGroup> groups)
     {
@@ -1067,6 +1118,8 @@ public class DefaultUserService implements UserService {
         }
 
     }
+
+
 
 
 }
