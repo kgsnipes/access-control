@@ -12,6 +12,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccessPermissionRepository extends JpaRepository<AccessPermission,Long> {
 
-    AccessPermission findByPermissionTypeAndPermission(String permissionType,String permission);
+    AccessPermission findByResourceAndPermission(String resource,String permission);
 
+    @Query("SELECT ap FROM AccessPermission ap JOIN AccessPermission2UserGroupRelation apug on apug.accessPermissionId=ap.Id WHERE apug.userGroupCode= :userGroupCode and apug.enabled= :enabledFlag ")
+    Page<AccessPermission> findPermissionByUserGroupCode(@Param("userGroupCode") String userGroupCode,@Param("enabledFlag") Boolean enabled, Pageable pageable);
+
+    @Query("SELECT ap FROM AccessPermission ap JOIN AccessPermission2UserGroupRelation apug on apug.accessPermissionId=ap.Id WHERE apug.userGroupCode= :userGroupCode")
+    Page<AccessPermission> findPermissionByUserGroupCode(@Param("userGroupCode") String userGroupCode, Pageable pageable);
+
+
+    @Query("SELECT ap FROM AccessPermission ap JOIN AccessPermission2UserGroupRelation apug on apug.accessPermissionId=ap.Id WHERE apug.userGroupCode= :userGroupCode and apug.enabled= :enabledFlag  and ap.resource=:resource")
+    Page<AccessPermission> findPermissionByUserGroupCodeAndResource(@Param("userGroupCode") String userGroupCode,@Param("resource") String resource,@Param("enabledFlag") Boolean enabled, Pageable pageable);
+
+    @Query("SELECT ap FROM AccessPermission ap JOIN AccessPermission2UserGroupRelation apug on apug.accessPermissionId=ap.Id WHERE apug.userGroupCode= :userGroupCode  and ap.resource=:resource")
+    Page<AccessPermission> findPermissionByUserGroupCodeAndResource(@Param("userGroupCode") String userGroupCode,@Param("resource") String resource, Pageable pageable);
 }

@@ -17,7 +17,7 @@ public class AccessPermission {
     private String permission;
 
     @NotNull(message = "Permission cannot be null")
-    private String permissionType;
+    private String resource;
 
 
     public Long getId() {
@@ -36,12 +36,11 @@ public class AccessPermission {
         this.permission = permission;
     }
 
-    public String getPermissionType() {
-        return permissionType;
+    public String getResource() {
+        return resource;
     }
 
-    public void setPermissionType(String permissionType) {
-        this.permissionType = permissionType;
+    public void setResource(String resource) {
+        this.resource = resource;
     }
-
 }

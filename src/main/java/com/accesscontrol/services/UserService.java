@@ -78,8 +78,8 @@ public interface UserService {
 
     void disablePermission(AccessPermission permission, UserGroup userGroup ,AccessControlContext ctx);
 
-    PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode,Boolean onlyEnabled);
+    PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode,Boolean onlyEnabled,Integer pageNumber);
 
-    PageResult<AccessPermission> getPermissionsByPermissionTypeAndUserGroup(String permissionType,String userGroupCode,Boolean onlyEnabled);
+    PageResult<AccessPermission> getPermissionsByResourceAndUserGroup(String resource,String userGroupCode,Boolean onlyEnabled ,Integer pageNumber);
 
 }

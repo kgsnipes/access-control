@@ -13,12 +13,14 @@ import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
 import com.accesscontrol.util.AccessControlUtil;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 
 import javax.persistence.EntityManagerFactory;
@@ -816,7 +818,7 @@ public class DefaultUserService implements UserService {
         }
         else
         {
-            AccessPermission existingPermission=accessPermissionRepository.findByPermissionTypeAndPermission(permission.getPermissionType(),permission.getPermission());
+            AccessPermission existingPermission=accessPermissionRepository.findByResourceAndPermission(permission.getResource(),permission.getPermission());
 
             if(Objects.isNull(existingPermission))
             {
@@ -867,7 +869,7 @@ public class DefaultUserService implements UserService {
         }
         else
         {
-            AccessPermission existingPermission=accessPermissionRepository.findByPermissionTypeAndPermission(permission.getPermissionType(),permission.getPermission());
+            AccessPermission existingPermission=accessPermissionRepository.findByResourceAndPermission(permission.getResource(),permission.getPermission());
 
             if(Objects.isNull(existingPermission))
             {
@@ -879,25 +881,156 @@ public class DefaultUserService implements UserService {
         return savedPermission;
     }
 
+    @Transactional
     @Override
     public void enablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
 
+        if(Objects.isNull(permission) || Objects.isNull(userGroup))
+        {
+            throw new IllegalArgumentException("permission object or user group cannot be null");
+        }
+
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<AccessPermission>> violations = validator.validate(permission);
+        Set<ConstraintViolation<UserGroup>> violationsForUserGroup = validator.validate(userGroup);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else if(CollectionUtils.isNotEmpty(violationsForUserGroup))
+        {
+            String errorMsg= violationsForUserGroup.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            AccessPermission2UserGroupRelation existingRelation=accessPermission2UserGroupRelationRepository.findByUserGroupCodeAndAccessPermissionId(userGroup.getCode(),permission.getId());
+            if(Objects.nonNull(existingRelation))
+            {
+                existingRelation.setEnabled(true);
+                AccessPermission2UserGroupRelation savedRelation=accessPermission2UserGroupRelationRepository.save(existingRelation);
+                changeLogService.logChange(savedRelation.getId(),savedRelation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,existingRelation,savedRelation,ctx);
+            }
+        }
+
+
     }
 
+    @Transactional
     @Override
     public void disablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
+        if(Objects.isNull(permission) || Objects.isNull(userGroup))
+        {
+            throw new IllegalArgumentException("permission object or user group cannot be null");
+        }
 
+        Validator validator=validatorFactory.getValidator();
+        Set<ConstraintViolation<AccessPermission>> violations = validator.validate(permission);
+        Set<ConstraintViolation<UserGroup>> violationsForUserGroup = validator.validate(userGroup);
+        if(CollectionUtils.isNotEmpty(violations))
+        {
+            String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else if(CollectionUtils.isNotEmpty(violationsForUserGroup))
+        {
+            String errorMsg= violationsForUserGroup.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            throw new AccessControlException(errorMsg);
+        }
+        else
+        {
+            AccessPermission2UserGroupRelation existingRelation=accessPermission2UserGroupRelationRepository.findByUserGroupCodeAndAccessPermissionId(userGroup.getCode(),permission.getId());
+            if(Objects.nonNull(existingRelation))
+            {
+                existingRelation.setEnabled(false);
+                AccessPermission2UserGroupRelation savedRelation=accessPermission2UserGroupRelationRepository.save(existingRelation);
+                changeLogService.logChange(savedRelation.getId(),savedRelation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,existingRelation,savedRelation,ctx);
+            }
+        }
     }
 
 
     @Override
-    public PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode, Boolean onlyEnabled) {
-        return null;
+    public PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode, Boolean onlyEnabled,Integer pageNumber) {
+        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber))
+        {
+            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+        }
+        PageResult<AccessPermission> result=new PageResult<>();
+        HashSet<AccessPermission> permissions=new HashSet<AccessPermission>();
+        UserGroup userGroup=getUserGroupByCode(userGroupCode);
+        Page<AccessPermission> per=null;
+        if(Objects.nonNull(userGroup))
+        {
+            if(BooleanUtils.isTrue(onlyEnabled))
+            {
+                per=accessPermissionRepository.findPermissionByUserGroupCode(userGroupCode,true,AccessControlUtil.getPageParameter(accessPermissionRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+            }
+            else
+            {
+                per=accessPermissionRepository.findPermissionByUserGroupCode(userGroupCode,AccessControlUtil.getPageParameter(accessPermissionRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+            }
+
+            if(CollectionUtils.isNotEmpty(per.getContent()))
+            {
+                permissions.addAll(per.getContent());
+                result.setPageSize(per.getSize());
+                result.setPageNumber(pageNumber);
+                result.setTotalResults((int)per.getTotalElements());
+                result.setResults(Collections.unmodifiableCollection(permissions));
+            }
+            else
+            {
+                result.setResults(Collections.EMPTY_LIST);
+                result.setPageSize(per.getSize());
+                result.setPageNumber(pageNumber);
+                result.setTotalResults((int)per.getTotalElements());
+            }
+
+        }
+        return result;
     }
 
     @Override
-    public PageResult<AccessPermission> getPermissionsByPermissionTypeAndUserGroup(String permissionType, String userGroupCode, Boolean onlyEnabled) {
-        return null;
+    public PageResult<AccessPermission> getPermissionsByResourceAndUserGroup(String resource, String userGroupCode, Boolean onlyEnabled,Integer pageNumber) {
+        if(StringUtils.isEmpty(userGroupCode) || StringUtils.isEmpty(resource) || Objects.isNull(pageNumber))
+        {
+            throw new IllegalArgumentException("user id is empty or resource is empty or pagenumber is invalid");
+        }
+        PageResult<AccessPermission> result=new PageResult<>();
+        HashSet<AccessPermission> permissions=new HashSet<AccessPermission>();
+        UserGroup userGroup=getUserGroupByCode(userGroupCode);
+        Page<AccessPermission> per=null;
+        if(Objects.nonNull(userGroup))
+        {
+            if(BooleanUtils.isTrue(onlyEnabled))
+            {
+                per=accessPermissionRepository.findPermissionByUserGroupCodeAndResource(userGroupCode,resource,true,AccessControlUtil.getPageParameter(accessPermissionRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+            }
+            else
+            {
+                per=accessPermissionRepository.findPermissionByUserGroupCodeAndResource(userGroupCode,resource,AccessControlUtil.getPageParameter(accessPermissionRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+            }
+
+            if(CollectionUtils.isNotEmpty(per.getContent()))
+            {
+                permissions.addAll(per.getContent());
+                result.setPageSize(per.getSize());
+                result.setPageNumber(pageNumber);
+                result.setTotalResults((int)per.getTotalElements());
+                result.setResults(Collections.unmodifiableCollection(permissions));
+            }
+            else
+            {
+                result.setResults(Collections.EMPTY_LIST);
+                result.setPageSize(per.getSize());
+                result.setPageNumber(pageNumber);
+                result.setTotalResults((int)per.getTotalElements());
+            }
+
+        }
+        return result;
     }
 
 
