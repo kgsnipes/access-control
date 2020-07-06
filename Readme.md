@@ -5,6 +5,30 @@ This need led me to develop this simple yet effective library which can fast-tra
 
 The API is developed using Spring DI container, Spring JPA and a few utility libraries. The code is available as open source for anybody to customize as per needs with the base framework available. There is not much of a learning curve as it uses libraries that almost all JAVA developers are used to.
 
+**Feature List**
+
+- Password encryption with configurable SALT and PEPPER.
+- User Credentials Encryption is configurable supporting the below algorithms
+    - MD2
+    - MD5
+    - SHA 1
+    - SHA 224
+    - SHA 256
+    - SHA 384
+    - SHA 512
+    - SHA 512 224
+    - SHA 512 256
+    - SHA3 256
+    - SHA3 384
+    - SHA3 512
+- Configurable Change logs for any and every change that is made on the data. Helps with better auditing.
+- Hierarchial usergroups.
+- Easy integration with Spring Security. The API provides custom UserDetailsService and PasswordEncoder.
+- Simple Flat Data Structure for ease of customization and easy of portability.
+- Bulk import operations supported with CSV.
+- Reporting of the changelog for auditing purposes.
+-
+
 **Getting Started with this API is very easy**
 ```
 import com.accesscontrol.services
