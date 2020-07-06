@@ -5,6 +5,8 @@ This need led me to develop this simple yet effective library which can fast-tra
 
 The API is developed using Spring DI container, Spring JPA and a few utility libraries. The code is available as open source for anybody to customize as per needs with the base framework available. There is not much of a learning curve as it uses libraries that almost all JAVA developers are used to.
 
+Extensive code coverage provided with 200+ unit tests.
+
 **Feature List**
 
 - Password encryption with configurable SALT and PEPPER.
@@ -25,9 +27,9 @@ The API is developed using Spring DI container, Spring JPA and a few utility lib
 - Hierarchial usergroups.
 - Easy integration with Spring Security. The API provides custom UserDetailsService and PasswordEncoder.
 - Simple Flat Data Structure for ease of customization and easy of portability.
-- Bulk import operations supported with CSV.
-- Reporting of the changelog for auditing purposes.
--
+- Bulk import & export operations supported for all data models with CSV format.
+- Reporting of the changelog for auditing purposes CSV and PDF formats supported.
+
 
 **Getting Started with this API is very easy**
 ```
@@ -77,7 +79,7 @@ userService.createUserGroup(userGroup,ctx)
 
 ```
 
-This API is thoroughly tested and you can find the JUnit test cases in the project.
+
 
 For more help on using the API explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
 
