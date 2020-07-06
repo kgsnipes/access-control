@@ -14,7 +14,7 @@ AccessControlService accessControlService=new DefaultAccessControlService();
 UserService userService= accessControlService.getUserService();
 
 //set the CRUD Context
-AccessControlContext ctx=new AccessControlContext("system-user",null);
+AccessControlContext ctx=new AccessControlContext("system-user","system running tests");
 
 //Create a user model
 User user=new User();
