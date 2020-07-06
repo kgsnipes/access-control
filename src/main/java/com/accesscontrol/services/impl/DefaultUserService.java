@@ -182,7 +182,7 @@ public class DefaultUserService implements UserService {
             user.setEnabled(false);
             User savedUser=userRepository.save(user);
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
-
+            log.debug("disabled the user with Id :"+userId);
         }
 
     }
@@ -192,12 +192,14 @@ public class DefaultUserService implements UserService {
     public void enableUser(String userId, AccessControlContext ctx) {
         if(StringUtils.isEmpty(userId))
         {
+            log.error("UserId cannot be null or empty");
             throw new IllegalArgumentException("UserId cannot be null or empty");
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
+            log.error("No such user available");
             throw new UserNotFoundException("No such user available");
         }
         else
@@ -205,7 +207,7 @@ public class DefaultUserService implements UserService {
             user.setEnabled(true);
             User savedUser=userRepository.save(user);
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
-
+            log.debug("Enabled the user with ID: "+userId);
         }
     }
 
@@ -215,19 +217,21 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userId))
         {
+            log.error("UserId cannot be null or empty");
             throw new IllegalArgumentException("UserId cannot be null or empty");
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
+            log.error("No such user available");
             throw new UserNotFoundException("No such user available");
         }
         else
         {
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,user,null,ctx);
             userRepository.delete(user);
-
+            log.debug("Deleted the user with ID: "+userId);
         }
 
     }
@@ -238,12 +242,14 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userId))
         {
+            log.error("UserId cannot be null or empty");
             throw new IllegalArgumentException("UserId cannot be null or empty");
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
+            log.error("No such user available");
             throw new UserNotFoundException("No such user available");
         }
         else
@@ -257,6 +263,7 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber))
         {
+            log.error("search term cannot be empty or page number cannot be null or less than 1");
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
         }
 
@@ -276,6 +283,7 @@ public class DefaultUserService implements UserService {
         UserGroup savedGroup=null;
         if(Objects.isNull(userGroup))
         {
+            log.error("User group object cannot be null");
             throw new IllegalArgumentException("User group object cannot be null");
         }
 
@@ -284,6 +292,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(violations))
         {
             String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            log.error("Validation failure : "+errorMsg);
             throw new AccessControlException(errorMsg);
         }
         else
@@ -674,7 +683,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getParentUserGroupsForUser(String userId, Integer pageNumber) {
-        if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber) || pageNumber<1)
+        if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber))
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -682,10 +691,10 @@ public class DefaultUserService implements UserService {
         HashSet<UserGroup> groups=new HashSet<UserGroup>();
         User user=getUserById(userId);
         if(Objects.nonNull(user)){
-            Page<User2UserGroupRelation> user2UserGroupRelation=user2UserGroupRelationRepository.findByUserId("userId");
-            if(CollectionUtils.isNotEmpty(user2UserGroupRelation.getContent()))
+            List<User2UserGroupRelation> user2UserGroupRelation=user2UserGroupRelationRepository.findByUserId("userId");
+            if(CollectionUtils.isNotEmpty(user2UserGroupRelation))
             {
-                user2UserGroupRelation.getContent().stream().forEach(rel -> groups.add(getUserGroupByCode(rel.getUserGroupCode())));
+                user2UserGroupRelation.stream().forEach(rel -> groups.add(getUserGroupByCode(rel.getUserGroupCode())));
             }
         }
         try {
@@ -708,9 +717,9 @@ public class DefaultUserService implements UserService {
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
-            Page<UserGroup2UserGroupRelation> immediateGroups=userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
-            if(CollectionUtils.isNotEmpty(immediateGroups.getContent())){
-                immediateGroups.getContent().stream().forEach(ug->{
+            List<UserGroup2UserGroupRelation> immediateGroups=userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
+            if(CollectionUtils.isNotEmpty(immediateGroups)){
+                immediateGroups.stream().forEach(ug->{
                     getParentGroupsForUserGroup(ug.getParentUserGroupId(),groups);
                 });
 
@@ -737,10 +746,10 @@ public class DefaultUserService implements UserService {
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
-            Page<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
-            if(CollectionUtils.isNotEmpty(relations.getContent()))
+            List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
+            if(CollectionUtils.isNotEmpty(relations))
             {
-                relations.getContent().stream().forEach(r->{
+                relations.stream().forEach(r->{
                     groups.add(getUserGroupByCode(r.getParentUserGroupId()));
                 });
             }
@@ -764,10 +773,10 @@ public class DefaultUserService implements UserService {
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
-            Page<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
-            if(CollectionUtils.isNotEmpty(relations.getContent()))
+            List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
+            if(CollectionUtils.isNotEmpty(relations))
             {
-                relations.getContent().stream().forEach(r->{
+                relations.stream().forEach(r->{
                     getChildGroupsForUserGroup(r.getChildUserGroupId(),groups);
                 });
             }
@@ -791,10 +800,10 @@ public class DefaultUserService implements UserService {
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
-            Page<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
-            if(CollectionUtils.isNotEmpty(relations.getContent()))
+            List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
+            if(CollectionUtils.isNotEmpty(relations))
             {
-                relations.getContent().stream().forEach(r->{
+                relations.stream().forEach(r->{
                     groups.add(getUserGroupByCode(r.getChildUserGroupId()));
                 });
             }
@@ -1095,11 +1104,11 @@ public class DefaultUserService implements UserService {
 
     private void getParentGroupsForUserGroup(String userGroupCode,Collection<UserGroup> groups)
     {
-        Page<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
-        if(CollectionUtils.isNotEmpty(relations.getContent()))
+        List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
+        if(CollectionUtils.isNotEmpty(relations))
         {
             groups.add(getUserGroupByCode(userGroupCode));
-            relations.getContent().stream().forEach(r->{
+            relations.stream().forEach(r->{
                 getParentGroupsForUserGroup(r.getParentUserGroupId(),groups);
             });
         }
@@ -1112,11 +1121,11 @@ public class DefaultUserService implements UserService {
 
     private void getChildGroupsForUserGroup(String userGroupCode,Collection<UserGroup> groups)
     {
-        Page<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
-        if(CollectionUtils.isNotEmpty(relations.getContent()))
+        List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
+        if(CollectionUtils.isNotEmpty(relations))
         {
             groups.add(getUserGroupByCode(userGroupCode));
-            relations.getContent().stream().forEach(r->{
+            relations.stream().forEach(r->{
                 getChildGroupsForUserGroup(r.getChildUserGroupId(),groups);
             });
         }

@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
+import org.springframework.data.domain.PageRequest;
 
 import java.io.FileReader;
 import java.io.InputStreamReader;
@@ -28,7 +29,7 @@ public class UserServiceTest {
 
     static UserService userService;
 
-    AccessControlContext ctx=new AccessControlContext("system-user",null);
+    AccessControlContext ctx=new AccessControlContext("system-user","system running test cases");
 
     @BeforeAll
     public static void setup() throws AccessControlException {
@@ -784,7 +785,7 @@ public class UserServiceTest {
         });
 
         Assertions.assertNotNull(result.getErrors());
-        Assertions.assertNotNull(result.getErrors().get(0));
+        Assertions.assertNotNull(result.getErrors().iterator().next());
 
     }
 
@@ -830,5 +831,63 @@ public class UserServiceTest {
 
     }
 
+    @Order(61)
+    @Test
+    public void deleteUserGroupTest()
+    {
+        UserGroup userGroup=new UserGroup();
+        userGroup.setCode("fordeletion");
+        userGroup.setName("fordeletion");
+        userGroup.setEnabled(true);
+        userService.createUserGroup(userGroup,ctx);
+        Assertions.assertNotNull(userService.getUserGroupByCode("fordeletion"));
+        userService.deleteUserGroup("fordeletion",ctx);
+        Assertions.assertThrows(UserGroupNotFoundException.class,()->{
+            userService.getUserGroupByCode("fordeletion");
+        });
+    }
+
+    @Order(62)
+    @Test
+    public void deleteUserGroupTestWithNullUserGroup()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.deleteUserGroup(null,ctx);
+        });
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.deleteUserGroup(null,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.deleteUserGroup("",ctx);
+        });
+
+        Assertions.assertThrows(UserGroupNotFoundException.class,()->{
+            userService.deleteUserGroup("thisisnotintheDB",ctx);
+        });
+    }
+
+    @Order(63)
+    @Test
+    public void addUserToUserGroupTest()
+    {
+        User user=new User();
+        user.setEnabled(true);
+        user.setUserId("usertoaddtogroup");
+        user.setFirstName("user");
+        user.setLastName("addtogroup");
+        user.setPassword("123456");
+        userService.createUser(user,ctx);
+        UserGroup userGroup=new UserGroup();
+        userGroup.setCode("foraddinguser");
+        userGroup.setName("foraddinguser");
+        userGroup.setEnabled(true);
+        userService.createUserGroup(userGroup,ctx);
+
+        userService.addUserToUserGroup("usertoaddtogroup","foraddinguser",ctx);
+        PageResult<UserGroup> userGroups=userService.getAllUserGroupsForUser("usertoaddtogroup",1);
+        userGroups.getResults().stream().forEach(userGroup1 -> log.info(userGroup1.getCode()));
+        Assertions.assertTrue(userGroups.getResults().stream().filter(ug->ug.getCode().equals("foraddinguser")).findAny().isPresent());
+    }
 
 }
