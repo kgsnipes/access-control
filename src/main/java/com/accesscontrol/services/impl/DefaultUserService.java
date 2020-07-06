@@ -74,7 +74,7 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private AccessPermissionRepository accessPermissionRepository;
-    
+
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
     private Properties accessControlConfigProperties;
@@ -611,7 +611,7 @@ public class DefaultUserService implements UserService {
         HashSet<UserGroup> groups=new HashSet<UserGroup>();
         User user=getUserById(userId);
         if(Objects.nonNull(user)){
-            List<User2UserGroupRelation> user2UserGroupRelation=user2UserGroupRelationRepository.findByUserId("userId");
+            List<User2UserGroupRelation> user2UserGroupRelation=user2UserGroupRelationRepository.findByUserId(userId);
             if(CollectionUtils.isNotEmpty(user2UserGroupRelation))
             {
                 user2UserGroupRelation.stream().forEach(rel -> groups.add(getUserGroupByCode(rel.getUserGroupCode())));
@@ -1025,16 +1025,13 @@ public class DefaultUserService implements UserService {
     private void getParentGroupsForUserGroup(String userGroupCode,Collection<UserGroup> groups)
     {
         List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
+        groups.add(getUserGroupByCode(userGroupCode));
         if(CollectionUtils.isNotEmpty(relations))
         {
-            groups.add(getUserGroupByCode(userGroupCode));
+
             relations.stream().forEach(r->{
                 getParentGroupsForUserGroup(r.getParentUserGroupId(),groups);
             });
-        }
-        else
-        {
-            groups.add(getUserGroupByCode(userGroupCode));
         }
 
     }

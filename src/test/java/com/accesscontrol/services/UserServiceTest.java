@@ -884,10 +884,48 @@ public class UserServiceTest {
         userGroup.setEnabled(true);
         userService.createUserGroup(userGroup,ctx);
 
+        UserGroup userGroup1=new UserGroup();
+        userGroup1.setCode("foraddinguser1");
+        userGroup1.setName("foraddinguser1");
+        userGroup1.setEnabled(true);
+        userService.createUserGroup(userGroup1,ctx);
+
         userService.addUserToUserGroup("usertoaddtogroup","foraddinguser",ctx);
+        userService.addUserToUserGroup("usertoaddtogroup","foraddinguser1",ctx);
         PageResult<UserGroup> userGroups=userService.getAllUserGroupsForUser("usertoaddtogroup",1);
-        userGroups.getResults().stream().forEach(userGroup1 -> log.info(userGroup1.getCode()));
+        userGroups.getResults().stream().forEach(ug -> log.info(ug.getCode()));
         Assertions.assertTrue(userGroups.getResults().stream().filter(ug->ug.getCode().equals("foraddinguser")).findAny().isPresent());
+        Assertions.assertEquals(2,userGroups.getResults().size());
+    }
+
+    @Order(64)
+    @Test
+    public void addUserToUserGroupTestWithUsergroupHierarchy()
+    {
+        User user=new User();
+        user.setEnabled(true);
+        user.setUserId("tesuser1234");
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setPassword("123456");
+        userService.createUser(user,ctx);
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup10","usergroup10",true),ctx);
+        UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup11","usergroup11",true),ctx);
+        UserGroup userGroup12=userService.createUserGroup(new UserGroup("usergroup12","usergroup12",true),ctx);
+        UserGroup userGroup13=userService.createUserGroup(new UserGroup("usergroup13","usergroup13",true),ctx);
+
+        userService.addUserGroupToUserGroup(userGroup11,userGroup10,ctx);
+        userService.addUserGroupToUserGroup(userGroup13,userGroup12,ctx);
+        userService.addUserGroupToUserGroup(userGroup12,userGroup10,ctx);
+
+        userService.addUserToUserGroup("tesuser1234","usergroup13",ctx);
+        userService.addUserToUserGroup("tesuser1234","userGroup11",ctx);
+
+
+        PageResult<UserGroup> userGroups=userService.getAllUserGroupsForUser("tesuser1234",1);
+        userGroups.getResults().stream().forEach(ug -> log.info(ug.getCode()));
+        Assertions.assertEquals(4,userGroups.getResults().size());
     }
 
 }
