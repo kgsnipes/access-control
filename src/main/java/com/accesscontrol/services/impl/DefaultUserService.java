@@ -82,6 +82,7 @@ public class DefaultUserService implements UserService {
         User savedUser=null;
         if(Objects.isNull(user))
         {
+            log.error("The user object is null");
             throw new IllegalArgumentException("User object cannot be null");
         }
 
@@ -90,6 +91,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(violations))
         {
             String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            log.error("Error were found in the input "+errorMsg);
             throw new AccessControlException(errorMsg);
         }
         else
@@ -102,6 +104,7 @@ public class DefaultUserService implements UserService {
             }
             encryptPasswordIfNotEncrypted(user);
             savedUser=userRepository.save(user);
+            log.debug("User Created with ID :"+savedUser.getId());
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,user,savedUser,ctx);
         }
         return savedUser;
@@ -121,7 +124,8 @@ public class DefaultUserService implements UserService {
         User savedUser=null;
         if(Objects.isNull(user) || Objects.isNull(user.getUserId()) || Objects.isNull(user.getId()))
         {
-            throw new IllegalArgumentException("User object cannot be null");
+            log.error("User object cannot be null.");
+            throw new IllegalArgumentException("User object cannot be null.");
         }
 
         Validator validator=validatorFactory.getValidator();
@@ -129,6 +133,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(violations))
         {
             String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
+            log.error("Validation errors found "+errorMsg);
             throw new AccessControlException(errorMsg);
         }
         else
@@ -143,6 +148,7 @@ public class DefaultUserService implements UserService {
                 retrievedUser.setEnabled(user.getEnabled());
                 retrievedUser.setPassword(user.getPassword());
                 savedUser=userRepository.save(retrievedUser);
+                log.debug("Update user with ID "+savedUser.getId());
                 changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
 
             }
@@ -161,12 +167,14 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userId))
         {
+            log.error("UserId cannot be null or empty");
             throw new IllegalArgumentException("UserId cannot be null or empty");
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
+            log.error("User not found with id : "+userId);
             throw new UserNotFoundException("No such user available");
         }
         else
