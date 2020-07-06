@@ -1,5 +1,7 @@
 package com.accesscontrol.models;
 
+import com.opencsv.bean.CsvBindByName;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +15,11 @@ public class AccessPermission {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @CsvBindByName(column = "permission")
     @NotNull(message = "Permission cannot be null")
     private String permission;
 
+    @CsvBindByName(column = "resource")
     @NotNull(message = "Permission cannot be null")
     private String resource;
 

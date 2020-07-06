@@ -1,5 +1,7 @@
 package com.accesscontrol.models;
 
+import com.opencsv.bean.CsvBindByName;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +14,9 @@ public class UserGroup2UserGroupRelation {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @CsvBindByName(column = "parentgroupcode")
     private String parentUserGroupCode;
-
+    @CsvBindByName(column = "usergroupcode")
     private String childUserGroupCode;
 
     public UserGroup2UserGroupRelation() {

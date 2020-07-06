@@ -1,5 +1,6 @@
 package com.accesscontrol.models;
 
+import com.opencsv.bean.CsvBindByName;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,18 +15,23 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @CsvBindByName(column = "firstname")
     @NotNull(message="First name cannot be null")
     private String firstName;
 
+    @CsvBindByName(column = "lastname")
     private String lastName;
 
+    @CsvBindByName(column = "userid")
     @NotNull(message="user id name cannot be null")
     @Column(unique = true)
     private String userId;
 
+    @CsvBindByName(column = "password")
     @NotNull(message="password cannot be null")
     private String password;
 
+    @CsvBindByName(column = "enabled")
     @NotNull(message="enabled flag cannot be null")
     private Boolean enabled;
 
