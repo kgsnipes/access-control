@@ -10,9 +10,11 @@ import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.*;
 import com.accesscontrol.repository.*;
 import com.accesscontrol.services.ChangeLogService;
+import com.accesscontrol.services.DataImportService;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
 import com.accesscontrol.util.AccessControlUtil;
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +35,7 @@ import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.Reader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -71,7 +74,7 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private AccessPermissionRepository accessPermissionRepository;
-
+    
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
     private Properties accessControlConfigProperties;
@@ -458,90 +461,7 @@ public class DefaultUserService implements UserService {
         return new PageResult<UserGroup>(Collections.EMPTY_LIST,pageNumber,0, 0);
     }
 
-    @Override
-    public PageResult<User> importUsers(List<User> users,Boolean updateIfExists, AccessControlContext ctx) {
-        if(CollectionUtils.isEmpty(users) || Objects.isNull(ctx))
-        {
-            throw new IllegalArgumentException("list of users cannot be empty or context cannot be null");
-        }
-        PageResult<User> result=new PageResult<>();
-        result.setErrors(new ArrayList<>());
-        result.setResults(new ArrayList<>());
-        users.stream().forEach(u->{
-            try {
 
-                User existingUser=null;
-                try
-                {
-                    existingUser=this.getUserById(u.getUserId());
-
-                }
-                catch (UserNotFoundException ex)
-                {
-
-                }
-                if(Objects.nonNull(existingUser) && updateIfExists)
-                {
-                    result.getResults().add(saveUser(u, ctx));
-                }
-                else
-                {
-                    result.getResults().add(createUser(u, ctx));
-                }
-
-                result.getErrors().add(null);
-            }
-            catch (Exception e)
-            {
-                log.error("Exception in creating user");
-                result.getResults().add(u);
-                result.getErrors().add(e);
-            }
-        });
-        return result;
-    }
-
-    @Override
-    public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,Boolean updateIfExists, AccessControlContext ctx) {
-        if(CollectionUtils.isEmpty(userGroups) || Objects.isNull(ctx))
-        {
-            throw new IllegalArgumentException("list of user groups cannot be empty or context cannot be null");
-        }
-        PageResult<UserGroup> result=new PageResult<>();
-        result.setErrors(new ArrayList<>());
-        result.setResults(new ArrayList<>());
-        userGroups.stream().forEach(u->{
-            try {
-                UserGroup existingUserGroup=null;
-                try
-                {
-                    existingUserGroup=this.getUserGroupByCode(u.getCode());
-
-                }
-                catch (UserGroupNotFoundException ex)
-                {
-
-                }
-                if(Objects.nonNull(existingUserGroup) && updateIfExists)
-                {
-                    result.getResults().add(saveUserGroup(u, ctx));
-                }
-                else
-                {
-                    result.getResults().add(createUserGroup(u, ctx));
-                }
-
-
-                result.getErrors().add(null);
-            }
-            catch (Exception e)
-            {
-                result.getResults().add(u);
-                result.getErrors().add(e);
-            }
-        });
-        return result;
-    }
 
     @Override
     public void addUserToUserGroup(String userId, String userGroupCode,AccessControlContext ctx) {
@@ -1137,6 +1057,92 @@ public class DefaultUserService implements UserService {
     }
 
 
+
+    @Override
+    public PageResult<User> importUsers(List<User> users,Boolean updateIfExists, AccessControlContext ctx) {
+        if(CollectionUtils.isEmpty(users) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("list of users cannot be empty or context cannot be null");
+        }
+
+        PageResult<User> result=new PageResult<>();
+        result.setErrors(new ArrayList<>());
+        result.setResults(new ArrayList<>());
+        users.stream().forEach(u->{
+            try {
+
+                User existingUser=null;
+                try
+                {
+                    existingUser=getUserById(u.getUserId());
+
+                }
+                catch (UserNotFoundException ex)
+                {
+
+                }
+                if(Objects.nonNull(existingUser) && updateIfExists)
+                {
+                    result.getResults().add(saveUser(u, ctx));
+                }
+                else
+                {
+                    result.getResults().add(createUser(u, ctx));
+                }
+
+                result.getErrors().add(null);
+            }
+            catch (Exception e)
+            {
+                log.error("Exception in creating user");
+                result.getResults().add(u);
+                result.getErrors().add(e);
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,Boolean updateIfExists, AccessControlContext ctx) {
+        if(CollectionUtils.isEmpty(userGroups) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("list of user groups cannot be empty or context cannot be null");
+        }
+        PageResult<UserGroup> result=new PageResult<>();
+        result.setErrors(new ArrayList<>());
+        result.setResults(new ArrayList<>());
+        userGroups.stream().forEach(u->{
+            try {
+                UserGroup existingUserGroup=null;
+                try
+                {
+                    existingUserGroup=getUserGroupByCode(u.getCode());
+
+                }
+                catch (UserGroupNotFoundException ex)
+                {
+
+                }
+                if(Objects.nonNull(existingUserGroup) && updateIfExists)
+                {
+                    result.getResults().add(saveUserGroup(u, ctx));
+                }
+                else
+                {
+                    result.getResults().add(createUserGroup(u, ctx));
+                }
+
+
+                result.getErrors().add(null);
+            }
+            catch (Exception e)
+            {
+                result.getResults().add(u);
+                result.getErrors().add(e);
+            }
+        });
+        return result;
+    }
 
 
 }

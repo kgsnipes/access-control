@@ -2,12 +2,11 @@ package com.accesscontrol.services;
 
 import com.accesscontrol.beans.AccessControlContext;
 import com.accesscontrol.beans.PageResult;
-import com.accesscontrol.models.AccessPermission;
-import com.accesscontrol.models.User;
-import com.accesscontrol.models.UserGroup;
+import com.accesscontrol.models.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.Reader;
 import java.util.List;
 
 public interface UserService {
@@ -39,10 +38,6 @@ public interface UserService {
     PageResult<User> findUsers(String searchTerm, Integer pageNumber);
 
     PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber);
-
-    PageResult<User> importUsers(List<User> users,Boolean updateIfExists,AccessControlContext ctx);
-
-    PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,Boolean updateIfExists,AccessControlContext ctx);
 
     void addUserToUserGroup(String userId, String userGroupCode,AccessControlContext ctx);
 
@@ -87,5 +82,9 @@ public interface UserService {
     UserDetailsService getUserDetailsService();
 
     PasswordEncoder getPasswordEncoder();
+
+    PageResult<User> importUsers(List<User> users, Boolean updateIfExists, AccessControlContext ctx);
+
+    PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, Boolean updateIfExists, AccessControlContext ctx);
 
 }
