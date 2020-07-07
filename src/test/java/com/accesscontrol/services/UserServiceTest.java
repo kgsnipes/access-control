@@ -928,4 +928,66 @@ public class UserServiceTest {
         Assertions.assertEquals(4,userGroups.getResults().size());
     }
 
+    @Order(65)
+    @Test
+    public void addUserToUserGroupTestForIllegalArgumentException()
+    {
+        User user=new User();
+        user.setEnabled(true);
+        user.setUserId("tesuser123456");
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setPassword("123456");
+        userService.createUser(user,ctx);
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup100","usergroup100",true),ctx);
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserToUserGroup("","usergroup100",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserToUserGroup("","",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserToUserGroup("tesuser123456","usergroup100",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserToUserGroup("tesuser123456",null,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserToUserGroup(null,"usergroup100",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserToUserGroup("","",null);
+        });
+
+    }
+
+    @Order(66)
+    @Test
+    public void addUserToUserGroupTestWithSameUserAddedToSameGroup()
+    {
+        User user=new User();
+        user.setEnabled(true);
+        user.setUserId("tesuser1234567");
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setPassword("123456");
+        userService.createUser(user,ctx);
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup1001","usergroup1001",true),ctx);
+
+        userService.addUserToUserGroup("tesuser1234567","usergroup1001",ctx);
+        userService.addUserToUserGroup("tesuser1234567","usergroup1001",ctx);
+        PageResult<UserGroup> userGroups=userService.getAllUserGroupsForUser("tesuser1234567",1);
+        userGroups.getResults().stream().forEach(ug -> log.info(ug.getCode()));
+        Assertions.assertEquals(1,userGroups.getResults().size());
+
+    }
+
 }
