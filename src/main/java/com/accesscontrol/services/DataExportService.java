@@ -1,16 +1,10 @@
 package com.accesscontrol.services;
 
-import com.accesscontrol.beans.PageResult;
-import com.accesscontrol.models.User;
-import org.apache.commons.io.IOUtils;
 
-import java.nio.file.Path;
-import java.util.Date;
+import java.io.Writer;
 
-public interface DataExportService {
 
-    PageResult<User> exportUserData(Date fromDate, Date toDate, Integer pageNumber, Integer pageLimit);
+public interface DataExportService<T> {
 
-    void exportUserDataToFile(Path path, Date fromDate, Date toDate, Integer pageNumber, Integer pageLimit);
-
+    void process(Writer writer, Integer pageNumber, Integer pageLimit);
 }

@@ -365,10 +365,10 @@ public class UserServiceTest {
 
     @Order(30)
     @Test
-    public void findUsersWithZeroPageNumber()
+    public void findUsersWithNullPageNumber()
     {
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            userService.findUsers("hello",0);
+            userService.findUsers("hello",null);
         });
     }
 
@@ -815,7 +815,7 @@ public class UserServiceTest {
     {
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<UserGroup> userGroups=userService.findUserGroups("group",0);
+            PageResult<UserGroup> userGroups=userService.findUserGroups("group",-2);
         });
 
     }
@@ -1255,9 +1255,115 @@ public class UserServiceTest {
             PageResult<UserGroup> groups=userService.getParentUserGroupsForUserGroup(null,null);
         });
 
+    }
 
+
+    @Order(76)
+    @Test
+    public void getAllChildUserGroupsForUserGroupScenario1()
+    {
+        userService.createUserGroup(new UserGroup("uugg11220","uugg11220",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg11221","uugg112221",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg11222","uugg1122",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg11223","uugg11223",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg11224","uugg11224",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg11225","uugg11225",true),ctx);
+
+        userService.addUserGroupToUserGroup("uugg11225","uugg11224",ctx);
+        userService.addUserGroupToUserGroup("uugg11224","uugg11223",ctx);
+        userService.addUserGroupToUserGroup("uugg11223","uugg11222",ctx);
+        userService.addUserGroupToUserGroup("uugg11222","uugg11221",ctx);
+        userService.addUserGroupToUserGroup("uugg11221","uugg11220",ctx);
+
+
+        PageResult<UserGroup> groups=userService.getAllChildUserGroupsForUserGroup("uugg11220",1);
+        groups.getResults().stream().forEach(userGroup -> {
+            log.info("User Group  :"+userGroup.getCode());
+        });
+        Assertions.assertEquals(5,groups.getResults().size());
 
 
     }
+
+    @Order(77)
+    @Test
+    public void getAllChildUserGroupsForUserGroupScenario2()
+    {
+        userService.createUserGroup(new UserGroup("uugg112201","uugg11220",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112212","uugg112221",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112223","uugg11222",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112234","uugg11223",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112245","uugg11224",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112256","uugg11225",true),ctx);
+
+        userService.addUserGroupToUserGroup("uugg112256","uugg112245",ctx);
+        userService.addUserGroupToUserGroup("uugg112245","uugg112234",ctx);
+        userService.addUserGroupToUserGroup("uugg112234","uugg112201",ctx);
+
+        userService.addUserGroupToUserGroup("uugg112223","uugg112212",ctx);
+        userService.addUserGroupToUserGroup("uugg112212","uugg112201",ctx);
+
+
+        PageResult<UserGroup> groups=userService.getAllChildUserGroupsForUserGroup("uugg112201",1);
+        groups.getResults().stream().forEach(userGroup -> {
+            log.info("User Group  :"+userGroup.getCode());
+        });
+        Assertions.assertEquals(5,groups.getResults().size());
+
+
+    }
+
+    @Order(78)
+    @Test
+    public void getAllChildUserGroupsForUserGroupWithIllegalArgument()
+    {
+        userService.createUserGroup(new UserGroup("uugg11220i","uugg11220i",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg11221","uugg112221",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg11222","uugg1122",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg11223","uugg11223",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg11224","uugg11224",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg11225","uugg11225",true),ctx);
+//
+//        userService.addUserGroupToUserGroup("uugg11225","uugg11224",ctx);
+//        userService.addUserGroupToUserGroup("uugg11224","uugg11223",ctx);
+//        userService.addUserGroupToUserGroup("uugg11223","uugg11220",ctx);
+//
+//        userService.addUserGroupToUserGroup("uugg11222","uugg11221",ctx);
+//        userService.addUserGroupToUserGroup("uugg11221","uugg11220",ctx);
+
+
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getAllChildUserGroupsForUserGroup("uugg11220i",-2);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getAllChildUserGroupsForUserGroup("",1);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getAllChildUserGroupsForUserGroup("uugg11220i",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getAllChildUserGroupsForUserGroup(null,1);
+        });
+
+    }
+
+    @Order(79)
+    @Test
+    public void addUserGroupToUserGroupWithChildAndParentSameGroup()
+    {
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("u12341","u12341",true),ctx);
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserGroupToUserGroup("u12341","u12341",ctx);
+        });
+
+    }
+
+
 
 }

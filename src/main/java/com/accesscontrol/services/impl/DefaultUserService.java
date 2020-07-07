@@ -264,7 +264,7 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<User> findUsers(String searchTerm, Integer pageNumber) {
 
-        if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<1))
+        if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<-1))
         {
             log.error("search term cannot be empty or page number cannot be null or less than 1");
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
@@ -447,12 +447,12 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber) {
 
-        if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<1))
+        if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<-1))
         {
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
         }
 
-        Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,AccessControlUtil.getPageParameter(userGroupRepository,pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+        Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,AccessControlUtil.getPageParameter(userGroupRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
 
         if(Objects.nonNull(userGroupList))
         {
@@ -520,9 +520,9 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void addUserGroupToUserGroup(String childUserGroupCode, String parentUserGroupCode, AccessControlContext ctx) {
-        if(StringUtils.isEmpty(childUserGroupCode) || StringUtils.isEmpty(parentUserGroupCode) || Objects.isNull(ctx))
+        if(StringUtils.isEmpty(childUserGroupCode) || StringUtils.isEmpty(parentUserGroupCode) || Objects.isNull(ctx) || StringUtils.trimToEmpty(childUserGroupCode).equals(StringUtils.trimToEmpty(parentUserGroupCode)))
         {
-            throw new IllegalArgumentException("usergroup cannot be empty or context is null");
+            throw new IllegalArgumentException("usergroup cannot be empty or context is null or both child and parent are the same");
         }
         addUserGroupToUserGroup(getUserGroupByCode(childUserGroupCode),getUserGroupByCode(parentUserGroupCode),ctx);
     }
@@ -531,9 +531,9 @@ public class DefaultUserService implements UserService {
     @Override
     public void addUserGroupToUserGroup(UserGroup childUserGroup, UserGroup parentUserGroup, AccessControlContext ctx) {
 
-        if(Objects.isNull(childUserGroup) || Objects.isNull(parentUserGroup) || Objects.isNull(ctx))
+        if(Objects.isNull(childUserGroup) || Objects.isNull(parentUserGroup) || Objects.isNull(ctx) || StringUtils.trimToEmpty(childUserGroup.getCode()).equals(StringUtils.trimToEmpty(parentUserGroup.getCode())))
         {
-            throw new IllegalArgumentException("user or usergroup cannot be empty or context is null");
+            throw new IllegalArgumentException("user or usergroup cannot be empty or context is null or both child and parent are the same");
         }
         UserGroup2UserGroupRelation relation=userGroup2UserGroupRelationRepository.findByChildUserGroupCodeAndParentUserGroupCode(childUserGroup.getCode(),parentUserGroup.getCode());
         if(Objects.isNull(relation))
@@ -574,7 +574,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getAllUserGroupsForUser(String userId, Integer pageNumber) {
-        if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber) || pageNumber<1)
+        if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -603,7 +603,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getParentUserGroupsForUser(String userId, Integer pageNumber) {
-        if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -628,7 +628,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getAllUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
-        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -657,7 +657,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getParentUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
-        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -684,7 +684,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getAllChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
-        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -711,7 +711,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup> getChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
-        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -895,7 +895,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode, Boolean onlyEnabled,Integer pageNumber) {
-        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
         }
@@ -936,7 +936,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<AccessPermission> getPermissionsByResourceAndUserGroup(String resource, String userGroupCode, Boolean onlyEnabled,Integer pageNumber) {
-        if(StringUtils.isEmpty(userGroupCode) || StringUtils.isEmpty(resource) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(userGroupCode) || StringUtils.isEmpty(resource) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
             throw new IllegalArgumentException("user id is empty or resource is empty or pagenumber is invalid");
         }
