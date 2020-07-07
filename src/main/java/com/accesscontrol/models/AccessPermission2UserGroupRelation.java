@@ -55,4 +55,19 @@ public class AccessPermission2UserGroupRelation {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId().equals(((AccessPermission2UserGroupRelation)obj).getId());
+    }
+
+    @Override
+    public String toString() {
+        return this.getId().toString();
+    }
 }

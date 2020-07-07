@@ -43,4 +43,19 @@ public class User2UserGroupRelation {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId().equals(((User2UserGroupRelation)obj).getId());
+    }
+
+    @Override
+    public String toString() {
+        return this.getId().toString();
+    }
 }

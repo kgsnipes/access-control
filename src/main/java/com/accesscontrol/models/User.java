@@ -115,4 +115,19 @@ public class User {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getUserId().equals(((User)obj).getUserId());
+    }
+
+    @Override
+    public String toString() {
+        return this.getUserId();
+    }
 }

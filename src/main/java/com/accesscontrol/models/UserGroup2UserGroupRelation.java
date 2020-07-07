@@ -50,4 +50,19 @@ public class UserGroup2UserGroupRelation {
     public void setChildUserGroupId(String childUserGroupId) {
         this.childUserGroupCode = childUserGroupId;
     }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId().equals(((UserGroup2UserGroupRelation)obj).getId());
+    }
+
+    @Override
+    public String toString() {
+        return this.getId().toString();
+    }
 }

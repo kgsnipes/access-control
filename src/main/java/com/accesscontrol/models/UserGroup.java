@@ -93,4 +93,19 @@ public class UserGroup {
         this.updateDateTime = updateDateTime;
     }
 
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getCode().equals(((UserGroup)obj).getCode());
+    }
+
+    @Override
+    public String toString() {
+        return this.getCode();
+    }
+
 }

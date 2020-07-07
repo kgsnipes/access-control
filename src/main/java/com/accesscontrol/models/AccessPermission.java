@@ -47,4 +47,19 @@ public class AccessPermission {
     public void setResource(String resource) {
         this.resource = resource;
     }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getResource().equals(((AccessPermission)obj).getResource());
+    }
+
+    @Override
+    public String toString() {
+        return this.getResource();
+    }
 }
