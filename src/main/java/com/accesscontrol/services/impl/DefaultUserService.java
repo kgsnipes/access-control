@@ -264,7 +264,7 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<User> findUsers(String searchTerm, Integer pageNumber) {
 
-        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<1))
         {
             log.error("search term cannot be empty or page number cannot be null or less than 1");
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
@@ -447,12 +447,12 @@ public class DefaultUserService implements UserService {
     @Override
     public PageResult<UserGroup> findUserGroups(String searchTerm, Integer pageNumber) {
 
-        if(StringUtils.isEmpty(searchTerm) || Objects.isNull(pageNumber))
+        if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<1))
         {
             throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
         }
 
-        Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,AccessControlUtil.getPageParameter(userGroupRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
+        Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,AccessControlUtil.getPageParameter(userGroupRepository,pageNumber-1,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
 
         if(Objects.nonNull(userGroupList))
         {

@@ -1,6 +1,7 @@
 package com.accesscontrol.models;
 
 import com.opencsv.bean.CsvBindByName;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class UserGroup2UserGroupRelation {
+public class UserGroup2UserGroupRelation extends AbstractModel{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -51,18 +52,4 @@ public class UserGroup2UserGroupRelation {
         this.childUserGroupCode = childUserGroupId;
     }
 
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getId().equals(((UserGroup2UserGroupRelation)obj).getId());
-    }
-
-    @Override
-    public String toString() {
-        return this.getId().toString();
-    }
 }

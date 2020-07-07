@@ -1,6 +1,7 @@
 package com.accesscontrol.models;
 
 import com.opencsv.bean.CsvBindByName;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-public class UserGroup {
+public class UserGroup extends AbstractModel{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -93,19 +94,5 @@ public class UserGroup {
         this.updateDateTime = updateDateTime;
     }
 
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getCode().equals(((UserGroup)obj).getCode());
-    }
-
-    @Override
-    public String toString() {
-        return this.getCode();
-    }
 
 }

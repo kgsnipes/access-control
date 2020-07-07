@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class AccessPermission {
+public class AccessPermission extends AbstractModel{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -48,18 +48,4 @@ public class AccessPermission {
         this.resource = resource;
     }
 
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getResource().equals(((AccessPermission)obj).getResource());
-    }
-
-    @Override
-    public String toString() {
-        return this.getResource();
-    }
 }

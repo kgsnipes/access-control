@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-public class User {
+public class User extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -116,18 +116,5 @@ public class User {
         this.enabled = enabled;
     }
 
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        return this.getUserId().equals(((User)obj).getUserId());
-    }
-
-    @Override
-    public String toString() {
-        return this.getUserId();
-    }
 }

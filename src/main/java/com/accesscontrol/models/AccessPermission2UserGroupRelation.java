@@ -1,5 +1,7 @@
 package com.accesscontrol.models;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class AccessPermission2UserGroupRelation {
+public class AccessPermission2UserGroupRelation extends AbstractModel{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -56,18 +58,4 @@ public class AccessPermission2UserGroupRelation {
         this.enabled = enabled;
     }
 
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getId().equals(((AccessPermission2UserGroupRelation)obj).getId());
-    }
-
-    @Override
-    public String toString() {
-        return this.getId().toString();
-    }
 }
