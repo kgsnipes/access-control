@@ -23,6 +23,13 @@ public class AccessPermission extends AbstractModel{
     @NotNull(message = "Permission cannot be null")
     private String resource;
 
+    public AccessPermission() {
+    }
+
+    public AccessPermission(@NotNull(message = "Permission cannot be null") String permission, @NotNull(message = "Permission cannot be null") String resource) {
+        this.permission = permission;
+        this.resource = resource;
+    }
 
     public Long getId() {
         return id;

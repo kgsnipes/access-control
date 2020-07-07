@@ -1,10 +1,12 @@
 package com.accesscontrol.services;
 
 import com.accesscontrol.beans.AccessControlContext;
+import com.accesscontrol.beans.AccessControlPermissions;
 import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
+import com.accesscontrol.models.AccessPermission;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
@@ -1033,7 +1035,7 @@ public class UserServiceTest {
 
     @Order(68)
     @Test
-    public void removeUserFromUserGroup()
+    public void removeUserFromUserGroupTest()
     {
         User user=new User();
         user.setEnabled(true);
@@ -1097,7 +1099,7 @@ public class UserServiceTest {
 
     @Order(70)
     @Test
-    public void addUserGroupToUserGroup()
+    public void addUserGroupToUserGroupTest()
     {
 
         UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup10011234","usergroup10011234",true),ctx);
@@ -1131,7 +1133,7 @@ public class UserServiceTest {
 
     @Order(72)
     @Test
-    public void removeUserGroupFromUserGroup()
+    public void removeUserGroupFromUserGroupTest()
     {
 
         UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup10012341","usergroup10012341",true),ctx);
@@ -1360,6 +1362,139 @@ public class UserServiceTest {
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
             userService.addUserGroupToUserGroup("u12341","u12341",ctx);
+        });
+
+    }
+
+    @Order(80)
+    @Test
+    public void getChildUserGroupsForUserGroupTest()
+    {
+        userService.createUserGroup(new UserGroup("uugg112201a","uugg11220a",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112212a","uugg112221a",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112223a","uugg11222a",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112234a","uugg11223a",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112245a","uugg11224a",true),ctx);
+        userService.createUserGroup(new UserGroup("uugg112256a","uugg11225a",true),ctx);
+
+        userService.addUserGroupToUserGroup("uugg112256a","uugg112245a",ctx);
+        userService.addUserGroupToUserGroup("uugg112245a","uugg112234a",ctx);
+        userService.addUserGroupToUserGroup("uugg112234a","uugg112201a",ctx);
+
+        userService.addUserGroupToUserGroup("uugg112223a","uugg112212a",ctx);
+        userService.addUserGroupToUserGroup("uugg112212a","uugg112201a",ctx);
+
+
+        PageResult<UserGroup> groups=userService.getChildUserGroupsForUserGroup("uugg112201a",1);
+        groups.getResults().stream().forEach(userGroup -> {
+            log.info("User Group  :"+userGroup.getCode());
+        });
+        Assertions.assertEquals(2,groups.getResults().size());
+    }
+
+    @Order(81)
+    @Test
+    public void getChildUserGroupsForUserGroupTestWithIllegalArguments()
+    {
+        userService.createUserGroup(new UserGroup("uugg112201a","uugg11220a",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg112212a","uugg112221a",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg112223a","uugg11222a",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg112234a","uugg11223a",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg112245a","uugg11224a",true),ctx);
+//        userService.createUserGroup(new UserGroup("uugg112256a","uugg11225a",true),ctx);
+//
+//        userService.addUserGroupToUserGroup("uugg112256a","uugg112245a",ctx);
+//        userService.addUserGroupToUserGroup("uugg112245a","uugg112234a",ctx);
+//        userService.addUserGroupToUserGroup("uugg112234a","uugg112201a",ctx);
+//
+//        userService.addUserGroupToUserGroup("uugg112223a","uugg112212a",ctx);
+//        userService.addUserGroupToUserGroup("uugg112212a","uugg112201a",ctx);
+
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getChildUserGroupsForUserGroup("uugg112201a",-2);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getChildUserGroupsForUserGroup("",1);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getChildUserGroupsForUserGroup(null,1);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup> groups=userService.getChildUserGroupsForUserGroup(null,null);
+        });
+
+    }
+
+
+    @Order(82)
+    @Test
+    public void createPermissionTest()
+    {
+        Assertions.assertNotNull(userService.createPermission(new AccessPermission("READ","User"),ctx));
+    }
+
+    @Order(83)
+    @Test
+    public void createPermissionTestWithInvalidINput()
+    {
+        Assertions.assertThrows(AccessControlException.class,()->{
+            userService.createPermission(new AccessPermission(null,null),ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,null);
+        });
+
+        Assertions.assertThrows(AccessControlException.class,()->{
+            userService.createPermission(new AccessPermission(null,null),null);
+        });
+
+    }
+
+    @Order(84)
+    @Test
+    public void createPermissionTestScenario1()
+    {
+        Assertions.assertNotNull(userService.createPermission(new AccessPermission("READ","User"),ctx));
+        Assertions.assertNotNull(userService.createPermission(new AccessPermission("READ","User"),ctx));
+    }
+
+    @Order(85)
+    @Test
+    public void createPermissionTestScenario2()
+    {
+        UserGroup ug=userService.createUserGroup(new UserGroup("auugg112201a","auugg11220a",true),ctx);
+        Assertions.assertNotNull(userService.createPermission(new AccessPermission("READ","User"),ug,ctx));
+
+    }
+
+    @Order(86)
+    @Test
+    public void createPermissionTestWithInvalidInputForUserGroup()
+    {
+        UserGroup ug=userService.createUserGroup(new UserGroup("abuugg112201a","abuugg11220a",true),ctx);
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(new AccessPermission("READ","User"),null,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,null,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,ug,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,null,null);
         });
 
     }

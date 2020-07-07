@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User2UserGroupRelation extends AbstractModel{
@@ -16,10 +17,20 @@ public class User2UserGroupRelation extends AbstractModel{
     private Long id;
 
     @CsvBindByName(column = "usergroupcode")
+    @NotNull(message = "usergroup cannot be null")
     private String userGroupCode;
 
     @CsvBindByName(column = "userid")
+    @NotNull(message = "userid cannot be null")
     private String userId;
+
+    public User2UserGroupRelation() {
+    }
+
+    public User2UserGroupRelation(@NotNull(message = "usergroup cannot be null") String userGroupCode, @NotNull(message = "userid cannot be null") String userId) {
+        this.userGroupCode = userGroupCode;
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;

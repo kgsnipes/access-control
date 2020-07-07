@@ -25,6 +25,14 @@ public class AccessPermission2UserGroupRelation extends AbstractModel{
     @NotNull(message = "Enabled flag cannot be null")
     private Boolean enabled;
 
+    public AccessPermission2UserGroupRelation() {
+    }
+
+    public AccessPermission2UserGroupRelation(@NotNull(message = "accessPermissionId  cannot be null") Long accessPermissionId, @NotNull(message = "userGroupCode cannot be null") String userGroupCode, @NotNull(message = "Enabled flag cannot be null") Boolean enabled) {
+        this.accessPermissionId = accessPermissionId;
+        this.userGroupCode = userGroupCode;
+        this.enabled = enabled;
+    }
 
     public Long getId() {
         return id;
