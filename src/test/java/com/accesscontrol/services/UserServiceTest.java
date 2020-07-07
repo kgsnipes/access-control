@@ -1102,7 +1102,127 @@ public class UserServiceTest {
 
         UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup1001234","usergroup1001234",true),ctx);
         UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup1001235","usergroup1001235",true),ctx);
-        //userService.addUserGroupToUserGroup("usergroup1001234","usergroup1001235",ctx);
+        userService.addUserGroupToUserGroup("usergroup1001234","usergroup1001235",ctx);
+        PageResult<UserGroup> groups=userService.getAllUserGroupsForUserGroup("usergroup1001234",1);
+        groups.getResults().stream().forEach(ug->{
+            log.info("Usergroup "+ug.getCode());
+        });
+        Assertions.assertEquals(1,groups.getResults().size());
+
+    }
+
+    @Order(71)
+    @Test
+    public void addUserGroupToUserGroupWithMultipleParentGroups()
+    {
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup1001234","usergroup1001234",true),ctx);
+        UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup1001235","usergroup1001235",true),ctx);
+        UserGroup userGroup12=userService.createUserGroup(new UserGroup("usergroup1001236","usergroup1001236",true),ctx);
+        userService.addUserGroupToUserGroup("usergroup1001234","usergroup1001235",ctx);
+        userService.addUserGroupToUserGroup("usergroup1001234","usergroup1001236",ctx);
+        PageResult<UserGroup> groups=userService.getAllUserGroupsForUserGroup("usergroup1001234",1);
+        groups.getResults().stream().forEach(ug->{
+            log.info("Usergroup "+ug.getCode());
+        });
+        Assertions.assertEquals(2,groups.getResults().size());
+
+    }
+
+    @Order(72)
+    @Test
+    public void removeUserGroupFromUserGroup()
+    {
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup10012341","usergroup10012341",true),ctx);
+        UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup10012351","usergroup10012351",true),ctx);
+        UserGroup userGroup12=userService.createUserGroup(new UserGroup("usergroup10012361","usergroup10012361",true),ctx);
+        userService.addUserGroupToUserGroup("usergroup10012341","usergroup10012351",ctx);
+        userService.addUserGroupToUserGroup("usergroup10012341","usergroup10012361",ctx);
+        PageResult<UserGroup> groups=userService.getAllUserGroupsForUserGroup("usergroup10012341",1);
+        groups.getResults().stream().forEach(ug->{
+            log.info("Usergroup "+ug.getCode());
+        });
+        Assertions.assertEquals(2,groups.getResults().size());
+        userService.removeUserGroupFromUserGroup("usergroup10012341","usergroup10012351",ctx);
+        groups=userService.getAllUserGroupsForUserGroup("usergroup10012341",1);
+        groups.getResults().stream().forEach(ug->{
+            log.info("Usergroup "+ug.getCode());
+        });
+        Assertions.assertEquals(1,groups.getResults().size());
+
+        userService.removeUserGroupFromUserGroup("usergroup10012341","usergroup10012361",ctx);
+        groups=userService.getAllUserGroupsForUserGroup("usergroup10012341",1);
+
+        Assertions.assertEquals(0,groups.getResults().size());
+
+    }
+
+    @Order(73)
+    @Test
+    public void removeUserGroupFromUserGroupWithIllegalArguments()
+    {
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup10012342","usergroup10012342",true),ctx);
+        UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup10012352","usergroup10012352",true),ctx);
+        UserGroup userGroup12=userService.createUserGroup(new UserGroup("usergroup10012362","usergroup10012362",true),ctx);
+        userService.addUserGroupToUserGroup("usergroup10012342","usergroup10012352",ctx);
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserGroupFromUserGroup("","usergroup10012352",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserGroupFromUserGroup("","",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserGroupFromUserGroup("usergroup10012342","usergroup10012352",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserGroupFromUserGroup("usergroup10012342",null,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserGroupFromUserGroup(null,"usergroup10012352",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserGroupFromUserGroup("","",null);
+        });
+
+    }
+
+    @Order(74)
+    @Test
+    public void getParentUserGroupsForUserGroupTest()
+    {
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup10012343","usergroup10012343",true),ctx);
+        UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup10012353","usergroup10012353",true),ctx);
+        UserGroup userGroup12=userService.createUserGroup(new UserGroup("usergroup10012363","usergroup10012363",true),ctx);
+        userService.addUserGroupToUserGroup("usergroup10012343","usergroup10012353",ctx);
+        userService.addUserGroupToUserGroup("usergroup10012343","usergroup10012363",ctx);
+
+        PageResult<UserGroup> groups=userService.getParentUserGroupsForUserGroup("usergroup10012343",1);
+
+        groups.getResults().stream().forEach(ug->{
+            log.info("Usergroup "+ug.getCode());
+        });
+
+        Assertions.assertEquals(2,groups.getResults().size());
+
+        userService.removeUserGroupFromUserGroup("usergroup10012343","usergroup10012353",ctx);
+        groups=userService.getParentUserGroupsForUserGroup("usergroup10012343",1);
+        groups.getResults().stream().forEach(ug->{
+            log.info("Usergroup "+ug.getCode());
+        });
+        Assertions.assertEquals(1,groups.getResults().size());
+
+        userService.removeUserGroupFromUserGroup("usergroup10012343","usergroup10012363",ctx);
+        groups=userService.getParentUserGroupsForUserGroup("usergroup10012343",1);
+
+        Assertions.assertEquals(0,groups.getResults().size());
 
 
     }
