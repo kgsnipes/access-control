@@ -990,4 +990,121 @@ public class UserServiceTest {
 
     }
 
+    @Order(67)
+    @Test
+    public void removeUserFromUserGroupWithIllegalArguments()
+    {
+        User user=new User();
+        user.setEnabled(true);
+        user.setUserId("tesuser12345678");
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setPassword("123456");
+        userService.createUser(user,ctx);
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup10012","usergroup10012",true),ctx);
+        userService.addUserToUserGroup("tesuser12345678","usergroup10012",ctx);
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserFromUserGroup("","usergroup10012",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserFromUserGroup("","",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserFromUserGroup("tesuser12345678","usergroup10012",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserFromUserGroup("tesuser12345678",null,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserFromUserGroup(null,"usergroup10012",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.removeUserFromUserGroup("","",null);
+        });
+
+    }
+
+    @Order(68)
+    @Test
+    public void removeUserFromUserGroup()
+    {
+        User user=new User();
+        user.setEnabled(true);
+        user.setUserId("tesuser123456789");
+        user.setFirstName("test");
+        user.setLastName("user");
+        user.setPassword("123456");
+        userService.createUser(user,ctx);
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup100123","usergroup100123",true),ctx);
+        userService.addUserToUserGroup("tesuser123456789","usergroup100123",ctx);
+
+        PageResult<UserGroup> userGroups=userService.getAllUserGroupsForUser("tesuser123456789",1);
+        userGroups.getResults().stream().forEach(ug -> log.info(ug.getCode()));
+        Assertions.assertEquals(1,userGroups.getResults().size());
+
+        userService.removeUserFromUserGroup("tesuser123456789","usergroup100123",ctx);
+        userGroups=userService.getAllUserGroupsForUser("tesuser123456789",1);
+        userGroups.getResults().stream().forEach(ug -> log.info(ug.getCode()));
+        Assertions.assertEquals(0,userGroups.getResults().size());
+
+
+    }
+
+
+    @Order(69)
+    @Test
+    public void addUserGroupToUserGroupWithIllegalArgument()
+    {
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup1001234","usergroup1001234",true),ctx);
+        UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup1001235","usergroup1001235",true),ctx);
+        //userService.addUserGroupToUserGroup("usergroup1001234","usergroup1001235",ctx);
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserGroupToUserGroup("","usergroup1001235",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserGroupToUserGroup("","",ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserGroupToUserGroup("usergroup1001234","usergroup1001235",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserGroupToUserGroup("usergroup1001234",null,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserGroupToUserGroup(null,"usergroup1001235",null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.addUserGroupToUserGroup("","",null);
+        });
+
+
+    }
+
+    @Order(70)
+    @Test
+    public void addUserGroupToUserGroup()
+    {
+
+        UserGroup userGroup10=userService.createUserGroup(new UserGroup("usergroup1001234","usergroup1001234",true),ctx);
+        UserGroup userGroup11=userService.createUserGroup(new UserGroup("usergroup1001235","usergroup1001235",true),ctx);
+        //userService.addUserGroupToUserGroup("usergroup1001234","usergroup1001235",ctx);
+
+
+    }
+
 }

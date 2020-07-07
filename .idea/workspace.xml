@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="1036" selection-start-line="1036" selection-end-line="1036" />
+            <state relative-caret-position="21">
+              <caret line="466" column="16" selection-start-line="466" selection-start-column="16" selection-end-line="466" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#25775#25786#0" expanded="true" />
@@ -114,8 +114,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="571">
-              <caret line="965" column="47" selection-start-line="965" selection-start-column="47" selection-end-line="965" selection-end-column="47" />
+            <state relative-caret-position="328">
+              <caret line="1083" column="65" selection-start-line="1083" selection-start-column="65" selection-end-line="1083" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -143,8 +143,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="45" column="32" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="32" />
+            <state relative-caret-position="287">
+              <caret line="49" column="32" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -463,8 +463,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceTest.addUserToUserGroupTestWithSameUserAddedToSameGroup">
-    <configuration name="UserServiceTest.addUserToUserGroupTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserServiceTest.addUserGroupToUserGroupWithIllegalArgument">
+    <configuration name="UserServiceTest.addUserGroupToUserGroupWithIllegalArgument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="access-control" />
       <extension name="coverage">
         <pattern>
@@ -474,7 +474,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
       <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
-      <option name="METHOD_NAME" value="addUserToUserGroupTest" />
+      <option name="METHOD_NAME" value="addUserGroupToUserGroupWithIllegalArgument" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -512,7 +512,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.addUserToUserGroupTestWithUsergroupHierarchy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest.removeUserFromUserGroup" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="access-control" />
       <extension name="coverage">
         <pattern>
@@ -522,13 +522,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
       <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
-      <option name="METHOD_NAME" value="addUserToUserGroupTestWithUsergroupHierarchy" />
+      <option name="METHOD_NAME" value="removeUserFromUserGroup" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.deleteUserGroupTestWithNullUserGroup" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest.removeUserFromUserGroupWithIllegalArguments" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="access-control" />
       <extension name="coverage">
         <pattern>
@@ -538,7 +538,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
       <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
-      <option name="METHOD_NAME" value="deleteUserGroupTestWithNullUserGroup" />
+      <option name="METHOD_NAME" value="removeUserFromUserGroupWithIllegalArguments" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -546,11 +546,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserServiceTest.addUserGroupToUserGroupWithIllegalArgument" />
+        <item itemvalue="JUnit.UserServiceTest.removeUserFromUserGroup" />
+        <item itemvalue="JUnit.UserServiceTest.removeUserFromUserGroupWithIllegalArguments" />
         <item itemvalue="JUnit.UserServiceTest.addUserToUserGroupTestWithSameUserAddedToSameGroup" />
         <item itemvalue="JUnit.UserServiceTest.addUserToUserGroupTestWithEmptyUser" />
-        <item itemvalue="JUnit.UserServiceTest.addUserToUserGroupTestWithUsergroupHierarchy" />
-        <item itemvalue="JUnit.UserServiceTest.addUserToUserGroupTest" />
-        <item itemvalue="JUnit.UserServiceTest.deleteUserGroupTestWithNullUserGroup" />
       </list>
     </recent_temporary>
   </component>
@@ -568,21 +568,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserServiceTest_addUserToUserGroupTest - 2020.07.06 at 19h 35m 18s.xml">
-      <configuration name="UserServiceTest.addUserToUserGroupTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_addUserToUserGroupTest - 2020.07.06 at 19h 38m 14s.xml">
-      <configuration name="UserServiceTest.addUserToUserGroupTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_addUserToUserGroupTestWithUsergroupHierarchy - 2020.07.06 at 19h 49m 22s.xml">
-      <configuration name="UserServiceTest.addUserToUserGroupTestWithUsergroupHierarchy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_addUserToUserGroupTestWithUsergroupHierarchy - 2020.07.06 at 19h 50m 01s.xml">
-      <configuration name="UserServiceTest.addUserToUserGroupTestWithUsergroupHierarchy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_addUserToUserGroupTestWithUsergroupHierarchy - 2020.07.06 at 22h 49m 26s.xml">
-      <configuration name="UserServiceTest.addUserToUserGroupTestWithUsergroupHierarchy" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UserServiceTest_addUserToUserGroupTestWithUsergroupHierarchy - 2020.07.06 at 22h 50m 59s.xml">
       <configuration name="UserServiceTest.addUserToUserGroupTestWithUsergroupHierarchy" configurationId="JUnit" />
     </history-entry>
@@ -598,12 +583,27 @@
     <history-entry file="UserServiceTest_addUserToUserGroupTestWithEmptyUser - 2020.07.06 at 23h 10m 18s.xml">
       <configuration name="UserServiceTest.addUserToUserGroupTestWithEmptyUser" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="UserServiceTest_addUserToUserGroupTestWithEmptyUser - 2020.07.06 at 23h 12m 40s.xml">
+      <configuration name="UserServiceTest.addUserToUserGroupTestWithEmptyUser" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_addUserToUserGroupTestWithSameUserAddedToSameGroup - 2020.07.06 at 23h 15m 30s.xml">
+      <configuration name="UserServiceTest.addUserToUserGroupTestWithSameUserAddedToSameGroup" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_removeUserFromUserGroupWithIllegalArguments - 2020.07.06 at 23h 18m 29s.xml">
+      <configuration name="UserServiceTest.removeUserFromUserGroupWithIllegalArguments" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_removeUserFromUserGroup - 2020.07.06 at 23h 20m 49s.xml">
+      <configuration name="UserServiceTest.removeUserFromUserGroup" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_removeUserFromUserGroup - 2020.07.06 at 23h 21m 31s.xml">
+      <configuration name="UserServiceTest.removeUserFromUserGroup" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="-157" width="1920" height="1007" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5950267" visible="true" weight="0.19222577" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5950267" visible="true" weight="0.19222577" />
       <window_info id="Structure" order="1" sideWeight="0.40497336" side_tool="true" visible="true" weight="0.19222577" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -612,7 +612,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38469946" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.38469946" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.21748634" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -626,7 +626,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.16986156" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.16986156" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
@@ -1007,18 +1007,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="1036" selection-start-line="1036" selection-end-line="1036" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#25775#25786#0" expanded="true" />
-            <element signature="e#27175#27186#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/models/AccessPermission.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
@@ -1045,22 +1033,6 @@
             <element signature="e#1531#1532#0" expanded="true" />
             <element signature="e#1559#1560#0" expanded="true" />
             <element signature="e#1598#1599#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/models/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="131" column="5" lean-forward="true" selection-start-line="118" selection-start-column="4" selection-end-line="131" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2727#2728#0" expanded="true" />
-            <element signature="e#2766#2767#0" expanded="true" />
-            <element signature="e#2821#2822#0" expanded="true" />
-            <element signature="e#2861#2862#0" expanded="true" />
-            <element signature="e#2907#2908#0" expanded="true" />
-            <element signature="e#2946#2947#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1112,10 +1084,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="466" column="16" selection-start-line="466" selection-start-column="16" selection-end-line="466" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#25775#25786#0" expanded="true" />
+            <element signature="e#27175#27186#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="131" column="5" lean-forward="true" selection-start-line="118" selection-start-column="4" selection-end-line="131" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2727#2728#0" expanded="true" />
+            <element signature="e#2766#2767#0" expanded="true" />
+            <element signature="e#2821#2822#0" expanded="true" />
+            <element signature="e#2861#2862#0" expanded="true" />
+            <element signature="e#2907#2908#0" expanded="true" />
+            <element signature="e#2946#2947#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="45" column="32" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="32" />
+        <state relative-caret-position="287">
+          <caret line="49" column="32" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1124,8 +1124,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="965" column="47" selection-start-line="965" selection-start-column="47" selection-end-line="965" selection-end-column="47" />
+        <state relative-caret-position="328">
+          <caret line="1083" column="65" selection-start-line="1083" selection-start-column="65" selection-end-line="1083" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
