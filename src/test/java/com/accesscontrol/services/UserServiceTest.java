@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -595,31 +596,21 @@ public class UserServiceTest {
     {
         InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users.csv"));
 
-        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
-        List<User> userList=new ArrayList<>();
-
-
-        Iterator<String[]> itr=csvReader.iterator();
-        while (itr.hasNext())
+        try
         {
-            String arr[]=itr.next();
-            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
-            {
-                User user=new User();
-                user.setUserId(arr[0]);
-                user.setPassword(arr[1]);
-                user.setFirstName(arr[2]);
-                user.setLastName(arr[3]);
-                user.setEnabled(Boolean.getBoolean(arr[4]));
-                userList.add(user);
-            }
+            PageResult<User> result=userService.importUsers(inputStreamReader,ctx);
+            result.getResults().stream().forEach(user -> {
+                log.info("user id :"+user.getId());
+            });
+            Assertions.assertEquals(28,result.getResults().size());
         }
-        PageResult<User> result=userService.importUsers(userList,ctx);
-        result.getResults().stream().forEach(user -> {
-            log.info("user id :"+user.getId());
-        });
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            log.error("error",ex);
+        }
 
-        Assertions.assertEquals(userList.size(),result.getResults().size());
+
 
     }
 
@@ -629,29 +620,13 @@ public class UserServiceTest {
     {
         InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup.csv"));
 
-        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
-        List<UserGroup> userGroupList=new ArrayList<>();
 
-
-        Iterator<String[]> itr=csvReader.iterator();
-        while (itr.hasNext())
-        {
-            String arr[]=itr.next();
-            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
-            {
-                UserGroup group=new UserGroup();
-                group.setCode(arr[0]);
-                group.setName(arr[1]);
-                group.setEnabled(Boolean.getBoolean(arr[2]));
-                userGroupList.add(group);
-            }
-        }
-        PageResult<UserGroup> result=userService.importUserGroups(userGroupList,ctx);
+        PageResult<UserGroup> result=userService.importUserGroups(inputStreamReader,ctx);
         result.getResults().stream().forEach(ug -> {
             log.info("user group id :"+ug.getId());
         });
 
-        Assertions.assertEquals(userGroupList.size(),result.getResults().size());
+        Assertions.assertEquals(27,result.getResults().size());
 
     }
 
@@ -662,27 +637,9 @@ public class UserServiceTest {
     {
         InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup.csv"));
 
-        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
-        List<UserGroup> userGroupList=new ArrayList<>();
-
-
-        Iterator<String[]> itr=csvReader.iterator();
-        while (itr.hasNext())
-        {
-            String arr[]=itr.next();
-            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
-            {
-                UserGroup group=new UserGroup();
-                group.setCode(arr[0]);
-                group.setName(arr[1]);
-                group.setEnabled(Boolean.getBoolean(arr[2]));
-                userGroupList.add(group);
-            }
-        }
-
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<UserGroup> result=userService.importUserGroups(userGroupList,null);
+            PageResult<UserGroup> result=userService.importUserGroups(inputStreamReader,null);
         });
 
     }
@@ -693,28 +650,9 @@ public class UserServiceTest {
     {
         InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users.csv"));
 
-        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
-        List<User> userList=new ArrayList<>();
-
-
-        Iterator<String[]> itr=csvReader.iterator();
-        while (itr.hasNext())
-        {
-            String arr[]=itr.next();
-            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
-            {
-                User user=new User();
-                user.setUserId(arr[0]);
-                user.setPassword(arr[1]);
-                user.setFirstName(arr[2]);
-                user.setLastName(arr[3]);
-                user.setEnabled(Boolean.getBoolean(arr[4]));
-                userList.add(user);
-            }
-        }
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<User> result=userService.importUsers(userList,null);
+            PageResult<User> result=userService.importUsers(inputStreamReader,null);
 
         });
 
@@ -728,12 +666,12 @@ public class UserServiceTest {
     {
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<User> result=userService.importUsers(null,null);
+            PageResult<User> result=userService.importUsers((Reader) null,null);
 
         });
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<User> result=userService.importUsers(null,ctx);
+            PageResult<User> result=userService.importUsers((Reader) null,ctx);
 
         });
 
@@ -750,7 +688,7 @@ public class UserServiceTest {
         });
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            userService.importUsers(null,ctx);
+            userService.importUsers((Reader) null,ctx);
 
         });
 
@@ -764,26 +702,7 @@ public class UserServiceTest {
     {
         InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users_without_userId.csv"));
 
-        CSVReader csvReader=new CSVReaderBuilder(inputStreamReader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(',').build()).withSkipLines(1).build();
-        List<User> userList=new ArrayList<>();
-
-
-        Iterator<String[]> itr=csvReader.iterator();
-        while (itr.hasNext())
-        {
-            String arr[]=itr.next();
-            if(StringUtils.isNotEmpty(StringUtils.join(arr)))
-            {
-                User user=new User();
-                user.setUserId(arr[0]);
-                user.setPassword(arr[1]);
-                user.setFirstName(arr[2]);
-                user.setLastName(arr[3]);
-                user.setEnabled(Boolean.getBoolean(arr[4]));
-                userList.add(user);
-            }
-        }
-        PageResult<User> result=userService.importUsers(userList,ctx);
+        PageResult<User> result=userService.importUsers(inputStreamReader,ctx);
 
         result.getErrors().stream().forEach(err->{
             log.info(err.getMessage());
@@ -1665,7 +1584,7 @@ public class UserServiceTest {
         AccessPermission permission=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"User"),ctx);
         AccessPermission permission1=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"UserGroup"),ctx);
         AccessPermission permission2=userService.createPermission(new AccessPermission(AccessControlPermissions.EXECUTE,"Projects"),ctx);
-        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission4","groupforenablepermission4",true),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission14","groupforenablepermission14",true),ctx);
         userService.enablePermission(permission,userGroup,ctx);
         userService.enablePermission(permission1,userGroup,ctx);
         userService.enablePermission(permission2,userGroup,ctx);
@@ -1683,7 +1602,7 @@ public class UserServiceTest {
         AccessPermission permission=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"User"),ctx);
         AccessPermission permission1=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"UserGroup"),ctx);
         AccessPermission permission2=userService.createPermission(new AccessPermission(AccessControlPermissions.EXECUTE,"Projects"),ctx);
-        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission4","groupforenablepermission4",true),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission24","groupforenablepermission24",true),ctx);
         userService.enablePermission(permission,userGroup,ctx);
         userService.enablePermission(permission1,userGroup,ctx);
         userService.enablePermission(permission2,userGroup,ctx);
@@ -1695,7 +1614,7 @@ public class UserServiceTest {
     }
 
 
-    @Order(99)
+    @Order(100)
     @Test
     public void getPermissionsByResourceAndUserGroupTest()
     {
@@ -1709,19 +1628,19 @@ public class UserServiceTest {
         userService.enablePermission(permission2,userGroup,ctx);
         userService.enablePermission(permission3,userGroup,ctx);
 
-        Assertions.assertEquals(2,userService.getPermissionsByResourceAndUserGroup("Projects","groupforenablepermission6",true,-1));
+        Assertions.assertEquals(2,userService.getPermissionsByResourceAndUserGroup("Projects","groupforenablepermission6",true,-1).getResults().size());
 
-        Assertions.assertEquals(1,userService.getPermissionsByResourceAndUserGroup("UserGroup","groupforenablepermission6",true,-1));
+        Assertions.assertEquals(1,userService.getPermissionsByResourceAndUserGroup("UserGroup","groupforenablepermission6",true,-1).getResults().size());
 
-        Assertions.assertEquals(1,userService.getPermissionsByResourceAndUserGroup("User","groupforenablepermission6",true,-1));
+        Assertions.assertEquals(1,userService.getPermissionsByResourceAndUserGroup("User","groupforenablepermission6",true,-1).getResults().size());
 
         userService.disablePermission(permission3,userGroup,ctx);
-        Assertions.assertEquals(1,userService.getPermissionsByResourceAndUserGroup("Projects","groupforenablepermission6",true,-1));
-        Assertions.assertEquals(2,userService.getPermissionsByResourceAndUserGroup("Projects","groupforenablepermission6",false,-1));
+        Assertions.assertEquals(1,userService.getPermissionsByResourceAndUserGroup("Projects","groupforenablepermission6",true,-1).getResults().size());
+        Assertions.assertEquals(2,userService.getPermissionsByResourceAndUserGroup("Projects","groupforenablepermission6",false,-1).getResults().size());
 
     }
 
-    @Order(100)
+    @Order(101)
     @Test
     public void disablePermissionTestWithInvalid()
     {
@@ -1753,5 +1672,14 @@ public class UserServiceTest {
 
 
     }
+
+    @Order(101)
+    @Test
+    public void importUserGroupRelationsTest()
+    {
+
+    }
+
+
 
 }

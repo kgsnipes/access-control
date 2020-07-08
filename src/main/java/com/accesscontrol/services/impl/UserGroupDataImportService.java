@@ -73,9 +73,9 @@ public class UserGroupDataImportService implements DataImportService<UserGroup> 
     }
 
     @Override
-    public void process(Reader reader, AccessControlContext ctx) {
+    public PageResult<UserGroup> process(Reader reader, AccessControlContext ctx) {
 
-        CSVReader csvReader=new CSVReaderBuilder(reader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_DELIMITER).charAt(0)).build()).withSkipLines(Integer.getInteger(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_SKIPLINES))).build();
+        CSVReader csvReader=new CSVReaderBuilder(reader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_DELIMITER).charAt(0)).build()).withSkipLines((Integer) accessControlConfigProperties.get(AccessControlConfigConstants.CSV_SKIPLINES)).build();
 
         List<UserGroup> list=new ArrayList<>();
 
@@ -93,6 +93,6 @@ public class UserGroupDataImportService implements DataImportService<UserGroup> 
                 list.add(group);
             }
         }
-        process(list,ctx);
+        return  process(list,ctx);
     }
 }

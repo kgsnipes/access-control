@@ -6,6 +6,7 @@ import com.accesscontrol.models.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.Reader;
 import java.util.List;
 
 public interface UserService {
@@ -93,6 +94,19 @@ public interface UserService {
     PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, AccessControlContext ctx);
 
     PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx);
+
+
+    PageResult<User> importUsers(Reader reader, AccessControlContext ctx);
+
+    PageResult<UserGroup> importUserGroups(Reader reader, AccessControlContext ctx);
+
+    PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(Reader reader, AccessControlContext ctx);
+
+    PageResult<User2UserGroupRelation> importUser2UserGroupRelations(Reader reader, AccessControlContext ctx);
+
+    PageResult<AccessPermission> importAccessPermissions(Reader reader, AccessControlContext ctx);
+
+    PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(Reader reader, AccessControlContext ctx);
 
 
 }

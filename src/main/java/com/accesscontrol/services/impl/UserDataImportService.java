@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Reader;
 import java.util.*;
 
@@ -76,8 +77,8 @@ public class UserDataImportService implements DataImportService<User>{
     }
 
     @Override
-    public void process(Reader reader, AccessControlContext ctx) {
-        CSVReader csvReader=new CSVReaderBuilder(reader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_DELIMITER).charAt(0)).build()).withSkipLines(Integer.getInteger(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_SKIPLINES))).build();
+    public PageResult<User>  process(Reader reader, AccessControlContext ctx) {
+        CSVReader csvReader=new CSVReaderBuilder(reader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_DELIMITER).charAt(0)).build()).withSkipLines((Integer) accessControlConfigProperties.get(AccessControlConfigConstants.CSV_SKIPLINES)).build();
         List<User> userList=new ArrayList<>();
 
 
@@ -96,6 +97,6 @@ public class UserDataImportService implements DataImportService<User>{
                 userList.add(user);
             }
         }
-        process(userList,ctx);
+        return  process(userList,ctx);
     }
 }

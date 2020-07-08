@@ -128,7 +128,8 @@ public class AccessControlConfig {
     @Bean
     UserGroupDataImportService userGroupDataImportService(){return new UserGroupDataImportService();};
 
-
+    @Bean
+    UserGroup2UserGroupRelationDataImportService userGroup2UserGroupRelationDataImportService(){return new UserGroup2UserGroupRelationDataImportService();}
 
 
 }

@@ -10,5 +10,5 @@ public interface DataImportService<T> {
 
     PageResult<T> process(List<T> objects,AccessControlContext ctx);
 
-    void process(Reader reader, AccessControlContext ctx);
+    PageResult<T>  process(Reader reader, AccessControlContext ctx);
 }

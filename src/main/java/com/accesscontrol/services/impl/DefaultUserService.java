@@ -32,6 +32,7 @@ import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.Reader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -72,6 +73,8 @@ public class DefaultUserService implements UserService {
     @Autowired
     private AccessPermissionRepository accessPermissionRepository;
 
+
+
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
     private Properties accessControlConfigProperties;
@@ -82,6 +85,9 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private UserGroupDataImportService userGroupDataImportService;
+
+    @Autowired
+    private UserGroup2UserGroupRelationDataImportService userGroup2UserGroupRelationDataImportService;
 
     @Transactional
     @Override
@@ -1082,46 +1088,8 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(List<UserGroup2UserGroupRelation> relations, AccessControlContext ctx) {
-        if(CollectionUtils.isEmpty(relations) || Objects.isNull(ctx))
-        {
-            throw new IllegalArgumentException("list of relationships cannot be empty or context cannot be null");
-        }
-        PageResult<UserGroup2UserGroupRelation> result=new PageResult<>();
-        result.setErrors(new ArrayList<>());
-        result.setResults(new ArrayList<>());
-        relations.stream().forEach(u->{
-            try {
-                UserGroup existingChildUserGroup=null;
-                UserGroup existingParentUserGroup=null;
 
-                try
-                {
-                    existingChildUserGroup=getUserGroupByCode(u.getChildUserGroupCode());
-                    existingParentUserGroup=getUserGroupByCode(u.getParentUserGroupCode());
-
-                }
-                catch (UserGroupNotFoundException ex)
-                {
-
-                }
-
-                PageResult<UserGroup> existingRelationship=getChildUserGroupsForUserGroup(existingParentUserGroup.getCode(),-1);
-                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(userGroup -> userGroup.getCode().equals(u.getChildUserGroupCode())).findAny().isPresent();
-                if(Objects.nonNull(existingChildUserGroup) && Objects.nonNull(existingParentUserGroup) && relationShipAvailable)
-                {
-                    addUserGroupToUserGroup(existingChildUserGroup,existingParentUserGroup,ctx);
-                    result.getResults().add(u);
-                    result.getErrors().add(null);
-                }
-
-            }
-            catch (Exception e)
-            {
-                result.getResults().add(u);
-                result.getErrors().add(e);
-            }
-        });
-        return result;
+        return userGroup2UserGroupRelationDataImportService.process(relations,ctx);
     }
 
     @Override
@@ -1136,6 +1104,36 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public PageResult<User> importUsers(Reader reader, AccessControlContext ctx) {
+        return userDataImportService.process(reader,ctx);
+    }
+
+    @Override
+    public PageResult<UserGroup> importUserGroups(Reader reader, AccessControlContext ctx) {
+        return userGroupDataImportService.process(reader,ctx);
+    }
+
+    @Override
+    public PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(Reader reader, AccessControlContext ctx) {
+        return userGroup2UserGroupRelationDataImportService.process(reader,ctx);
+    }
+
+    @Override
+    public PageResult<User2UserGroupRelation> importUser2UserGroupRelations(Reader reader, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public PageResult<AccessPermission> importAccessPermissions(Reader reader, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(Reader reader, AccessControlContext ctx) {
         return null;
     }
 

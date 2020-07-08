@@ -77,8 +77,8 @@ public class UserGroup2UserGroupRelationDataImportService implements DataImportS
     }
 
     @Override
-    public void process(Reader reader, AccessControlContext ctx) {
-        CSVReader csvReader=new CSVReaderBuilder(reader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_DELIMITER).charAt(0)).build()).withSkipLines(Integer.getInteger(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_SKIPLINES))).build();
+    public PageResult<UserGroup2UserGroupRelation> process(Reader reader, AccessControlContext ctx) {
+        CSVReader csvReader=new CSVReaderBuilder(reader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_DELIMITER).charAt(0)).build()).withSkipLines((Integer) accessControlConfigProperties.get(AccessControlConfigConstants.CSV_SKIPLINES)).build();
 
         List<UserGroup2UserGroupRelation> list=new ArrayList<>();
 
@@ -95,6 +95,6 @@ public class UserGroup2UserGroupRelationDataImportService implements DataImportS
                 list.add(relation);
             }
         }
-        process(list,ctx);
+        return  process(list,ctx);
     }
 }
