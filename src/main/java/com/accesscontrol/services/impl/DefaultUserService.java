@@ -819,6 +819,10 @@ public class DefaultUserService implements UserService {
                 savedPermission=accessPermissionRepository.save(permission);
                 changeLogService.logChange(savedPermission.getId(),savedPermission.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,permission,savedPermission,ctx);
             }
+            else
+            {
+                savedPermission=existingPermission;
+            }
 
         }
         return savedPermission;

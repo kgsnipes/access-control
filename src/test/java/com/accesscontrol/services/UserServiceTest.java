@@ -1399,7 +1399,7 @@ public class UserServiceTest {
     @Test
     public void getChildUserGroupsForUserGroupTestWithIllegalArguments()
     {
-        userService.createUserGroup(new UserGroup("uugg112201a","uugg11220a",true),ctx);
+        userService.createUserGroup(new UserGroup("zzuugg112201a","zzuugg11220a",true),ctx);
 //        userService.createUserGroup(new UserGroup("uugg112212a","uugg112221a",true),ctx);
 //        userService.createUserGroup(new UserGroup("uugg112223a","uugg11222a",true),ctx);
 //        userService.createUserGroup(new UserGroup("uugg112234a","uugg11223a",true),ctx);
@@ -1415,7 +1415,7 @@ public class UserServiceTest {
 
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
-            PageResult<UserGroup> groups=userService.getChildUserGroupsForUserGroup("uugg112201a",-2);
+            PageResult<UserGroup> groups=userService.getChildUserGroupsForUserGroup("zzuugg112201a",-2);
         });
 
         Assertions.assertThrows(IllegalArgumentException.class,()->{
@@ -1578,6 +1578,8 @@ public class UserServiceTest {
     {
         AccessPermission permission=userService.createPermission(new AccessPermission("READ","User"),ctx);
         UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission","groupforenablepermission",true),ctx);
+        Assertions.assertNotNull(permission);
+        Assertions.assertNotNull(userGroup);
         userService.enablePermission(permission,userGroup,ctx);
         Assertions.assertNotNull(userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1));
         Assertions.assertEquals(1,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
@@ -1608,6 +1610,52 @@ public class UserServiceTest {
 
         });
 
+    }
+
+    @Order(95)
+    @Test
+    public void enablePermissionTestScenario1()
+    {
+        AccessPermission permission=userService.createPermission(new AccessPermission("READ","User"),ctx);
+        AccessPermission permission1=userService.createPermission(new AccessPermission("READ","UserGroup"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission2","groupforenablepermission2",true),ctx);
+        userService.enablePermission(permission,userGroup,ctx);
+
+        Assertions.assertEquals(1,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
+        userService.enablePermission(permission1,userGroup,ctx);
+        Assertions.assertEquals(2,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
+    }
+
+
+    @Order(96)
+    @Test
+    public void disablePermissionTestScenario1()
+    {
+        AccessPermission permission=userService.createPermission(new AccessPermission("READ","User"),ctx);
+        AccessPermission permission1=userService.createPermission(new AccessPermission("READ","UserGroup"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission3","groupforenablepermission3",true),ctx);
+        userService.enablePermission(permission,userGroup,ctx);
+        userService.enablePermission(permission1,userGroup,ctx);
+        Assertions.assertEquals(2,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
+        userService.disablePermission(permission1,userGroup,ctx);
+        Assertions.assertEquals(1,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
+    }
+
+    @Order(97)
+    @Test
+    public void disablePermissionTestScenario2()
+    {
+        AccessPermission permission=userService.createPermission(new AccessPermission("READ","User"),ctx);
+        AccessPermission permission1=userService.createPermission(new AccessPermission("READ","UserGroup"),ctx);
+        AccessPermission permission2=userService.createPermission(new AccessPermission("WRITE","Projects"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission4","groupforenablepermission4",true),ctx);
+        userService.enablePermission(permission,userGroup,ctx);
+        userService.enablePermission(permission1,userGroup,ctx);
+        userService.enablePermission(permission2,userGroup,ctx);
+        Assertions.assertEquals(3,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
+        userService.disablePermission(permission1,userGroup,ctx);
+        userService.disablePermission(permission2,userGroup,ctx);
+        Assertions.assertEquals(1,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
     }
 
 }
