@@ -8,7 +8,6 @@ import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.User2UserGroupRelation;
 import com.accesscontrol.models.UserGroup;
-import com.accesscontrol.models.UserGroup2UserGroupRelation;
 import com.accesscontrol.services.DataImportService;
 import com.accesscontrol.services.UserService;
 import com.opencsv.CSVParserBuilder;

@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Reader;
 import java.util.*;
 
