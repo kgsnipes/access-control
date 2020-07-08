@@ -6,7 +6,6 @@ import com.accesscontrol.models.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.io.Reader;
 import java.util.List;
 
 public interface UserService {
@@ -83,17 +82,17 @@ public interface UserService {
 
     PasswordEncoder getPasswordEncoder();
 
-    PageResult<User> importUsers(List<User> users, Boolean updateIfExists, AccessControlContext ctx);
+    PageResult<User> importUsers(List<User> users, AccessControlContext ctx);
 
-    PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, Boolean updateIfExists, AccessControlContext ctx);
+    PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, AccessControlContext ctx);
 
-    PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(List<UserGroup2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx);
+    PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(List<UserGroup2UserGroupRelation> relations, AccessControlContext ctx);
 
-    PageResult<User2UserGroupRelation> importUser2UserGroupRelations(List<User2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx);
+    PageResult<User2UserGroupRelation> importUser2UserGroupRelations(List<User2UserGroupRelation> relations, AccessControlContext ctx);
 
-    PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, Boolean updateIfExists, AccessControlContext ctx);
+    PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, AccessControlContext ctx);
 
-    PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx);
+    PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx);
 
 
 }

@@ -1,7 +1,6 @@
 package com.accesscontrol.models;
 
 import com.opencsv.bean.CsvBindByName;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

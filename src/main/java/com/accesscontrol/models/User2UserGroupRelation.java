@@ -1,7 +1,6 @@
 package com.accesscontrol.models;
 
 import com.opencsv.bean.CsvBindByName;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

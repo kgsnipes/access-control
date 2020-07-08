@@ -33,6 +33,8 @@ public interface AccessControlConfigConstants {
     String CLASSPATH_CONFIG_FILE="classpath:accesscontrol.properties";
     String CHANGELOG_ENABLED="accesscontrol.changelog.enabled";
     String PAGINATION_PAGELIMIT="accesscontrol.pagination.pagelimit";
+    String CSV_DELIMITER="accesscontrol.csv.delimiter";
+    String CSV_SKIPLINES="accesscontrol.csv.skiplines";
 
     interface HibernateConfiguration
     {

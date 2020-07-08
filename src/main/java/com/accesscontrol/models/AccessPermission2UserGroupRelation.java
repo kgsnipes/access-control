@@ -1,7 +1,5 @@
 package com.accesscontrol.models;
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

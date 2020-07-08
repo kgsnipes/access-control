@@ -2,13 +2,9 @@ package com.accesscontrol.config;
 
 import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.services.ChangeLogService;
-import com.accesscontrol.services.DataImportService;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
-import com.accesscontrol.services.impl.DefaultChangeLogService;
-
-import com.accesscontrol.services.impl.DefaultPasswordEncryptionService;
-import com.accesscontrol.services.impl.DefaultUserService;
+import com.accesscontrol.services.impl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +122,11 @@ public class AccessControlConfig {
     }
 
 
+    @Bean
+    UserDataImportService userDataImportService(){return new UserDataImportService();}
+
+    @Bean
+    UserGroupDataImportService userGroupDataImportService(){return new UserGroupDataImportService();};
 
 
 

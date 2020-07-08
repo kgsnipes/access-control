@@ -10,11 +10,9 @@ import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.*;
 import com.accesscontrol.repository.*;
 import com.accesscontrol.services.ChangeLogService;
-import com.accesscontrol.services.DataImportService;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
 import com.accesscontrol.util.AccessControlUtil;
-import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,13 +27,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.io.Reader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -79,6 +75,13 @@ public class DefaultUserService implements UserService {
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
     private Properties accessControlConfigProperties;
+
+
+    @Autowired
+    private UserDataImportService userDataImportService;
+
+    @Autowired
+    private UserGroupDataImportService userGroupDataImportService;
 
     @Transactional
     @Override
@@ -641,7 +644,7 @@ public class DefaultUserService implements UserService {
             List<UserGroup2UserGroupRelation> immediateGroups=userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
             if(CollectionUtils.isNotEmpty(immediateGroups)){
                 immediateGroups.stream().forEach(ug->{
-                    getParentGroupsForUserGroup(ug.getParentUserGroupId(),groups);
+                    getParentGroupsForUserGroup(ug.getParentUserGroupCode(),groups);
                 });
 
             }
@@ -671,7 +674,7 @@ public class DefaultUserService implements UserService {
             if(CollectionUtils.isNotEmpty(relations))
             {
                 relations.stream().forEach(r->{
-                    groups.add(getUserGroupByCode(r.getParentUserGroupId()));
+                    groups.add(getUserGroupByCode(r.getParentUserGroupCode()));
                 });
             }
         }
@@ -698,7 +701,7 @@ public class DefaultUserService implements UserService {
             if(CollectionUtils.isNotEmpty(relations))
             {
                 relations.stream().forEach(r->{
-                    getChildGroupsForUserGroup(r.getChildUserGroupId(),groups);
+                    getChildGroupsForUserGroup(r.getChildUserGroupCode(),groups);
                 });
             }
         }
@@ -725,7 +728,7 @@ public class DefaultUserService implements UserService {
             if(CollectionUtils.isNotEmpty(relations))
             {
                 relations.stream().forEach(r->{
-                    groups.add(getUserGroupByCode(r.getChildUserGroupId()));
+                    groups.add(getUserGroupByCode(r.getChildUserGroupCode()));
                 });
             }
         }
@@ -1040,7 +1043,7 @@ public class DefaultUserService implements UserService {
         {
 
             relations.stream().forEach(r->{
-                getParentGroupsForUserGroup(r.getParentUserGroupId(),groups);
+                getParentGroupsForUserGroup(r.getParentUserGroupCode(),groups);
             });
         }
 
@@ -1053,7 +1056,7 @@ public class DefaultUserService implements UserService {
         {
             groups.add(getUserGroupByCode(userGroupCode));
             relations.stream().forEach(r->{
-                getChildGroupsForUserGroup(r.getChildUserGroupId(),groups);
+                getChildGroupsForUserGroup(r.getChildUserGroupCode(),groups);
             });
         }
         else
@@ -1066,94 +1069,19 @@ public class DefaultUserService implements UserService {
 
 
     @Override
-    public PageResult<User> importUsers(List<User> users,Boolean updateIfExists, AccessControlContext ctx) {
-        if(CollectionUtils.isEmpty(users) || Objects.isNull(ctx))
-        {
-            throw new IllegalArgumentException("list of users cannot be empty or context cannot be null");
-        }
+    public PageResult<User> importUsers(List<User> users,AccessControlContext ctx) {
 
-        PageResult<User> result=new PageResult<>();
-        result.setErrors(new ArrayList<>());
-        result.setResults(new ArrayList<>());
-        users.stream().forEach(u->{
-            try {
-
-                User existingUser=null;
-                try
-                {
-                    existingUser=getUserById(u.getUserId());
-
-                }
-                catch (UserNotFoundException ex)
-                {
-
-                }
-                if(Objects.nonNull(existingUser) && updateIfExists)
-                {
-                    result.getResults().add(saveUser(u, ctx));
-                }
-                else
-                {
-                    result.getResults().add(createUser(u, ctx));
-                }
-
-                result.getErrors().add(null);
-            }
-            catch (Exception e)
-            {
-                log.error("Exception in creating user");
-                result.getResults().add(u);
-                result.getErrors().add(e);
-            }
-        });
-        return result;
+        return userDataImportService.process(users,ctx);
     }
 
     @Override
-    public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups,Boolean updateIfExists, AccessControlContext ctx) {
-        if(CollectionUtils.isEmpty(userGroups) || Objects.isNull(ctx))
-        {
-            throw new IllegalArgumentException("list of user groups cannot be empty or context cannot be null");
-        }
-        PageResult<UserGroup> result=new PageResult<>();
-        result.setErrors(new ArrayList<>());
-        result.setResults(new ArrayList<>());
-        userGroups.stream().forEach(u->{
-            try {
-                UserGroup existingUserGroup=null;
-                try
-                {
-                    existingUserGroup=getUserGroupByCode(u.getCode());
-
-                }
-                catch (UserGroupNotFoundException ex)
-                {
-
-                }
-                if(Objects.nonNull(existingUserGroup) && updateIfExists)
-                {
-                    result.getResults().add(saveUserGroup(u, ctx));
-                }
-                else
-                {
-                    result.getResults().add(createUserGroup(u, ctx));
-                }
-
-
-                result.getErrors().add(null);
-            }
-            catch (Exception e)
-            {
-                result.getResults().add(u);
-                result.getErrors().add(e);
-            }
-        });
-        return result;
+    public PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, AccessControlContext ctx) {
+        return userGroupDataImportService.process(userGroups,ctx);
     }
 
 
     @Override
-    public PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(List<UserGroup2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx) {
+    public PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(List<UserGroup2UserGroupRelation> relations, AccessControlContext ctx) {
         if(CollectionUtils.isEmpty(relations) || Objects.isNull(ctx))
         {
             throw new IllegalArgumentException("list of relationships cannot be empty or context cannot be null");
@@ -1168,8 +1096,8 @@ public class DefaultUserService implements UserService {
 
                 try
                 {
-                    existingChildUserGroup=getUserGroupByCode(u.getChildUserGroupId());
-                    existingParentUserGroup=getUserGroupByCode(u.getParentUserGroupId());
+                    existingChildUserGroup=getUserGroupByCode(u.getChildUserGroupCode());
+                    existingParentUserGroup=getUserGroupByCode(u.getParentUserGroupCode());
 
                 }
                 catch (UserGroupNotFoundException ex)
@@ -1178,7 +1106,7 @@ public class DefaultUserService implements UserService {
                 }
 
                 PageResult<UserGroup> existingRelationship=getChildUserGroupsForUserGroup(existingParentUserGroup.getCode(),-1);
-                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(userGroup -> userGroup.getCode().equals(u.getChildUserGroupId())).findAny().isPresent();
+                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(userGroup -> userGroup.getCode().equals(u.getChildUserGroupCode())).findAny().isPresent();
                 if(Objects.nonNull(existingChildUserGroup) && Objects.nonNull(existingParentUserGroup) && relationShipAvailable)
                 {
                     addUserGroupToUserGroup(existingChildUserGroup,existingParentUserGroup,ctx);
@@ -1197,17 +1125,17 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public PageResult<User2UserGroupRelation> importUser2UserGroupRelations(List<User2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx) {
+    public PageResult<User2UserGroupRelation> importUser2UserGroupRelations(List<User2UserGroupRelation> relations, AccessControlContext ctx) {
         return null;
     }
 
     @Override
-    public PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, Boolean updateIfExists, AccessControlContext ctx) {
+    public PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, AccessControlContext ctx) {
         return null;
     }
 
     @Override
-    public PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx) {
+    public PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx) {
         return null;
     }
 

@@ -1,7 +1,6 @@
 package com.accesscontrol.models;
 
 import com.opencsv.bean.CsvBindByName;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,20 +35,19 @@ public class UserGroup2UserGroupRelation extends AbstractModel{
         this.id = id;
     }
 
-    public String getParentUserGroupId() {
+    public String getParentUserGroupCode() {
         return parentUserGroupCode;
     }
 
-    public void setParentUserGroupId(String parentUserGroupId) {
-        this.parentUserGroupCode = parentUserGroupId;
+    public void setParentUserGroupCode(String parentUserGroupCode) {
+        this.parentUserGroupCode = parentUserGroupCode;
     }
 
-    public String getChildUserGroupId() {
+    public String getChildUserGroupCode() {
         return childUserGroupCode;
     }
 
-    public void setChildUserGroupId(String childUserGroupId) {
-        this.childUserGroupCode = childUserGroupId;
+    public void setChildUserGroupCode(String childUserGroupCode) {
+        this.childUserGroupCode = childUserGroupCode;
     }
-
 }

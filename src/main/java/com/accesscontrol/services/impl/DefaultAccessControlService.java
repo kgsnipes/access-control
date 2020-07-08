@@ -70,6 +70,8 @@ public class DefaultAccessControlService implements AccessControlService {
                 this.properties.put(AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST,configuration.getString(AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST,"MD5"));
                 this.properties.put(AccessControlConfigConstants.CHANGELOG_ENABLED,configuration.getString(AccessControlConfigConstants.CHANGELOG_ENABLED,"false"));
                 this.properties.put(AccessControlConfigConstants.PAGINATION_PAGELIMIT,configuration.getInt(AccessControlConfigConstants.PAGINATION_PAGELIMIT,100));
+                this.properties.put(AccessControlConfigConstants.CSV_DELIMITER,configuration.getString(AccessControlConfigConstants.CSV_DELIMITER,","));
+                this.properties.put(AccessControlConfigConstants.CSV_SKIPLINES,configuration.getInt(AccessControlConfigConstants.CSV_SKIPLINES,1));
 
                 log.info("Done! Loading the configuration from the properties file from class path");
 
