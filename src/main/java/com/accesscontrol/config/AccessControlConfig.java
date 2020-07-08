@@ -131,5 +131,7 @@ public class AccessControlConfig {
     @Bean
     UserGroup2UserGroupRelationDataImportService userGroup2UserGroupRelationDataImportService(){return new UserGroup2UserGroupRelationDataImportService();}
 
+    @Bean
+    User2UserGroupRelationDataImportService user2UserGroupRelationDataImportService(){return  new User2UserGroupRelationDataImportService();}
 
 }

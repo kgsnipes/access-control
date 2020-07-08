@@ -89,6 +89,9 @@ public class DefaultUserService implements UserService {
     @Autowired
     private UserGroup2UserGroupRelationDataImportService userGroup2UserGroupRelationDataImportService;
 
+    @Autowired
+    private  User2UserGroupRelationDataImportService user2UserGroupRelationDataImportService;
+
     @Transactional
     @Override
     public User createUser(User user, AccessControlContext ctx) {
@@ -1094,7 +1097,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<User2UserGroupRelation> importUser2UserGroupRelations(List<User2UserGroupRelation> relations, AccessControlContext ctx) {
-        return null;
+        return user2UserGroupRelationDataImportService.process(relations,ctx);
     }
 
     @Override
@@ -1124,7 +1127,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<User2UserGroupRelation> importUser2UserGroupRelations(Reader reader, AccessControlContext ctx) {
-        return null;
+        return user2UserGroupRelationDataImportService.process(reader,ctx);
     }
 
     @Override
