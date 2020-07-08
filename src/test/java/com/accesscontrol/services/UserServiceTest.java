@@ -1505,9 +1505,9 @@ public class UserServiceTest {
 
     @Order(87)
     @Test
-    public void savePermissionTestWithInvalidInputForUserGroup()
+    public void createPermissionTestWithInvalidInputForUserGroupWIthINvalidInputs()
     {
-        UserGroup ug=userService.createUserGroup(new UserGroup("abuugg112201a","abuugg11220a",true),ctx);
+        UserGroup ug=userService.createUserGroup(new UserGroup("abcuugg112201a","abcuugg11220a",true),ctx);
         Assertions.assertThrows(IllegalArgumentException.class,()->{
             userService.createPermission(new AccessPermission("READ","User"),null,ctx);
         });
@@ -1570,6 +1570,44 @@ public class UserServiceTest {
         Assertions.assertEquals(user.getUserId(),userService.getUserDetailsService().loadUserByUsername("userisunique").getUsername());
         Assertions.assertEquals(user.getPassword(),userService.getUserDetailsService().loadUserByUsername("userisunique").getPassword());
         Assertions.assertTrue(userService.getUserDetailsService().loadUserByUsername("userisunique").getAuthorities().stream().filter(auth->((GrantedAuthority) auth).getAuthority().contains(ug.getCode())).findAny().isPresent());
+    }
+
+    @Order(93)
+    @Test
+    public void enablePermissionTest()
+    {
+        AccessPermission permission=userService.createPermission(new AccessPermission("READ","User"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission","groupforenablepermission",true),ctx);
+        userService.enablePermission(permission,userGroup,ctx);
+        Assertions.assertNotNull(userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1));
+        Assertions.assertEquals(1,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
+
+    }
+
+    @Order(94)
+    @Test
+    public void enablePermissionTestWithInvalidInputs()
+    {
+        AccessPermission permission=userService.createPermission(new AccessPermission("READ","UserGroup"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission1","groupforenablepermission1",true),ctx);
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enablePermission(permission,userGroup,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enablePermission(permission,null,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enablePermission(null,userGroup,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.enablePermission(null,null,null);
+
+        });
+
     }
 
 }

@@ -780,7 +780,7 @@ public class DefaultUserService implements UserService {
                 if(Objects.isNull(existingRelation))
                 {
                     AccessPermission2UserGroupRelation relation=new AccessPermission2UserGroupRelation();
-                    relation.setAccessPermissionId(savedPermission.getId());
+                    relation.setAccessPermissionId(existingPermission.getId());
                     relation.setUserGroupCode(userGroup.getCode());
                     relation.setEnabled(true);
                     AccessPermission2UserGroupRelation savedRelation=accessPermission2UserGroupRelationRepository.save(relation);
@@ -853,7 +853,12 @@ public class DefaultUserService implements UserService {
             {
                 existingRelation.setEnabled(true);
                 AccessPermission2UserGroupRelation savedRelation=accessPermission2UserGroupRelationRepository.save(existingRelation);
-                changeLogService.logChange(savedRelation.getId(),savedRelation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,existingRelation,savedRelation,ctx);
+                changeLogService.logChange(savedRelation.getId(),savedRelation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,existingRelation,savedRelation,ctx);
+            }
+            else
+            {
+                AccessPermission2UserGroupRelation savedRelation=accessPermission2UserGroupRelationRepository.save(new AccessPermission2UserGroupRelation(permission.getId(),userGroup.getCode(),true));
+                changeLogService.logChange(savedRelation.getId(),savedRelation.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,null,savedRelation,ctx);
             }
         }
 
@@ -1176,7 +1181,7 @@ public class DefaultUserService implements UserService {
                     result.getResults().add(u);
                     result.getErrors().add(null);
                 }
-                
+
             }
             catch (Exception e)
             {

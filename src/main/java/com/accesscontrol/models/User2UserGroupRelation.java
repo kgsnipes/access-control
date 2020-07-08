@@ -27,7 +27,7 @@ public class User2UserGroupRelation extends AbstractModel{
     public User2UserGroupRelation() {
     }
 
-    public User2UserGroupRelation(@NotNull(message = "usergroup cannot be null") String userGroupCode, @NotNull(message = "userid cannot be null") String userId) {
+    public User2UserGroupRelation(String userGroupCode,  String userId) {
         this.userGroupCode = userGroupCode;
         this.userId = userId;
     }

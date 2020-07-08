@@ -26,7 +26,7 @@ public class AccessPermission extends AbstractModel{
     public AccessPermission() {
     }
 
-    public AccessPermission(@NotNull(message = "Permission cannot be null") String permission, @NotNull(message = "Permission cannot be null") String resource) {
+    public AccessPermission( String permission,  String resource) {
         this.permission = permission;
         this.resource = resource;
     }
