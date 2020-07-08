@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 
 public class DefaultUserService implements UserService {
 
+
     private static Logger log= LogManager.getLogger(DefaultUserService.class);
 
     @Autowired
@@ -1141,5 +1142,64 @@ public class DefaultUserService implements UserService {
         return result;
     }
 
+
+    @Override
+    public PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(List<UserGroup2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx) {
+        if(CollectionUtils.isEmpty(relations) || Objects.isNull(ctx))
+        {
+            throw new IllegalArgumentException("list of relationships cannot be empty or context cannot be null");
+        }
+        PageResult<UserGroup2UserGroupRelation> result=new PageResult<>();
+        result.setErrors(new ArrayList<>());
+        result.setResults(new ArrayList<>());
+        relations.stream().forEach(u->{
+            try {
+                UserGroup existingChildUserGroup=null;
+                UserGroup existingParentUserGroup=null;
+
+                try
+                {
+                    existingChildUserGroup=getUserGroupByCode(u.getChildUserGroupId());
+                    existingParentUserGroup=getUserGroupByCode(u.getParentUserGroupId());
+
+                }
+                catch (UserGroupNotFoundException ex)
+                {
+
+                }
+
+                PageResult<UserGroup> existingRelationship=getChildUserGroupsForUserGroup(existingParentUserGroup.getCode(),-1);
+                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(userGroup -> userGroup.getCode().equals(u.getChildUserGroupId())).findAny().isPresent();
+                if(Objects.nonNull(existingChildUserGroup) && Objects.nonNull(existingParentUserGroup) && relationShipAvailable)
+                {
+                    addUserGroupToUserGroup(existingChildUserGroup,existingParentUserGroup,ctx);
+                    result.getResults().add(u);
+                    result.getErrors().add(null);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                result.getResults().add(u);
+                result.getErrors().add(e);
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public PageResult<User2UserGroupRelation> importUser2UserGroupRelations(List<User2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, Boolean updateIfExists, AccessControlContext ctx) {
+        return null;
+    }
+
+    @Override
+    public PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx) {
+        return null;
+    }
 
 }

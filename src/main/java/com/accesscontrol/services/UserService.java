@@ -87,4 +87,13 @@ public interface UserService {
 
     PageResult<UserGroup> importUserGroups(List<UserGroup> userGroups, Boolean updateIfExists, AccessControlContext ctx);
 
+    PageResult<UserGroup2UserGroupRelation> importUserGroupRelations(List<UserGroup2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx);
+
+    PageResult<User2UserGroupRelation> importUser2UserGroupRelations(List<User2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx);
+
+    PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, Boolean updateIfExists, AccessControlContext ctx);
+
+    PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, Boolean updateIfExists, AccessControlContext ctx);
+
+
 }
