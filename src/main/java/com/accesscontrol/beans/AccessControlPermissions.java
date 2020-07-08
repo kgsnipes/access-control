@@ -1,17 +1,11 @@
 package com.accesscontrol.beans;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class AccessControlPermissions {
 
-    private List<String> permissions= Arrays.asList("READ","WRITE","DELETE","EXECUTE");
+    public static final String READ="READ";
+    public static final String WRITE="WRITE";
+    public static final String DELETE="DELETE";
+    public static final String EXECUTE="EXECUTE";
 
-    public List<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<String> permissions) {
-        this.permissions = permissions;
-    }
 }
