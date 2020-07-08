@@ -134,4 +134,14 @@ public class AccessControlConfig {
     @Bean
     User2UserGroupRelationDataImportService user2UserGroupRelationDataImportService(){return  new User2UserGroupRelationDataImportService();}
 
+
+    @Bean
+    AccessPermissionDataImportService accessPermissionDataImportService(){
+        return new AccessPermissionDataImportService();
+    }
+
+    @Bean
+    AccessPermission2UserGroupRelationDataImportService accessPermission2UserGroupRelationDataImportService(){
+        return new AccessPermission2UserGroupRelationDataImportService();
+    }
 }

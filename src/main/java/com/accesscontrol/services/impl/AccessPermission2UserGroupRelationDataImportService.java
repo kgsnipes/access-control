@@ -5,16 +5,15 @@ import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.constants.AccessControlConfigConstants;
 import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
-import com.accesscontrol.models.User;
-import com.accesscontrol.models.User2UserGroupRelation;
-import com.accesscontrol.models.UserGroup;
-import com.accesscontrol.models.UserGroup2UserGroupRelation;
+import com.accesscontrol.models.*;
+import com.accesscontrol.repository.AccessPermissionRepository;
 import com.accesscontrol.services.DataImportService;
 import com.accesscontrol.services.UserService;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,11 +23,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import java.io.Reader;
 import java.util.*;
 
-public class User2UserGroupRelationDataImportService implements DataImportService<User2UserGroupRelation> {
+public class AccessPermission2UserGroupRelationDataImportService implements DataImportService<AccessPermission2UserGroupRelation> {
 
-    private static Logger log= LogManager.getLogger(User2UserGroupRelationDataImportService.class);
+    private static Logger log= LogManager.getLogger(AccessPermission2UserGroupRelationDataImportService.class);
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AccessPermissionRepository accessPermissionRepository;
 
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
@@ -36,35 +38,38 @@ public class User2UserGroupRelationDataImportService implements DataImportServic
 
 
     @Override
-    public PageResult<User2UserGroupRelation> process(List<User2UserGroupRelation> relations, AccessControlContext ctx) {
+    public PageResult<AccessPermission2UserGroupRelation> process(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx) {
         if(CollectionUtils.isEmpty(relations) || Objects.isNull(ctx))
         {
             throw new IllegalArgumentException("list of relationships cannot be empty or context cannot be null");
         }
-        PageResult<User2UserGroupRelation> result=new PageResult<>();
+        PageResult<AccessPermission2UserGroupRelation> result=new PageResult<>();
         result.setErrors(new ArrayList<>());
         result.setResults(new ArrayList<>());
         relations.stream().forEach(u->{
             try {
-                User existingUser=null;
-                UserGroup existingParentUserGroup=null;
+                AccessPermission existingAccessPermission=null;
+                UserGroup existingUserGroup=null;
 
                 try
                 {
-                    existingUser=userService.getUserById(u.getUserId());
-                    existingParentUserGroup=userService.getUserGroupByCode(u.getUserGroupCode());
+                    existingAccessPermission=accessPermissionRepository.findById(u.getAccessPermissionId()).get();
+                    existingUserGroup=userService.getUserGroupByCode(u.getUserGroupCode());
 
                 }
-                catch (UserGroupNotFoundException | UserNotFoundException ex)
+                catch (Exception ex)
                 {
 
                 }
 
-                PageResult<UserGroup> existingRelationship=userService.getParentUserGroupsForUser(existingUser.getUserId(),-1);
-                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(userGroup -> userGroup.getCode().equals(u.getUserGroupCode())).findAny().isPresent();
-                if(Objects.nonNull(existingUser) && Objects.nonNull(existingParentUserGroup) && !relationShipAvailable)
+                PageResult<AccessPermission> existingRelationship=userService.getPermissionsByResourceAndUserGroup(existingAccessPermission.getResource(),existingUserGroup.getCode(),false,-1);
+                AccessPermission finalExistingAccessPermission = existingAccessPermission;
+                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(accessPermission -> accessPermission.getResource().equals(finalExistingAccessPermission.getResource())&& accessPermission.getPermission().equals(finalExistingAccessPermission.getPermission())).findAny().isPresent();
+
+                if(Objects.nonNull(existingAccessPermission) && Objects.nonNull(existingUserGroup) && !relationShipAvailable)
                 {
-                    userService.addUserToUserGroup(existingUser,existingParentUserGroup,ctx);
+
+                    userService.enablePermission(existingAccessPermission,existingUserGroup,ctx);
                     result.getResults().add(u);
                     result.getErrors().add(null);
                 }
@@ -80,10 +85,10 @@ public class User2UserGroupRelationDataImportService implements DataImportServic
     }
 
     @Override
-    public PageResult<User2UserGroupRelation> process(Reader reader, AccessControlContext ctx) {
+    public PageResult<AccessPermission2UserGroupRelation> process(Reader reader, AccessControlContext ctx) {
         CSVReader csvReader=new CSVReaderBuilder(reader).withVerifyReader(true).withCSVParser(new CSVParserBuilder().withSeparator(accessControlConfigProperties.getProperty(AccessControlConfigConstants.CSV_DELIMITER).charAt(0)).build()).withSkipLines((Integer) accessControlConfigProperties.get(AccessControlConfigConstants.CSV_SKIPLINES)).build();
 
-        List<User2UserGroupRelation> list=new ArrayList<>();
+        List<AccessPermission2UserGroupRelation> list=new ArrayList<>();
 
 
         Iterator<String[]> itr=csvReader.iterator();
@@ -92,9 +97,10 @@ public class User2UserGroupRelationDataImportService implements DataImportServic
             String arr[]=itr.next();
             if(StringUtils.isNotEmpty(StringUtils.join(arr)))
             {
-                User2UserGroupRelation relation=new User2UserGroupRelation();
-               relation.setUserId(StringUtils.trimToNull(arr[0]));
+                AccessPermission2UserGroupRelation relation=new AccessPermission2UserGroupRelation();
                 relation.setUserGroupCode(StringUtils.trimToNull(arr[0]));
+                relation.setAccessPermissionId(accessPermissionRepository.findByResourceAndPermission(StringUtils.trimToNull(arr[1]),StringUtils.trimToNull(arr[2])).getId());
+                relation.setEnabled(BooleanUtils.toBoolean(arr[3]));
                 list.add(relation);
             }
         }

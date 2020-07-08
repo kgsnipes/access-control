@@ -93,7 +93,7 @@ public interface UserService {
 
     PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, AccessControlContext ctx);
 
-    PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx);
+    PageResult<AccessPermission2UserGroupRelation> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx);
 
 
     PageResult<User> importUsers(Reader reader, AccessControlContext ctx);
@@ -106,7 +106,7 @@ public interface UserService {
 
     PageResult<AccessPermission> importAccessPermissions(Reader reader, AccessControlContext ctx);
 
-    PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(Reader reader, AccessControlContext ctx);
+    PageResult<AccessPermission2UserGroupRelation> importAccessPermissions2UserGroupRelations(Reader reader, AccessControlContext ctx);
 
 
 }

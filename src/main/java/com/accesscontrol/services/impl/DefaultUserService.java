@@ -92,6 +92,12 @@ public class DefaultUserService implements UserService {
     @Autowired
     private  User2UserGroupRelationDataImportService user2UserGroupRelationDataImportService;
 
+    @Autowired
+    private AccessPermissionDataImportService accessPermissionDataImportService;
+
+    @Autowired
+    private AccessPermission2UserGroupRelationDataImportService accessPermission2UserGroupRelationDataImportService;
+
     @Transactional
     @Override
     public User createUser(User user, AccessControlContext ctx) {
@@ -1102,12 +1108,12 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<AccessPermission> importAccessPermissions(List<AccessPermission> permissions, AccessControlContext ctx) {
-        return null;
+        return accessPermissionDataImportService.process(permissions,ctx);
     }
 
     @Override
-    public PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx) {
-        return null;
+    public PageResult<AccessPermission2UserGroupRelation> importAccessPermissions2UserGroupRelations(List<AccessPermission2UserGroupRelation> relations, AccessControlContext ctx) {
+        return accessPermission2UserGroupRelationDataImportService.process(relations,ctx);
     }
 
     @Override
@@ -1132,12 +1138,12 @@ public class DefaultUserService implements UserService {
 
     @Override
     public PageResult<AccessPermission> importAccessPermissions(Reader reader, AccessControlContext ctx) {
-        return null;
+        return accessPermissionDataImportService.process(reader,ctx);
     }
 
     @Override
-    public PageResult<AccessPermission> importAccessPermissions2UserGroupRelations(Reader reader, AccessControlContext ctx) {
-        return null;
+    public PageResult<AccessPermission2UserGroupRelation> importAccessPermissions2UserGroupRelations(Reader reader, AccessControlContext ctx) {
+        return accessPermission2UserGroupRelationDataImportService.process(reader,ctx);
     }
 
 }
