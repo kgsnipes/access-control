@@ -91,7 +91,7 @@ public class UserGroup2UserGroupRelationDataImportService implements DataImportS
             {
                 UserGroup2UserGroupRelation relation=new UserGroup2UserGroupRelation();
                relation.setChildUserGroupCode(StringUtils.trimToNull(arr[0]));
-                relation.setParentUserGroupCode(StringUtils.trimToNull(arr[0]));
+                relation.setParentUserGroupCode(StringUtils.trimToNull(arr[1]));
                 list.add(relation);
             }
         }

@@ -9,6 +9,7 @@ import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.AccessPermission;
 import com.accesscontrol.models.User;
 import com.accesscontrol.models.UserGroup;
+import com.accesscontrol.models.UserGroup2UserGroupRelation;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.*;
@@ -595,23 +596,11 @@ public class UserServiceTest {
     public void importUsersTest()throws Exception
     {
         InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users.csv"));
-
-        try
-        {
-            PageResult<User> result=userService.importUsers(inputStreamReader,ctx);
-            result.getResults().stream().forEach(user -> {
-                log.info("user id :"+user.getId());
-            });
-            Assertions.assertEquals(28,result.getResults().size());
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            log.error("error",ex);
-        }
-
-
-
+        PageResult<User> result=userService.importUsers(inputStreamReader,ctx);
+        result.getResults().stream().forEach(user -> {
+            log.info("user id :"+user.getId());
+        });
+        Assertions.assertEquals(28,result.getResults().size());
     }
 
     @Order(51)
@@ -1673,11 +1662,21 @@ public class UserServiceTest {
 
     }
 
-    @Order(101)
+    @Order(102)
     @Test
     public void importUserGroupRelationsTest()
     {
-
+        InputStreamReader inputStreamReader1=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup_11.csv"));
+        PageResult<UserGroup> result=userService.importUserGroups(inputStreamReader1,ctx);
+        result.getResults().stream().forEach(ug -> {
+            log.info("user group id :"+ug.getId());
+        });
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup2usergroup.csv"));
+        PageResult<UserGroup2UserGroupRelation> result1=userService.importUserGroupRelations(inputStreamReader,ctx);
+        result1.getResults().stream().forEach(rel -> {
+            log.info("relation id :"+rel.getId());
+        });
+        Assertions.assertEquals(5,result.getResults().size());
     }
 
 
