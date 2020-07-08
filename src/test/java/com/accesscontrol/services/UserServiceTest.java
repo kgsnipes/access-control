@@ -17,6 +17,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.FileReader;
 import java.io.InputStreamReader;
@@ -1500,5 +1503,73 @@ public class UserServiceTest {
     }
 
 
+    @Order(87)
+    @Test
+    public void savePermissionTestWithInvalidInputForUserGroup()
+    {
+        UserGroup ug=userService.createUserGroup(new UserGroup("abuugg112201a","abuugg11220a",true),ctx);
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(new AccessPermission("READ","User"),null,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,null,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,ug,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createPermission(null,null,null);
+        });
+
+    }
+
+
+    @Order(88)
+    @Test
+    public void getPasswordEncodertest() {
+            Assertions.assertNotNull(userService.getPasswordEncoder());
+            Assertions.assertTrue(userService.getPasswordEncoder() instanceof PasswordEncoder);
+    }
+
+    @Order(89)
+    @Test
+    public void getPasswordEncodertest1() {
+
+        Assertions.assertNotNull(userService.getPasswordEncoder().encode("Hello"));
+        Assertions.assertTrue(userService.getPasswordEncoder().encode("Hello").endsWith("__IS_ENCRYPTED__"));
+    }
+
+    @Order(90)
+    @Test
+    public void getPasswordEncodertest2() {
+
+
+        Assertions.assertTrue(userService.getPasswordEncoder().matches("Hello",userService.getPasswordEncoder().encode("Hello")));
+    }
+
+
+    @Order(91)
+    @Test
+    public void getUserDetailsServiceTest() {
+
+        Assertions.assertNotNull(userService.getUserDetailsService());
+        Assertions.assertTrue(userService.getUserDetailsService() instanceof UserDetailsService);
+    }
+
+    @Order(92)
+    @Test
+    public void getUserDetailsServiceTest1() {
+
+        User user=userService.createUser(new User("user first","user last","userisunique","password",true),ctx);
+        UserGroup ug=userService.createUserGroup(new UserGroup("groupforuserdetails","groupforuserdetails",true),ctx);
+        userService.addUserToUserGroup(user.getUserId(),ug.getCode(),ctx);
+        Assertions.assertNotNull(userService.getUserDetailsService().loadUserByUsername("userisunique"));
+        Assertions.assertEquals(user.getUserId(),userService.getUserDetailsService().loadUserByUsername("userisunique").getUsername());
+        Assertions.assertEquals(user.getPassword(),userService.getUserDetailsService().loadUserByUsername("userisunique").getPassword());
+        Assertions.assertTrue(userService.getUserDetailsService().loadUserByUsername("userisunique").getAuthorities().stream().filter(auth->((GrantedAuthority) auth).getAuthority().contains(ug.getCode())).findAny().isPresent());
+    }
 
 }

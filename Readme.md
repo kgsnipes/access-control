@@ -5,7 +5,7 @@ This need led me to develop this simple yet effective library which can fast-tra
 
 The API is developed using Spring DI container, Spring JPA and a few utility libraries. The code is available as open source for anybody to customize as per needs with the base framework available. There is not much of a learning curve as it uses libraries that almost all JAVA developers are used to.
 
-Extensive code coverage provided with 200+ unit tests.
+Extensive code coverage provided with 100+ unit tests.
 
 **Feature List**
 
