@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Reader;
+import java.io.Writer;
 import java.util.List;
 
 public interface UserService {
@@ -110,5 +111,7 @@ public interface UserService {
 
     Boolean isUserAuthorizedForResourceAndPermission(String userId,String resource,String permission);
     Boolean isUserGroupAuthorizedForResourceAndPermission(String userGroupCode,String resource, String permission);
+
+    void exportData(Writer writer,Class dataModelClass,Integer pageNumber,Integer limit);
 
 }

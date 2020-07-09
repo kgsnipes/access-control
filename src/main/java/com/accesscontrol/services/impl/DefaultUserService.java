@@ -13,6 +13,9 @@ import com.accesscontrol.services.ChangeLogService;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
 import com.accesscontrol.util.AccessControlUtil;
+import com.opencsv.bean.HeaderColumnNameMappingStrategy;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,7 +36,9 @@ import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,7 +80,6 @@ public class DefaultUserService implements UserService {
     private AccessPermissionRepository accessPermissionRepository;
 
 
-
     @Autowired
     @Qualifier(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG)
     private Properties accessControlConfigProperties;
@@ -97,6 +102,10 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private AccessPermission2UserGroupRelationDataImportService accessPermission2UserGroupRelationDataImportService;
+
+    @Autowired
+    private ChangeLogRepository changeLogRepository;
+
 
     @Transactional
     @Override
@@ -1191,5 +1200,57 @@ public class DefaultUserService implements UserService {
             throw new AccessControlException("No Such usergroup or permission found");
         }
         return isAuthorized;
+    }
+
+    @Override
+    public void exportData(Writer writer, Class dataModelClass,Integer pageNumber,Integer limit) {
+        if(Objects.isNull(writer) || Objects.isNull(dataModelClass) || Objects.isNull(pageNumber) || Objects.isNull(limit) || limit<-1 || pageNumber<1 )
+        {
+            throw new IllegalArgumentException("Invalid input for export data.");
+        }
+        String className=dataModelClass.getSimpleName();
+        StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+        try{
+            switch (className) {
+                case "User":
+                    beanToCsv.write(userRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userRepository.count() : limit)));
+                    break;
+                case "UserGroup":
+                    beanToCsv.write(userGroupRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroupRepository.count() : limit)));
+                    break;
+                case "User2UserGroupRelation":
+                    beanToCsv.write(user2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) user2UserGroupRelationRepository.count() : limit)));
+                    break;
+                case "UserGroup2UserGroupRelation":
+                    beanToCsv.write(userGroup2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroup2UserGroupRelationRepository.count() : limit)));
+                    break;
+                case "AccessPermission":
+                    beanToCsv.write(accessPermissionRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermissionRepository.count() : limit)));
+                    break;
+                case "AccessPermission2UserGroupRelation":
+                    beanToCsv.write(accessPermission2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermission2UserGroupRelationRepository.count() : limit)));
+                    break;
+                case "ChangeLog":
+                    beanToCsv.write(changeLogRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) changeLogRepository.count() : limit)));
+                    break;
+
+            }
+        }
+        catch (Exception e)
+        {
+            log.error("Error processing export for "+dataModelClass.getSimpleName(),e);
+            throw new AccessControlException("Error processing export for "+dataModelClass.getSimpleName(),e);
+        }
+        finally {
+            if(Objects.nonNull(writer))
+            {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    log.error("Error processing export for "+dataModelClass.getSimpleName(),e);
+                    throw new AccessControlException("Error processing export for "+dataModelClass.getSimpleName(),e);
+                }
+            }
+        }
     }
 }
