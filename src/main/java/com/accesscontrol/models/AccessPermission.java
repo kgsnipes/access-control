@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(indexes = { @Index(name="accessPermissionIndex",columnList ="permission,resource") })
+//@Table(indexes = { @Index(name="accessPermissionIndex",columnList ="permission,resource") })
 public class AccessPermission extends AbstractModel{
 
     @Id
