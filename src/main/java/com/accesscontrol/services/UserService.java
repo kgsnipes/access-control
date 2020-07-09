@@ -108,5 +108,7 @@ public interface UserService {
 
     PageResult<AccessPermission2UserGroupRelation> importAccessPermissions2UserGroupRelations(Reader reader, AccessControlContext ctx);
 
+    Boolean isUserAuthorizedForResourceAndPermission(String userId,String resource,String permission);
+    Boolean isUserGroupAuthorizedForResourceAndPermission(String userGroupCode,String resource, String permission);
 
 }

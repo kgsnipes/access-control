@@ -1146,4 +1146,49 @@ public class DefaultUserService implements UserService {
         return accessPermission2UserGroupRelationDataImportService.process(reader,ctx);
     }
 
+    @Override
+    public Boolean isUserAuthorizedForResourceAndPermission(String userId, String resource, String permission) {
+        boolean isAuthorized=false;
+        if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(resource) || StringUtils.isEmpty(permission))
+        {
+            throw new IllegalArgumentException("userid or resource or permission cannot be null or empty");
+        }
+        User user=getUserById(userId);
+        AccessPermission permission1=accessPermissionRepository.findByResourceAndPermission(resource,permission);
+        PageResult<UserGroup> groups=getAllUserGroupsForUser(user.getUserId(),-1);
+        if(Objects.nonNull(user) && Objects.nonNull(permission1) && CollectionUtils.isNotEmpty(groups.getResults()))
+        {
+
+            List<AccessPermission> permissions=accessPermissionRepository.findPermissionInUserGroupsByResourceAndPermission(permission,resource,groups.getResults().stream().map(group->group.getCode()).collect(Collectors.toList()));
+            isAuthorized=CollectionUtils.isNotEmpty(permissions);
+        }
+        else
+        {
+            throw new AccessControlException("No Such user or permission found");
+        }
+        return isAuthorized;
+    }
+
+    @Override
+    public Boolean isUserGroupAuthorizedForResourceAndPermission(String userGroupCode, String resource, String permission) {
+        boolean isAuthorized=false;
+        if(StringUtils.isEmpty(userGroupCode) || StringUtils.isEmpty(resource) || StringUtils.isEmpty(permission))
+        {
+            throw new IllegalArgumentException("usergroupcode or resource or permission cannot be null or empty");
+        }
+        UserGroup group=getUserGroupByCode(userGroupCode);
+        AccessPermission permission1=accessPermissionRepository.findByResourceAndPermission(resource,permission);
+        PageResult<UserGroup> groups=getAllUserGroupsForUserGroup(group.getCode(),-1);
+        if(Objects.nonNull(group) && Objects.nonNull(permission1) && CollectionUtils.isNotEmpty(groups.getResults()))
+        {
+
+            List<AccessPermission> permissions=accessPermissionRepository.findPermissionInUserGroupsByResourceAndPermission(permission,resource,groups.getResults().stream().map(g->g.getCode()).collect(Collectors.toList()));
+            isAuthorized=CollectionUtils.isNotEmpty(permissions);
+        }
+        else
+        {
+            throw new AccessControlException("No Such usergroup or permission found");
+        }
+        return isAuthorized;
+    }
 }

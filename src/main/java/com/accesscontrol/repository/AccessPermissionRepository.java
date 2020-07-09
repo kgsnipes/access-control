@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AccessPermissionRepository extends JpaRepository<AccessPermission,Long> {
 
@@ -25,4 +27,7 @@ public interface AccessPermissionRepository extends JpaRepository<AccessPermissi
 
     @Query("SELECT ap FROM AccessPermission ap JOIN AccessPermission2UserGroupRelation apug on apug.accessPermissionId=ap.id WHERE apug.userGroupCode= :userGroupCode  and ap.resource=:resource")
     Page<AccessPermission> findPermissionByUserGroupCodeAndResource(@Param("userGroupCode") String userGroupCode,@Param("resource") String resource, Pageable pageable);
+
+    @Query("SELECT ap FROM AccessPermission ap JOIN AccessPermission2UserGroupRelation apug on apug.accessPermissionId=ap.id WHERE ap.permission= :permission  and ap.resource=:resource  and apug.userGroupCode IN (:groups)")
+    List<AccessPermission> findPermissionInUserGroupsByResourceAndPermission(@Param("permission") String permission, @Param("resource") String resource, @Param("groups")List<String> userGroups);
 }
