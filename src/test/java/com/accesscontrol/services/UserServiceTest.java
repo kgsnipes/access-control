@@ -17,6 +17,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.*;
@@ -1793,6 +1795,17 @@ public class UserServiceTest {
         stopWatch.stop();
         log.info("Time taken for the operation to execute :"+stopWatch.getTime(TimeUnit.MILLISECONDS)+"ms");
         Assertions.assertTrue(userService.isUserGroupAuthorizedForResourceAndPermission(userGroup.getCode(),"User",AccessControlPermissions.READ));
+    }
+
+
+    @Order(107)
+    @Test
+    public void exportUserDataTest()
+    {
+        Assertions.assertDoesNotThrow(()->{
+            PageResult<User> result=userService.importUsers(new InputStreamReader(this.getClass().getResourceAsStream("/data/users_13.csv")),ctx);
+            userService.exportData(new FileWriter("/Users/kaushik.ganguly/Documents/DEV/access-control/src/test/resources/export/user_data_export.csv"),User.class,1,-1);
+        });
     }
 
 }

@@ -54,6 +54,7 @@ public class UserDataImportService implements DataImportService<User>{
                 {
 
                 }
+                log.info("Importing User "+u.getUserId());
                 if(Objects.nonNull(existingUser))
                 {
                     result.getResults().add(userService.saveUser(u, ctx));

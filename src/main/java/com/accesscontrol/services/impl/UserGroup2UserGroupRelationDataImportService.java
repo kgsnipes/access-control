@@ -61,6 +61,7 @@ public class UserGroup2UserGroupRelationDataImportService implements DataImportS
                 boolean relationShipAvailable=existingRelationship.getResults().stream().filter(userGroup -> userGroup.getCode().equals(u.getChildUserGroupCode())).findAny().isPresent();
                 if(Objects.nonNull(existingChildUserGroup) && Objects.nonNull(existingParentUserGroup) && !relationShipAvailable)
                 {
+                    log.info("Importing Relation for "+existingChildUserGroup.getCode()+"-"+existingParentUserGroup.getCode());
                     userService.addUserGroupToUserGroup(existingChildUserGroup,existingParentUserGroup,ctx);
                     result.getResults().add(u);
                     result.getErrors().add(null);

@@ -65,7 +65,7 @@ public class AccessPermission2UserGroupRelationDataImportService implements Data
                 PageResult<AccessPermission> existingRelationship=userService.getPermissionsByResourceAndUserGroup(existingAccessPermission.getResource(),existingUserGroup.getCode(),false,-1);
                 AccessPermission finalExistingAccessPermission = existingAccessPermission;
                 boolean relationShipAvailable=existingRelationship.getResults().stream().filter(accessPermission -> accessPermission.getResource().equals(finalExistingAccessPermission.getResource())&& accessPermission.getPermission().equals(finalExistingAccessPermission.getPermission())).findAny().isPresent();
-
+                log.info("Importing Relation for "+u.getUserGroupCode());
                 if(Objects.nonNull(existingAccessPermission) && Objects.nonNull(existingUserGroup) && !relationShipAvailable)
                 {
 

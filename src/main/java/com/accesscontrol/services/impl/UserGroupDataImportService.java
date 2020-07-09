@@ -51,6 +51,7 @@ public class UserGroupDataImportService implements DataImportService<UserGroup> 
                 {
 
                 }
+                log.info("Importing Relation for "+u.getCode());
                 if(Objects.nonNull(existingUserGroup))
                 {
                     result.getResults().add(userService.saveUserGroup(u, ctx));

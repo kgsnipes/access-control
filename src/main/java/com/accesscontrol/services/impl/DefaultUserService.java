@@ -1213,25 +1213,25 @@ public class DefaultUserService implements UserService {
         try{
             switch (className) {
                 case "User":
-                    beanToCsv.write(userRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userRepository.count() : limit)));
+                    beanToCsv.write(userRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userRepository.count() : limit)).getContent());
                     break;
                 case "UserGroup":
-                    beanToCsv.write(userGroupRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroupRepository.count() : limit)));
+                    beanToCsv.write(userGroupRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroupRepository.count() : limit)).getContent());
                     break;
                 case "User2UserGroupRelation":
-                    beanToCsv.write(user2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) user2UserGroupRelationRepository.count() : limit)));
+                    beanToCsv.write(user2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) user2UserGroupRelationRepository.count() : limit)).getContent());
                     break;
                 case "UserGroup2UserGroupRelation":
-                    beanToCsv.write(userGroup2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroup2UserGroupRelationRepository.count() : limit)));
+                    beanToCsv.write(userGroup2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroup2UserGroupRelationRepository.count() : limit)).getContent());
                     break;
                 case "AccessPermission":
-                    beanToCsv.write(accessPermissionRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermissionRepository.count() : limit)));
+                    beanToCsv.write(accessPermissionRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermissionRepository.count() : limit)).getContent());
                     break;
                 case "AccessPermission2UserGroupRelation":
-                    beanToCsv.write(accessPermission2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermission2UserGroupRelationRepository.count() : limit)));
+                    beanToCsv.write(accessPermission2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermission2UserGroupRelationRepository.count() : limit)).getContent());
                     break;
                 case "ChangeLog":
-                    beanToCsv.write(changeLogRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) changeLogRepository.count() : limit)));
+                    beanToCsv.write(changeLogRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) changeLogRepository.count() : limit)).getContent());
                     break;
 
             }
