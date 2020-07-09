@@ -6,23 +6,16 @@ import com.accesscontrol.beans.PageResult;
 import com.accesscontrol.exception.AccessControlException;
 import com.accesscontrol.exception.UserGroupNotFoundException;
 import com.accesscontrol.exception.UserNotFoundException;
-import com.accesscontrol.models.AccessPermission;
-import com.accesscontrol.models.User;
-import com.accesscontrol.models.UserGroup;
-import com.accesscontrol.models.UserGroup2UserGroupRelation;
+import com.accesscontrol.models.*;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opencsv.*;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.*;
@@ -1676,9 +1669,74 @@ public class UserServiceTest {
         result1.getResults().stream().forEach(rel -> {
             log.info("relation id :"+rel.getId());
         });
-        Assertions.assertEquals(5,result.getResults().size());
+        Assertions.assertEquals(4,result.getResults().size());
     }
 
+
+    @Order(103)
+    @Test
+    public void importUser2UserGroupRelationstest()
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/users_12.csv"));
+        PageResult<User> result=userService.importUsers(inputStreamReader,ctx);
+        result.getResults().stream().forEach(u -> {
+            log.info("user group id :"+u.getUserId());
+        });
+        Assertions.assertEquals(4,result.getResults().size());
+
+        InputStreamReader inputStreamReader1=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup_12.csv"));
+        PageResult<UserGroup> result1=userService.importUserGroups(inputStreamReader1,ctx);
+        result1.getResults().stream().forEach(ug -> {
+            log.info("user group id :"+ug.getCode());
+        });
+        Assertions.assertEquals(5,result1.getResults().size());
+
+        InputStreamReader inputStreamReader2=new InputStreamReader(this.getClass().getResourceAsStream("/data/user2usergroup.csv"));
+        PageResult<User2UserGroupRelation> result2=userService.importUser2UserGroupRelations(inputStreamReader2,ctx);
+        result2.getResults().stream().forEach(ug -> {
+            log.info("user group id :"+ug.getUserGroupCode());
+        });
+
+        Assertions.assertEquals(4,result2.getResults().size());
+    }
+
+
+
+    @Order(104)
+    @Test
+    public void importUserGroupRelationsTestWithInvalidInput()
+    {
+        InputStreamReader inputStreamReader1=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup_13.csv"));
+        PageResult<UserGroup> result=userService.importUserGroups(inputStreamReader1,ctx);
+        result.getResults().stream().forEach(ug -> {
+            log.info("user group id :"+ug.getId());
+        });
+
+        Assertions.assertEquals(5,result.getResults().size());
+
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/usergroup2usergroup_13.csv"));
+//        PageResult<UserGroup2UserGroupRelation> result1=userService.importUserGroupRelations(inputStreamReader,ctx);
+//        result1.getResults().stream().forEach(rel -> {
+//            log.info("relation id :"+rel.getId());
+//        });
+//        Assertions.assertEquals(4,result.getResults().size());
+
+//        Assertions.assertThrows(IllegalArgumentException.class,()->{
+//            PageResult<UserGroup2UserGroupRelation> result1=userService.importUserGroupRelations(inputStreamReader,ctx);
+//        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup2UserGroupRelation> result1=userService.importUserGroupRelations(inputStreamReader,null);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup2UserGroupRelation> result1=userService.importUserGroupRelations((Reader) null,ctx);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            PageResult<UserGroup2UserGroupRelation> result1=userService.importUserGroupRelations((Reader) null,null);
+        });
+    }
 
 
 }

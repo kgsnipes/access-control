@@ -1,6 +1,5 @@
 package com.accesscontrol.models;
 
-import com.opencsv.bean.CsvBindByName;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,15 +17,15 @@ public class UserGroup extends AbstractModel{
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @CsvBindByName(column = "code")
+
     @NotNull(message = "Code cannot be empty")
     private String code;
 
-    @CsvBindByName(column = "name")
+
     @NotNull(message = "Name cannot be empty")
     private String name;
 
-    @CsvBindByName(column = "enabled")
+
     @NotNull(message = "Enabled flag cannot be null")
     private Boolean enabled;
 

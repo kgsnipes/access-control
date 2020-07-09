@@ -1,0 +1,5 @@
+userId,password,firstname,lastname,enabled
+1_testuser1001@test.com,123456,test,user1001,true
+1_testuser1002@test.com,123456,test,user1002,true
+1_testuser1003@test.com,123456,test,user1003,true
+1_testuser1030@test.com,123456,test,user1030,true

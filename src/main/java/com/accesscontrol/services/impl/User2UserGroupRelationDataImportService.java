@@ -93,7 +93,7 @@ public class User2UserGroupRelationDataImportService implements DataImportServic
             {
                 User2UserGroupRelation relation=new User2UserGroupRelation();
                relation.setUserId(StringUtils.trimToNull(arr[0]));
-                relation.setUserGroupCode(StringUtils.trimToNull(arr[0]));
+                relation.setUserGroupCode(StringUtils.trimToNull(arr[1]));
                 list.add(relation);
             }
         }
