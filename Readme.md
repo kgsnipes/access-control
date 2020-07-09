@@ -13,16 +13,16 @@ Extensive code coverage provided with 100+ unit tests.
 - User Credentials Encryption is configurable supporting the below algorithms
     - MD2
     - MD5
-    - SHA 1
-    - SHA 224
-    - SHA 256
-    - SHA 384
-    - SHA 512
-    - SHA 512 224
-    - SHA 512 256
-    - SHA3 256
-    - SHA3 384
-    - SHA3 512
+    - SHA-1
+    - SHA-224
+    - SHA-256
+    - SHA-384
+    - SHA-512
+    - SHA-512/224
+    - SHA-512/256
+    - SHA3-256
+    - SHA3-384
+    - SHA3-512
 - Configurable Change logs for any and every change that is made on the data. Helps with better auditing.
 - Hierarchial usergroups.
 - Easy integration with Spring Security. The API provides custom UserDetailsService and PasswordEncoder.
