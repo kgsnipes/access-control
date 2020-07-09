@@ -27,8 +27,8 @@ Extensive code coverage provided with 100+ unit tests.
 - Hierarchial usergroups.
 - Easy integration with Spring Security. The API provides custom UserDetailsService and PasswordEncoder.
 - Simple Flat Data Structure for ease of customization and easy of portability.
-- Bulk import & export operations supported for all data models with CSV format.
-- Reporting of the changelog for auditing purposes CSV and PDF formats supported.
+- Bulk import & export operations supported for all data models with CSV format.[]todo
+- Reporting of the changelog for auditing purposes CSV and PDF formats supported.[]todo
 
 
 **Getting Started with this API is very easy**
