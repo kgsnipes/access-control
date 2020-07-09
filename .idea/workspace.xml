@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/AccessPermissionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/AccessPermissionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -19,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="1190" column="9" lean-forward="true" selection-start-line="1190" selection-start-column="9" selection-end-line="1190" selection-end-column="9" />
+            <state relative-caret-position="466">
+              <caret line="1188" column="12" lean-forward="true" selection-start-line="1188" selection-start-column="12" selection-end-line="1188" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -40,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1819">
-              <caret line="1580" column="9" lean-forward="true" selection-start-line="1580" selection-start-column="9" selection-end-line="1580" selection-end-column="9" />
+            <state relative-caret-position="378">
+              <caret line="1782" column="26" selection-start-line="1782" selection-start-column="26" selection-end-line="1782" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/Readme.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="24" column="14" lean-forward="true" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+              <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -86,7 +85,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/models/AccessPermission.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+              <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
               <folding>
                 <element signature="e#766#767#0" expanded="true" />
                 <element signature="e#791#792#0" expanded="true" />
@@ -117,8 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="579">
-              <caret line="111" column="79" selection-start-line="111" selection-start-column="79" selection-end-line="111" selection-end-column="79" />
+            <state relative-caret-position="501">
+              <caret line="110" column="52" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -228,7 +227,6 @@
         <option value="$PROJECT_DIR$/src/test/resources/data/usergroup_13.csv" />
         <option value="$PROJECT_DIR$/src/test/resources/data/usergroup2usergroup_13.csv" />
         <option value="$PROJECT_DIR$/src/test/resources/data/usergroup2usergroup.csv" />
-        <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/User2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/UserGroup.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/UserGroup2UserGroupRelation.java" />
@@ -237,6 +235,7 @@
         <option value="$PROJECT_DIR$/Readme.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/AccessPermissionRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" />
       </list>
     </option>
@@ -352,6 +351,27 @@
               <item name="services" type="462c0819:PsiDirectoryNode" />
               <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="access-control" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -399,7 +419,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceTest.createPermissionTest">
+  <component name="RunManager" selected="JUnit.UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest">
     <configuration name="UserServiceTest.createPermissionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="access-control" />
       <extension name="coverage">
@@ -411,38 +431,6 @@
       <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
       <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
       <option name="METHOD_NAME" value="createPermissionTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest.importUser2UserGroupRelationstest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="access-control" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.accesscontrol.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
-      <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
-      <option name="METHOD_NAME" value="importUser2UserGroupRelationstest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest.importUserGroupRelationsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="access-control" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.accesscontrol.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
-      <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
-      <option name="METHOD_NAME" value="importUserGroupRelationsTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -480,13 +468,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserServiceTest.isUserAuthorizedForResourceAndPermissionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="access-control" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.accesscontrol.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
+      <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
+      <option name="METHOD_NAME" value="isUserAuthorizedForResourceAndPermissionTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="access-control" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.accesscontrol.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
+      <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
+      <option name="METHOD_NAME" value="isUserGroupAuthorizedForResourceAndPermissionTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest" />
+        <item itemvalue="JUnit.UserServiceTest.isUserAuthorizedForResourceAndPermissionTest" />
         <item itemvalue="JUnit.UserServiceTest.createPermissionTest" />
         <item itemvalue="JUnit.UserServiceTest.importUsersTest" />
         <item itemvalue="JUnit.UserServiceTest.importUserGroupRelationsTestWithInvalidInput" />
-        <item itemvalue="JUnit.UserServiceTest.importUser2UserGroupRelationstest" />
-        <item itemvalue="JUnit.UserServiceTest.importUserGroupRelationsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -504,21 +524,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserServiceTest - 2020.07.08 at 17h 23m 25s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest - 2020.07.08 at 17h 25m 33s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUserGroupRelationsTest - 2020.07.08 at 17h 31m 38s.xml">
-      <configuration name="UserServiceTest.importUserGroupRelationsTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUser2UserGroupRelationstest - 2020.07.08 at 23h 01m 53s.xml">
-      <configuration name="UserServiceTest.importUser2UserGroupRelationstest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest_importUser2UserGroupRelationstest - 2020.07.08 at 23h 03m 47s.xml">
-      <configuration name="UserServiceTest.importUser2UserGroupRelationstest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UserServiceTest_importUser2UserGroupRelationstest - 2020.07.08 at 23h 08m 12s.xml">
       <configuration name="UserServiceTest.importUser2UserGroupRelationstest" configurationId="JUnit" />
     </history-entry>
@@ -533,6 +538,21 @@
     </history-entry>
     <history-entry file="UserServiceTest_createPermissionTest - 2020.07.08 at 23h 29m 04s.xml">
       <configuration name="UserServiceTest.createPermissionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_isUserAuthorizedForResourceAndPermissionTest - 2020.07.09 at 09h 24m 07s.xml">
+      <configuration name="UserServiceTest.isUserAuthorizedForResourceAndPermissionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_isUserAuthorizedForResourceAndPermissionTest - 2020.07.09 at 09h 26m 56s.xml">
+      <configuration name="UserServiceTest.isUserAuthorizedForResourceAndPermissionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_isUserGroupAuthorizedForResourceAndPermissionTest - 2020.07.09 at 09h 28m 55s.xml">
+      <configuration name="UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_isUserGroupAuthorizedForResourceAndPermissionTest - 2020.07.09 at 09h 29m 37s.xml">
+      <configuration name="UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_isUserGroupAuthorizedForResourceAndPermissionTest - 2020.07.09 at 09h 31m 21s.xml">
+      <configuration name="UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -557,7 +577,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.34818652" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.34754097" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1023,7 +1043,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/models/AccessPermission.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+          <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
           <folding>
             <element signature="e#766#767#0" expanded="true" />
             <element signature="e#791#792#0" expanded="true" />
@@ -1051,30 +1071,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1819">
-          <caret line="1580" column="9" lean-forward="true" selection-start-line="1580" selection-start-column="9" selection-end-line="1580" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Readme.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="24" column="14" lean-forward="true" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="111" column="79" selection-start-line="111" selection-start-column="79" selection-end-line="111" selection-end-column="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -1085,10 +1085,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="110" column="52" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="1190" column="9" lean-forward="true" selection-start-line="1190" selection-start-column="9" selection-end-line="1190" selection-end-column="9" />
+        <state relative-caret-position="466">
+          <caret line="1188" column="12" lean-forward="true" selection-start-line="1188" selection-start-column="12" selection-end-line="1188" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="1782" column="26" selection-start-line="1782" selection-start-column="26" selection-end-line="1782" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

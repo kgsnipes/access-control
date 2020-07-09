@@ -1179,10 +1179,11 @@ public class DefaultUserService implements UserService {
         UserGroup group=getUserGroupByCode(userGroupCode);
         AccessPermission permission1=accessPermissionRepository.findByResourceAndPermission(resource,permission);
         PageResult<UserGroup> groups=getAllUserGroupsForUserGroup(group.getCode(),-1);
-        if(Objects.nonNull(group) && Objects.nonNull(permission1) && CollectionUtils.isNotEmpty(groups.getResults()))
+        if(Objects.nonNull(group) && Objects.nonNull(permission1) && Objects.nonNull(groups.getResults()))
         {
-
-            List<AccessPermission> permissions=accessPermissionRepository.findPermissionInUserGroupsByResourceAndPermission(permission,resource,groups.getResults().stream().map(g->g.getCode()).collect(Collectors.toList()));
+            List<UserGroup> groupsForQuery=new ArrayList<>(groups.getResults());
+            groupsForQuery.add(group);
+            List<AccessPermission> permissions=accessPermissionRepository.findPermissionInUserGroupsByResourceAndPermission(permission,resource,groupsForQuery.stream().map(g->g.getCode()).collect(Collectors.toList()));
             isAuthorized=CollectionUtils.isNotEmpty(permissions);
         }
         else

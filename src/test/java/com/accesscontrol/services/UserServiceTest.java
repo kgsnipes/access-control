@@ -9,6 +9,7 @@ import com.accesscontrol.exception.UserNotFoundException;
 import com.accesscontrol.models.*;
 import com.accesscontrol.services.impl.DefaultAccessControlService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserServiceTest {
@@ -1738,5 +1740,59 @@ public class UserServiceTest {
         });
     }
 
+
+    @Order(105)
+    @Test
+    public void isUserAuthorizedForResourceAndPermissionTest()
+    {
+        User user=userService.createUser(new User("firstname","lastname","checkforauth@test.com","123456",true),ctx);
+        AccessPermission permission=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"User"),ctx);
+        AccessPermission permission1=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"UserGroup"),ctx);
+        AccessPermission permission2=userService.createPermission(new AccessPermission(AccessControlPermissions.EXECUTE,"Projects"),ctx);
+        AccessPermission permission3=userService.createPermission(new AccessPermission(AccessControlPermissions.WRITE,"Projects"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission7","groupforenablepermission7",true),ctx);
+        UserGroup userGroup1=userService.createUserGroup(new UserGroup("groupforenablepermission8","groupforenablepermission8",true),ctx);
+        userService.addUserGroupToUserGroup(userGroup,userGroup1,ctx);
+        userService.addUserToUserGroup(user,userGroup,ctx);
+        userService.enablePermission(permission,userGroup,ctx);
+        userService.enablePermission(permission1,userGroup,ctx);
+        userService.enablePermission(permission2,userGroup1,ctx);
+        userService.enablePermission(permission3,userGroup1,ctx);
+        StopWatch stopWatch = new StopWatch();
+
+        // Start the watch, do some task and stop the watch.
+        stopWatch.start();
+        userService.isUserAuthorizedForResourceAndPermission(user.getUserId(),"Projects",AccessControlPermissions.WRITE);
+        stopWatch.stop();
+        log.info("Time taken for the operation to execute :"+stopWatch.getTime(TimeUnit.MILLISECONDS)+"ms");
+        Assertions.assertTrue(userService.isUserAuthorizedForResourceAndPermission(user.getUserId(),"Projects",AccessControlPermissions.WRITE));
+    }
+
+    @Order(106)
+    @Test
+    public void isUserGroupAuthorizedForResourceAndPermissionTest()
+    {
+        User user=userService.createUser(new User("firstname","lastname","checkforauth1@test.com","123456",true),ctx);
+        AccessPermission permission=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"User"),ctx);
+        AccessPermission permission1=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"UserGroup"),ctx);
+        AccessPermission permission2=userService.createPermission(new AccessPermission(AccessControlPermissions.EXECUTE,"Projects"),ctx);
+        AccessPermission permission3=userService.createPermission(new AccessPermission(AccessControlPermissions.WRITE,"Projects"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission9","groupforenablepermission9",true),ctx);
+        UserGroup userGroup1=userService.createUserGroup(new UserGroup("groupforenablepermission10","groupforenablepermission10",true),ctx);
+        userService.addUserGroupToUserGroup(userGroup,userGroup1,ctx);
+        userService.addUserToUserGroup(user,userGroup,ctx);
+        userService.enablePermission(permission,userGroup1,ctx);
+        userService.enablePermission(permission1,userGroup,ctx);
+        userService.enablePermission(permission2,userGroup1,ctx);
+        userService.enablePermission(permission3,userGroup1,ctx);
+        StopWatch stopWatch = new StopWatch();
+
+        // Start the watch, do some task and stop the watch.
+        stopWatch.start();
+        userService.isUserGroupAuthorizedForResourceAndPermission(userGroup.getCode(),"User",AccessControlPermissions.READ);
+        stopWatch.stop();
+        log.info("Time taken for the operation to execute :"+stopWatch.getTime(TimeUnit.MILLISECONDS)+"ms");
+        Assertions.assertTrue(userService.isUserGroupAuthorizedForResourceAndPermission(userGroup.getCode(),"User",AccessControlPermissions.READ));
+    }
 
 }
