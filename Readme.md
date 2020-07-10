@@ -1,5 +1,5 @@
 # AccessControl API
-Every application today that is built from scratch requires some type of user access control service to be developed or integrated. I have as a developer has always come across this necessity in all of my personal projects. This led me to create this library that has constitutes of a simple user service that takes care of all the user management and access control aspects for an application.
+Every JAVA application that is built from scratch requires some type of user access control service to be developed or integrated. I have as a developer has always come across this necessity in all of my personal projects. This led me to create this library that has constitutes of a simple user service that takes care of all the user management and access control aspects for an application.
 
 This need led me to develop this simple yet effective library which can fast-track development of your projects and let you focus on the business logic for the apps you build rather than worry about coding the user management aspects of you app.
 
