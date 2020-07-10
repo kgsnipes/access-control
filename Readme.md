@@ -1,11 +1,11 @@
 # AccessControl API
-Every JAVA application that is built from scratch requires some type of user access control service to be developed or integrated. I have as a developer has always come across this necessity in all of my personal projects. This led me to create this library that has constitutes of a simple user service that takes care of all the user management and access control aspects for an application.
+Every JAVA application that is built from scratch requires some type of user access control service to be developed or integrated. I as a developer have always come across this necessity in my personal projects. This led me to creating this API that constitutes of a UserService that is simple to understand and use. It takes care of all the user management and access permisssion persistence and querying that an application might need.
 
-This need led me to develop this simple yet effective library which can fast-track development of your projects and let you focus on the business logic for the apps you build rather than worry about coding the user management aspects of you app.
+It is a simple yet effective library which can fast-track development of your projects and let you focus on the business logic for the apps rather than worry about coding the user management and access permission CRUD operations of you app.
 
-The API is developed using Spring DI container, Spring JPA and a few utility libraries. The code is available as open source for anybody to customize as per needs with the base framework available. There is not much of a learning curve as it uses libraries that almost all JAVA developers are used to.
+This API is developed using Spring Context for DI, Spring JPA and a few utility libraries from Apache foundation as well. This code is available for anybody to customize it as per needs with the base framework available. It is easy to get started with.
 
-Extensive code coverage provided with 100+ unit tests.
+Extensive Unit testing is provided with 100+ unit tests.
 
 **Feature List**
 
@@ -23,9 +23,9 @@ Extensive code coverage provided with 100+ unit tests.
     - SHA3-256
     - SHA3-384
     - SHA3-512
-- Configurable Change logs for any and every change that is made on the data. Helps with better auditing.
-- Hierarchial usergroups.
-- Easy integration with Spring Security. The API provides custom UserDetailsService and PasswordEncoder.
+- Configurable Change logs for any and every change that is made on the data. Helps with better auditing and change tracking.
+- Hierarchial usergroups to allow inheritance of permissions to the Users.
+- Easy integration with other Spring Applications as the API provides custom UserDetailsService and PasswordEncoder.
 - Simple Flat Data Structure for ease of customization and easy of portability.
 - Bulk import & export operations supported for all data models with CSV format.
 
@@ -81,7 +81,7 @@ userService.createUserGroup(userGroup,ctx)
 
 
 
-For proper configuration and setup information of the API explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
+For more info on configuration and setup information explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
 
 
 
