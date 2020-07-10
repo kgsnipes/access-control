@@ -27,26 +27,11 @@ Extensive code coverage provided with 100+ unit tests.
 - Hierarchial usergroups.
 - Easy integration with Spring Security. The API provides custom UserDetailsService and PasswordEncoder.
 - Simple Flat Data Structure for ease of customization and easy of portability.
-- Bulk import & export operations supported for all data models with CSV format.**TODO**
-- Reporting of the changelog for auditing purposes CSV and PDF formats supported.**TODO**
+- Bulk import & export operations supported for all data models with CSV format.
 
 
 **Getting Started with this API is very easy**
 ```
-
-//Download the JAR  access-control-1.0-SNAPSHOT-jar-with-dependencies.jar under the lib(create if not present) folder in your Maven Project
-
-//Configure the POM dependency for Maven Projects
-
-<dependency>
-    <groupId>accesscontrol</groupId>
-    <artifactId>access-control</artifactId>
-    <scope>system</scope>
-    <version>1.0</version>
-    <systemPath>${basedir}/lib/access-control-1.0-SNAPSHOT-jar-with-dependencies.jar</systemPath>
-</dependency>
-
-//Start Coding
 
 import com.accesscontrol.services
 // load up the API with the Spring Container
@@ -96,7 +81,7 @@ userService.createUserGroup(userGroup,ctx)
 
 
 
-For more help on using the API explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
+For proper configuration and setup information of the API explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
 
 
 
