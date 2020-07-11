@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="363">
-              <caret line="185" column="9" lean-forward="true" selection-start-line="185" selection-start-column="9" selection-end-line="185" selection-end-column="9" />
+              <caret line="185" column="9" selection-start-line="185" selection-start-column="9" selection-end-line="185" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -30,14 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="1928" column="43" selection-start-line="1928" selection-start-column="43" selection-end-line="1928" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="114">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -253,8 +249,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/User2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/UserGroup2UserGroupRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
       </list>
     </option>
   </component>
@@ -498,12 +494,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AccessControlTestSuite - 2020.07.10 at 23h 39m 14s.xml">
-      <configuration name="AccessControlTestSuite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AccessControlTestSuite - 2020.07.10 at 23h 41m 51s.xml">
-      <configuration name="AccessControlTestSuite" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="AccessControlTestSuite - 2020.07.10 at 23h 57m 20s.xml">
       <configuration name="AccessControlTestSuite" configurationId="JUnit" />
     </history-entry>
@@ -526,6 +516,12 @@
       <configuration name="UserServiceTest.saveUserWithoutProperUser" configurationId="JUnit" />
     </history-entry>
     <history-entry file="UserServiceTest - 2020.07.11 at 18h 13m 41s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.11 at 18h 16m 17s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.11 at 18h 17m 46s.xml">
       <configuration name="UserServiceTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -1016,23 +1012,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="1928" column="43" selection-start-line="1928" selection-start-column="43" selection-end-line="1928" selection-end-column="43" />
+        <state relative-caret-position="363">
+          <caret line="185" column="9" selection-start-line="185" selection-start-column="9" selection-end-line="185" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="185" column="9" lean-forward="true" selection-start-line="185" selection-start-column="9" selection-end-line="185" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="114">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
