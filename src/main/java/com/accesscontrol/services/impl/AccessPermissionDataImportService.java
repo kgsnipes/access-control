@@ -47,9 +47,7 @@ public class AccessPermissionDataImportService implements DataImportService<Acce
         permissions.stream().forEach(u->{
             try {
 
-                AccessPermission existingPermission=null;
-
-                existingPermission=accessPermissionRepository.findByResourceAndPermission(u.getResource(),u.getPermission());
+                AccessPermission existingPermission=accessPermissionRepository.findByResourceAndPermission(u.getResource(),u.getPermission());
                 log.info("Importing Relation for "+u.getPermission()+"-"+u.getResource());
 
                 result.getResults().add(userService.createPermission(u, ctx));

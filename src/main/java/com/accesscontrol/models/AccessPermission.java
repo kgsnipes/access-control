@@ -1,10 +1,14 @@
 package com.accesscontrol.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 //@Table(indexes = { @Index(name="accessPermissionIndex",columnList ="permission,resource") })
@@ -21,6 +25,12 @@ public class AccessPermission extends AbstractModel{
 
     @NotNull(message = "Permission cannot be null")
     private String resource;
+
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
     public AccessPermission() {
     }
@@ -54,4 +64,19 @@ public class AccessPermission extends AbstractModel{
         this.resource = resource;
     }
 
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
+    }
 }

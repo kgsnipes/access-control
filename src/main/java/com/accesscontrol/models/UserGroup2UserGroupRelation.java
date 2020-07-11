@@ -1,9 +1,13 @@
 package com.accesscontrol.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class UserGroup2UserGroupRelation extends AbstractModel{
@@ -16,6 +20,12 @@ public class UserGroup2UserGroupRelation extends AbstractModel{
     private String parentUserGroupCode;
 
     private String childUserGroupCode;
+
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
     public UserGroup2UserGroupRelation() {
     }
@@ -47,5 +57,21 @@ public class UserGroup2UserGroupRelation extends AbstractModel{
 
     public void setChildUserGroupCode(String childUserGroupCode) {
         this.childUserGroupCode = childUserGroupCode;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
     }
 }

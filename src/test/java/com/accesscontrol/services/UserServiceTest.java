@@ -1802,10 +1802,114 @@ public class UserServiceTest {
     @Test
     public void exportUserDataTest()
     {
+
         Assertions.assertDoesNotThrow(()->{
             PageResult<User> result=userService.importUsers(new InputStreamReader(this.getClass().getResourceAsStream("/data/users_13.csv")),ctx);
-            userService.exportData(new FileWriter("/Users/kaushik.ganguly/Documents/DEV/access-control/src/test/resources/export/user_data_export.csv"),User.class,1,-1);
+            String filePath=new File(".").getCanonicalPath()+"/src/test/resources/export/user_data_export.csv";
+            userService.exportData(new FileWriter(filePath),User.class,1,-1);
         });
     }
+
+
+    @Order(108)
+    @Test
+    public void exportUserGroupDataTest()
+    {
+        Assertions.assertDoesNotThrow(()->{
+            String filePath=new File(".").getCanonicalPath()+"/src/test/resources/export/usergroup_data_export.csv";
+            userService.exportData(new FileWriter(filePath),UserGroup.class,1,-1);
+        });
+    }
+
+    @Order(109)
+    @Test
+    public void exportUserGroupRelationDataTest()
+    {
+        Assertions.assertDoesNotThrow(()->{
+            String filePath=new File(".").getCanonicalPath()+"/src/test/resources/export/usergrouprelation_data_export.csv";
+            userService.exportData(new FileWriter(filePath),UserGroup2UserGroupRelation.class,1,-1);
+        });
+    }
+
+
+    @Order(110)
+    @Test
+    public void exportAccessPermissionDataTest()
+    {
+        Assertions.assertDoesNotThrow(()->{
+            String filePath=new File(".").getCanonicalPath()+"/src/test/resources/export/accessPermission_data_export.csv";
+            userService.exportData(new FileWriter(filePath),AccessPermission.class,1,-1);
+        });
+    }
+
+    @Order(111)
+    @Test
+    public void exportAccessPermission2userGroupRelationDataTest()
+    {
+        Assertions.assertDoesNotThrow(()->{
+            String filePath=new File(".").getCanonicalPath()+"/src/test/resources/export/accessPermission2UserGroupRelation_data_export.csv";
+            userService.exportData(new FileWriter(filePath),AccessPermission2UserGroupRelation.class,1,-1);
+        });
+    }
+
+
+    @Order(112)
+    @Test
+    public void exportChangeLogDataTest()
+    {
+        Assertions.assertDoesNotThrow(()->{
+            String filePath=new File(".").getCanonicalPath()+"/src/test/resources/export/changeLog_data_export.csv";
+            userService.exportData(new FileWriter(filePath),ChangeLog.class,1,-1);
+        });
+    }
+
+
+    @Order(113)
+    @Test
+    public void exportDataWithInvalidInput()
+    {
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.exportData(null,ChangeLog.class,1,-1);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.exportData(null,null,1,-1);
+        });
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.exportData(null,null,null,-1);
+        });
+
+
+    }
+
+    @Order(114)
+    @Test
+    public void importAccessPermissionDatatest()
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/access_permissions.csv"));
+        PageResult<AccessPermission> result=userService.importAccessPermissions(inputStreamReader,ctx);
+        result.getResults().stream().forEach(u -> {
+            log.info("user group id :"+u.getResource());
+        });
+        Assertions.assertEquals(3,result.getResults().size());
+
+    }
+
+    @Order(115)
+    @Test
+    public void importAccessPermission2UserGroupRelationDatatest()
+    {
+        InputStreamReader inputStreamReader=new InputStreamReader(this.getClass().getResourceAsStream("/data/accesspermission2usergroup.csv"));
+        PageResult<AccessPermission2UserGroupRelation> result=userService.importAccessPermissions2UserGroupRelations(inputStreamReader,ctx);
+        result.getResults().stream().forEach(u -> {
+            log.info("user group id :"+u.getUserGroupCode());
+        });
+        Assertions.assertEquals(5,result.getResults().size());
+
+    }
+
+
+
 
 }

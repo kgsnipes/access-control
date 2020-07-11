@@ -1,0 +1,4 @@
+resource,permission
+User,READ
+User,WRITE
+User,EXECUTE

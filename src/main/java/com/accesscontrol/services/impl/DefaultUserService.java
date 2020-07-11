@@ -1251,7 +1251,6 @@ public class DefaultUserService implements UserService {
                     writer.close();
                 } catch (IOException e) {
                     log.error("Error processing export for "+dataModelClass.getSimpleName(),e);
-                    //throw new AccessControlException("Error processing export for "+dataModelClass.getSimpleName(),e);
                 }
             }
         }

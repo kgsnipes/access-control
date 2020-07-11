@@ -1,10 +1,14 @@
 package com.accesscontrol.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 public class AccessPermission2UserGroupRelation extends AbstractModel{
@@ -22,6 +26,12 @@ public class AccessPermission2UserGroupRelation extends AbstractModel{
 
     @NotNull(message = "Enabled flag cannot be null")
     private Boolean enabled;
+
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
     public AccessPermission2UserGroupRelation() {
     }
@@ -64,4 +74,19 @@ public class AccessPermission2UserGroupRelation extends AbstractModel{
         this.enabled = enabled;
     }
 
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
+    }
 }

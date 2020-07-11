@@ -1,0 +1,6 @@
+usergroup,resource,permission,enabled
+13-ug-group01,User,READ,true
+13-ug-group02,User,READ,true
+13-ug-group03,User,READ,true
+13-ug-group04,User,READ,true
+13-ug-group05,User,READ,true

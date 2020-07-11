@@ -38,7 +38,7 @@ public class DefaultAccessControlService implements AccessControlService {
         this.init(properties);
     }
 
-    private static final String MANDATORY_CONFIG[]=new String[]{
+    private static final String[] MANDATORY_CONFIG=new String[]{
             AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_URL,
             AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_USERNAME,
             AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_PASSWORD,

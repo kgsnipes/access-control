@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/resources/data/access_permissions.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/data/accesspermission2usergroup.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -19,22 +24,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9611">
-              <caret line="588" column="18" selection-start-line="588" selection-start-column="18" selection-end-line="588" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="1681" column="51" selection-start-line="1681" selection-start-column="51" selection-end-line="1681" selection-end-column="51" />
+            <state relative-caret-position="238">
+              <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,50 +36,78 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/AccessControlTestSuite.java">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/data/accesspermission2usergroup.csv">
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+            </state>
+          </provider>
+          <provider editor-type-id="csv-table-editor">
+            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/data/access_permissions.csv">
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+            </state>
+          </provider>
+          <provider editor-type-id="csv-table-editor">
+            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="240">
+              <caret line="16" column="69" selection-start-line="16" selection-start-column="69" selection-end-line="16" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+            <state relative-caret-position="372">
+              <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/AccessControlContext.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermission2UserGroupRelationDataImportService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="435">
+              <caret line="50" column="47" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/AccessControlPermissions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup_13.csv">
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="75">
+              <caret line="1" column="13" selection-start-line="1" selection-end-line="1" selection-end-column="13" />
+              <caret line="2" column="13" selection-start-line="2" selection-end-line="2" selection-end-column="13" />
+              <caret line="3" column="13" selection-start-line="3" selection-end-line="3" selection-end-column="13" />
+              <caret line="4" column="13" selection-start-line="4" selection-end-line="4" selection-end-column="13" />
+              <caret line="5" column="13" selection-start-line="5" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1714">
-              <caret line="144" column="73" selection-start-line="144" selection-start-column="73" selection-end-line="144" selection-end-column="73" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
+          <provider editor-type-id="csv-table-editor">
+            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
           </provider>
         </entry>
       </file>
@@ -140,6 +161,7 @@
       <find>AbstractModel</find>
       <find>Error processing export for</find>
       <find>addUserGroupToUserGroup</find>
+      <find>configuration</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -153,8 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/repository/UserGroupRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/exception/UserGroupNotFoundException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultChangeLogService.java" />
         <option value="$PROJECT_DIR$/src/test/resources/data/users.csv" />
         <option value="$PROJECT_DIR$/src/test/resources/data/users_without_userId.csv" />
@@ -192,18 +212,20 @@
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/UserService.java" />
         <option value="$PROJECT_DIR$/src/test/resources/data/users_13.csv" />
         <option value="$PROJECT_DIR$/Readme.md" />
-        <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/models/AbstractModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/util/AccessControlUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/constants/AccessControlConfigConstants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermission2UserGroupRelationDataImportService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/UserDataImportService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/UserGroup2UserGroupRelationDataImportService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/UserGroupDataImportService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/data/access_permissions.csv" />
+        <option value="$PROJECT_DIR$/src/test/resources/data/accesspermission2usergroup.csv" />
+        <option value="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java" />
       </list>
     </option>
   </component>
@@ -244,16 +266,18 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="203" />
-    <option name="width" value="1440" />
-    <option name="height" value="827" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1440" />
+    <option name="y" value="-157" />
+    <option name="width" value="1920" />
+    <option name="height" value="1007" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -294,25 +318,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
-              <item name="beans" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
-              <item name="access-control" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
-              <item name="access-control" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
-              <item name="constants" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
@@ -332,15 +338,6 @@
               <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
               <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
-              <item name="access-control" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="accesscontrol" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
@@ -381,14 +378,6 @@
             <path>
               <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
               <item name="access-control" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="export" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
-              <item name="access-control" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -404,18 +393,11 @@
               <item name="site" type="462c0819:PsiDirectoryNode" />
               <item name="jacoco" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="accesscontrol" type="b2602c69:ProjectViewProjectNode" />
-              <item name="access-control" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="surefire-reports" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -457,7 +439,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AccessControlTestSuite">
+  <component name="RunManager" selected="JUnit.UserServiceTest">
     <configuration name="AccessControlTestSuite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="access-control" />
       <extension name="coverage">
@@ -504,22 +486,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.isUserAuthorizedForResourceAndPermissionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="access-control" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.accesscontrol.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
-      <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
-      <option name="METHOD_NAME" value="isUserAuthorizedForResourceAndPermissionTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="access-control" />
       <extension name="coverage">
@@ -536,13 +502,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserServiceTest.pathTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="access-control" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.accesscontrol.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.accesscontrol.services" />
+      <option name="MAIN_CLASS_NAME" value="com.accesscontrol.services.UserServiceTest" />
+      <option name="METHOD_NAME" value="pathTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AccessControlTestSuite" />
         <item itemvalue="JUnit.UserServiceTest" />
+        <item itemvalue="JUnit.UserServiceTest.pathTest" />
+        <item itemvalue="JUnit.AccessControlTestSuite" />
         <item itemvalue="JUnit.UserServiceTest.exportUserDataTest" />
         <item itemvalue="JUnit.UserServiceTest.isUserGroupAuthorizedForResourceAndPermissionTest" />
-        <item itemvalue="JUnit.UserServiceTest.isUserAuthorizedForResourceAndPermissionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -560,21 +542,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserServiceTest - 2020.07.10 at 22h 24m 43s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest - 2020.07.10 at 22h 29m 27s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest - 2020.07.10 at 22h 34m 09s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest - 2020.07.10 at 22h 35m 18s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceTest - 2020.07.10 at 22h 37m 41s.xml">
-      <configuration name="UserServiceTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UserServiceTest - 2020.07.10 at 23h 22m 28s.xml">
       <configuration name="UserServiceTest" configurationId="JUnit" />
     </history-entry>
@@ -590,11 +557,27 @@
     <history-entry file="AccessControlTestSuite - 2020.07.10 at 23h 57m 20s.xml">
       <configuration name="AccessControlTestSuite" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="UserServiceTest_pathTest - 2020.07.11 at 17h 32m 33s.xml">
+      <configuration name="UserServiceTest.pathTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest_pathTest - 2020.07.11 at 17h 33m 35s.xml">
+      <configuration name="UserServiceTest.pathTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.11 at 17h 47m 19s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.11 at 17h 48m 21s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserServiceTest - 2020.07.11 at 17h 49m 47s.xml">
+      <configuration name="UserServiceTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="827" extended-state="6" />
+    <frame x="1440" y="-157" width="1920" height="1007" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.64044946" visible="true" weight="0.15879828" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.64044946" visible="true" weight="0.11821086" />
       <window_info id="Structure" order="1" sideWeight="0.35955057" side_tool="true" weight="0.20600858" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -603,7 +586,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5170068" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.34754097" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.49015543" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -617,13 +600,13 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.17739628" />
+      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.1315229" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.64044946" visible="true" weight="0.30329043" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.64044946" visible="true" weight="0.11821086" />
       <window_info id="Structure" order="1" sideWeight="0.35955057" side_tool="true" weight="0.20600858" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -632,7 +615,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.4707483" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34754097" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.49015543" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -646,7 +629,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.3040057" />
+      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.13205537" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
@@ -671,23 +654,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/User2UserGroupRelationDataImportService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="95" column="70" selection-start-line="95" selection-start-column="70" selection-end-line="95" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/data/user2usergroup.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup_12.csv">
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
@@ -709,16 +675,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/data/user2usergroup_13.csv" />
-    <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup_13.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup2usergroup_13.csv">
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
@@ -940,27 +896,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermission2UserGroupRelationDataImportService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="103" column="5" lean-forward="true" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultChangeLogService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1005,6 +940,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/target/site/jacoco-ut/index.html" />
+    <entry file="file://$PROJECT_DIR$/target/coverage-reports/jacoco-unit.exec" />
+    <entry file="file://$PROJECT_DIR$/target/site/jacoco/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8235">
+          <caret line="588" column="18" selection-start-line="588" selection-start-column="18" selection-end-line="588" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/AccessControlTestSuite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/beans/AccessControlContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1021,7 +978,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/config/AccessControlConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1714">
+        <state relative-caret-position="1650">
           <caret line="144" column="73" selection-start-line="144" selection-start-column="73" selection-end-line="144" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1043,46 +1000,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9611">
-          <caret line="588" column="18" selection-start-line="588" selection-start-column="18" selection-end-line="588" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/data/usergroup_13.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="75">
+          <caret line="1" column="13" selection-start-line="1" selection-end-line="1" selection-end-column="13" />
+          <caret line="2" column="13" selection-start-line="2" selection-end-line="2" selection-end-column="13" />
+          <caret line="3" column="13" selection-start-line="3" selection-end-line="3" selection-end-column="13" />
+          <caret line="4" column="13" selection-start-line="4" selection-end-line="4" selection-end-column="13" />
+          <caret line="5" column="13" selection-start-line="5" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/target/site/jacoco-ut/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/test/resources/data/access_permissions.csv">
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/target/coverage-reports/jacoco-unit.exec">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/test/resources/data/accesspermission2usergroup.csv">
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+        </state>
+      </provider>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="1681" column="51" selection-start-line="1681" selection-start-column="51" selection-end-line="1681" selection-end-column="51" />
+        <state relative-caret-position="238">
+          <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/AccessControlTestSuite.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="240">
+          <caret line="16" column="69" selection-start-line="16" selection-start-column="69" selection-end-line="16" selection-end-column="69" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/target/site/jacoco/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermission2UserGroupRelationDataImportService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+        <state relative-caret-position="435">
+          <caret line="50" column="47" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/AccessPermissionDataImportService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/accesscontrol/services/impl/DefaultAccessControlService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
         </state>
       </provider>
     </entry>
