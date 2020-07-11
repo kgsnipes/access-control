@@ -14,8 +14,11 @@
         <sonar.organization>kgsnipes</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.login>a6d5b5250338f2497a4c1a918636e3acc72894ff</sonar.login>
-        <sonar.test.inclusions>**/*Test.java</sonar.test.inclusions>
-
+<!--        <sonar.test.inclusions>**/*Test.java</sonar.test.inclusions>-->
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.language>java</sonar.language>
     </properties>
 
     <dependencies>
@@ -261,6 +264,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -288,16 +292,19 @@
                 <version>0.8.5</version>
                 <executions>
                     <execution>
+                        <id>start-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
+                        <id>generate-report</id>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <title>Coverage with JaCoCo</title>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -306,4 +313,4 @@
 
 </project>
 
-<!-- mvn verify sonar:sonar  --><!-- mvn jacoco:report  -->
+<!-- mvn verify sonar:sonar  --><!-- mvn clean install  -->
