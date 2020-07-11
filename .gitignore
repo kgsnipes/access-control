@@ -33,3 +33,4 @@ jacoco.exec
 target/site/jacoco
 target/site/jacoco-ut
 jacoco-ut.exec
+target/surefire
