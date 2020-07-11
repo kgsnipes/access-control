@@ -182,10 +182,6 @@ public class DefaultUserService implements UserService {
                 changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
 
             }
-            else
-            {
-                return createUser(user,ctx);
-            }
 
         }
         return savedUser;

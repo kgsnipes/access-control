@@ -13,9 +13,11 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import sun.jvm.hotspot.debugger.Page;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -1909,7 +1911,60 @@ public class UserServiceTest {
 
     }
 
+    @Order(116)
+    @Test
+    public void getPermissionsByResourceAndUserGroupForGroupWIthNoPermissions()
+    {
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("groupforenablepermission245","groupforenablepermission245",true),ctx);
+        Assertions.assertEquals(0,userService.getPermissionsForUserGroup(userGroup.getCode(),true,-1).getResults().size());
+    }
 
 
+    @Order(117)
+    @Test
+    public void saveUserWithoutProperUser()throws AccessControlException{
+        User user=userService.getUserById("testuser1@test.com");
+        user.setPassword(null);
+        user.setEnabled(true);
+        user.setFirstName(null);
+        user.setLastName("user");
+        Assertions.assertThrows(AccessControlException.class,()->{
+            User persistedUser=userService.saveUser(user,ctx);
+
+        });
+
+    }
+
+
+    @Order(118)
+    @Test
+    public void findUsersWIthEmptyResults()throws AccessControlException{
+        PageResult<User> users=userService.findUsers("cannotfind",1);
+
+       Assertions.assertEquals(0,users.getResults().size());
+
+    }
+
+
+    @Order(119)
+    @Test
+    public void createUserGroupWithNullUserGroup()throws AccessControlException{
+
+        Assertions.assertThrows(IllegalArgumentException.class,()->{
+            userService.createUserGroup(null,ctx);
+
+        });
+
+    }
+
+
+    @Order(120)
+    @Test
+    public void findUserGroupsWIthEmptyResults()throws AccessControlException{
+        PageResult<UserGroup> userGroups=userService.findUserGroups("cannotfind",1);
+
+        Assertions.assertEquals(0,userGroups.getResults().size());
+
+    }
 
 }
