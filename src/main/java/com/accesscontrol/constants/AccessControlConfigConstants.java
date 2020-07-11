@@ -66,16 +66,4 @@ public interface AccessControlConfigConstants {
         String DELETE="DELETE";
     }
 
-
-
-    String MANDATORY_CONFIG[]=new String[]{
-            DataSourceConfigConstants.DATASOURCE_URL,
-            DataSourceConfigConstants.DATASOURCE_USERNAME,
-            DataSourceConfigConstants.DATASOURCE_PASSWORD,
-            DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS,
-            JPAConfigConstants.JPA_DATABASE_DIALECT,
-            JPAConfigConstants.JPA_DDL_AUTO,
-            PasswordEncryption.PASSWORD_DIGEST
-        };
-
 }

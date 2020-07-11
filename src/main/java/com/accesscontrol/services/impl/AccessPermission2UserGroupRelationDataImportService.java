@@ -25,7 +25,7 @@ import java.util.*;
 
 public class AccessPermission2UserGroupRelationDataImportService implements DataImportService<AccessPermission2UserGroupRelation> {
 
-    private static Logger log= LogManager.getLogger(AccessPermission2UserGroupRelationDataImportService.class);
+    private static final Logger log= LogManager.getLogger(AccessPermission2UserGroupRelationDataImportService.class);
     @Autowired
     private UserService userService;
 

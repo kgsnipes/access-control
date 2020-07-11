@@ -13,7 +13,6 @@ import com.accesscontrol.services.ChangeLogService;
 import com.accesscontrol.services.PasswordEncryptionService;
 import com.accesscontrol.services.UserService;
 import com.accesscontrol.util.AccessControlUtil;
-import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import org.apache.commons.collections4.CollectionUtils;
@@ -47,7 +46,7 @@ import java.util.stream.Collectors;
 public class DefaultUserService implements UserService {
 
 
-    private static Logger log= LogManager.getLogger(DefaultUserService.class);
+    private static final Logger log= LogManager.getLogger(DefaultUserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -490,7 +489,7 @@ public class DefaultUserService implements UserService {
     }
 
 
-
+    @Transactional
     @Override
     public void addUserToUserGroup(String userId, String userGroupCode,AccessControlContext ctx) {
         if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(userGroupCode) || Objects.isNull(ctx))
@@ -520,6 +519,7 @@ public class DefaultUserService implements UserService {
 
     }
 
+    @Transactional
     @Override
     public void removeUserFromUserGroup(String userId, String userGroupCode,AccessControlContext ctx) {
         if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(userGroupCode) || Objects.isNull(ctx))
@@ -546,6 +546,7 @@ public class DefaultUserService implements UserService {
 
     }
 
+    @Transactional
     @Override
     public void addUserGroupToUserGroup(String childUserGroupCode, String parentUserGroupCode, AccessControlContext ctx) {
         if(StringUtils.isEmpty(childUserGroupCode) || StringUtils.isEmpty(parentUserGroupCode) || Objects.isNull(ctx) || StringUtils.trimToEmpty(childUserGroupCode).equals(StringUtils.trimToEmpty(parentUserGroupCode)))
@@ -573,6 +574,7 @@ public class DefaultUserService implements UserService {
 
     }
 
+    @Transactional
     @Override
     public void removeUserGroupFromUserGroup(String childUserGroupCode, String parentUserGroupCode, AccessControlContext ctx) {
 
@@ -584,6 +586,7 @@ public class DefaultUserService implements UserService {
 
     }
 
+    @Transactional
     @Override
     public void removeUserGroupFromUserGroup(UserGroup childUserGroup, UserGroup parentUserGroup, AccessControlContext ctx) {
 
@@ -1248,7 +1251,7 @@ public class DefaultUserService implements UserService {
                     writer.close();
                 } catch (IOException e) {
                     log.error("Error processing export for "+dataModelClass.getSimpleName(),e);
-                    throw new AccessControlException("Error processing export for "+dataModelClass.getSimpleName(),e);
+                    //throw new AccessControlException("Error processing export for "+dataModelClass.getSimpleName(),e);
                 }
             }
         }

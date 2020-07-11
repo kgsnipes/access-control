@@ -22,7 +22,7 @@ import java.util.*;
 
 public class UserDataImportService implements DataImportService<User>{
 
-    private static Logger log= LogManager.getLogger(UserDataImportService.class);
+    private static final Logger log= LogManager.getLogger(UserDataImportService.class);
     @Autowired
     private UserService userService;
 

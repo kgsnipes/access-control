@@ -38,6 +38,16 @@ public class DefaultAccessControlService implements AccessControlService {
         this.init(properties);
     }
 
+    private static final String MANDATORY_CONFIG[]=new String[]{
+            AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_URL,
+            AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_USERNAME,
+            AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_PASSWORD,
+            AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS,
+            AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT,
+            AccessControlConfigConstants.JPAConfigConstants.JPA_DDL_AUTO,
+            AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST
+    };
+
     @Override
     public void init() throws AccessControlException {
 
@@ -93,7 +103,7 @@ public class DefaultAccessControlService implements AccessControlService {
     private void validateMandatoryConfiguration(Properties properties) throws AccessControlException
     {
         log.info("validating the mandatory configuration");
-        for(String key:Arrays.asList(AccessControlConfigConstants.MANDATORY_CONFIG))
+        for(String key:Arrays.asList(MANDATORY_CONFIG))
         {
             if(Objects.isNull(properties.getProperty(key)))
             {

@@ -16,6 +16,12 @@ public abstract class AbstractModel {
 
     @Override
     public boolean equals(Object obj) {
+        if(Objects.isNull(obj))
+            return false;
+
+        if(!obj.getClass().equals(this.getClass()))
+            return false;
+
         return getId().equals(((AbstractModel)obj).getId());
     }
 

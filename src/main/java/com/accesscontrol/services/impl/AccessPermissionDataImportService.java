@@ -22,7 +22,7 @@ import java.util.*;
 
 public class AccessPermissionDataImportService implements DataImportService<AccessPermission>{
 
-    private static Logger log= LogManager.getLogger(AccessPermissionDataImportService.class);
+    private static final Logger log= LogManager.getLogger(AccessPermissionDataImportService.class);
     @Autowired
     private AccessPermissionRepository accessPermissionRepository;
 
@@ -51,15 +51,8 @@ public class AccessPermissionDataImportService implements DataImportService<Acce
 
                 existingPermission=accessPermissionRepository.findByResourceAndPermission(u.getResource(),u.getPermission());
                 log.info("Importing Relation for "+u.getPermission()+"-"+u.getResource());
-                if(Objects.nonNull(existingPermission))
-                {
-                    result.getResults().add(userService.createPermission(u, ctx));
-                }
-                else
-                {
-                    result.getResults().add(userService.createPermission(u, ctx));
-                }
 
+                result.getResults().add(userService.createPermission(u, ctx));
                 result.getErrors().add(null);
             }
             catch (Exception e)

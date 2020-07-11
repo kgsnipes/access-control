@@ -23,7 +23,7 @@ import java.util.*;
 
 public class UserGroup2UserGroupRelationDataImportService implements DataImportService<UserGroup2UserGroupRelation> {
 
-    private static Logger log= LogManager.getLogger(UserGroup2UserGroupRelationDataImportService.class);
+    private static final Logger log= LogManager.getLogger(UserGroup2UserGroupRelationDataImportService.class);
     @Autowired
     private UserService userService;
 

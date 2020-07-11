@@ -12,7 +12,7 @@ public class AccessControlUtil {
     public static Collection getPagedResult(Collection collection, int page, int limit) throws IllegalAccessException, InstantiationException {
         if(page>=1) {
             Collection retVal = collection.getClass().newInstance();
-            collection.stream().skip((page - 1) * limit).limit(limit).forEach(ele -> {
+            collection.stream().skip((page - 1) * (long)limit).limit(limit).forEach(ele -> {
                 retVal.add(ele);
             });
             return retVal;

@@ -1673,7 +1673,7 @@ public class UserServiceTest {
         result1.getResults().stream().forEach(rel -> {
             log.info("relation id :"+rel.getId());
         });
-        Assertions.assertEquals(4,result.getResults().size());
+        Assertions.assertEquals(4,result1.getResults().size());
     }
 
 
