@@ -1,11 +1,17 @@
 # AccessControl API
 Every JAVA application that is built from scratch requires some type of user access control service to be developed or integrated. I as a developer have always come across this necessity in my personal projects. This led me to creating this API that constitutes of a UserService that is simple to understand and use. It takes care of all the user management and access permisssion persistence and querying that an application might need.
 
-It is a simple yet effective library which can fast-track development of your projects and let you focus on the business logic for the apps rather than worry about coding the user management and access permission CRUD operations of you app.
+It is a simple yet effective library which can fast-track development of your projects and let you focus on the business logic for the apps rather than worry about coding the user management and access permission CRUD operations of your app.
 
-This API is developed using Spring Context for DI, Spring JPA and a few utility libraries from Apache foundation as well. This code is available for anybody to customize it as per needs with the base framework available. It is easy to get started with.
+This API is developed using Spring Context for DI, Spring JPA and a few utility libraries from Apache foundation as well. You can customize it as per your needs with the base framework available. It is easy to get started with.
 
-Extensive Unit testing is provided with 100+ unit tests.
+Extensive Unit testing is provided with 100+ unit tests with more than 80% code coverage and zero code quality issues.
+
+Checkout the [Setup and Configuration for the library](https://github.com/kgsnipes/access-control/wiki/Initial-Configuration-and-Setup)
+
+For more info on configuration and setup information explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
+
+[Additional code quality and code coverage can be found here.](https://github.com/kgsnipes/access-control/wiki/Code-Quality-and-Code-Coverage-Information)
 
 **Feature List**
 
@@ -31,8 +37,8 @@ Extensive Unit testing is provided with 100+ unit tests.
 
 
 **Getting Started with this API is very easy**
-```
 
+```
 import com.accesscontrol.services
 // load up the API with the Spring Container
 AccessControlService accessControlService=new DefaultAccessControlService();
@@ -79,9 +85,6 @@ userService.createUserGroup(userGroup,ctx)
 
 ```
 
-
-
-For more info on configuration and setup information explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
 
 
 
