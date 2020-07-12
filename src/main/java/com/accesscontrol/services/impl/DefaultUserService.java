@@ -121,7 +121,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(violations))
         {
             String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
-            log.error("Error were found in the input "+errorMsg);
+            log.error("Error were found in the input {}",errorMsg);
             throw new AccessControlException(errorMsg);
         }
         else
@@ -129,12 +129,12 @@ public class DefaultUserService implements UserService {
             User existingUser=userRepository.findByUserId(user.getUserId());
             if(Objects.nonNull(existingUser))
             {
-                log.error("User ID already existing "+user.getUserId());
+                log.error("User ID already existing {}",user.getUserId());
                 throw new AccessControlException("User ID already existing "+user.getUserId());
             }
             encryptPasswordIfNotEncrypted(user);
             savedUser=userRepository.save(user);
-            log.debug("User Created with ID :"+savedUser.getId());
+            log.debug("User Created with ID :{}",savedUser.getId());
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.CREATE,user,savedUser,ctx);
         }
         return savedUser;
@@ -163,7 +163,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(violations))
         {
             String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
-            log.error("Validation errors found "+errorMsg);
+            log.error("Validation errors found {}",errorMsg);
             throw new AccessControlException(errorMsg);
         }
         else
@@ -178,7 +178,7 @@ public class DefaultUserService implements UserService {
                 retrievedUser.setEnabled(user.getEnabled());
                 retrievedUser.setPassword(user.getPassword());
                 savedUser=userRepository.save(retrievedUser);
-                log.debug("Update user with ID "+savedUser.getId());
+                log.debug("Update user with ID {}",savedUser.getId());
                 changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
 
             }
@@ -200,7 +200,7 @@ public class DefaultUserService implements UserService {
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
-            log.error("User not found with id : "+userId);
+            log.error("User not found with id : {}",userId);
             throw new UserNotFoundException("No such user available");
         }
         else
@@ -208,7 +208,7 @@ public class DefaultUserService implements UserService {
             user.setEnabled(false);
             User savedUser=userRepository.save(user);
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
-            log.debug("disabled the user with Id :"+userId);
+            log.debug("disabled the user with Id :{}",userId);
         }
 
     }
@@ -233,7 +233,7 @@ public class DefaultUserService implements UserService {
             user.setEnabled(true);
             User savedUser=userRepository.save(user);
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);
-            log.debug("Enabled the user with ID: "+userId);
+            log.debug("Enabled the user with ID: {}",userId);
         }
     }
 
@@ -257,7 +257,7 @@ public class DefaultUserService implements UserService {
         {
             changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.DELETE,user,null,ctx);
             userRepository.delete(user);
-            log.debug("Deleted the user with ID: "+userId);
+            log.debug("Deleted the user with ID: {}",userId);
         }
 
     }
@@ -318,7 +318,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(violations))
         {
             String errorMsg= violations.stream().map(violation->violation.getMessage()).collect(Collectors.joining(","));
-            log.error("Validation failure : "+errorMsg);
+            log.error("Validation failure : {}",errorMsg);
             throw new AccessControlException(errorMsg);
         }
         else
@@ -326,7 +326,7 @@ public class DefaultUserService implements UserService {
             UserGroup existingGroup=userGroupRepository.findByCode(userGroup.getCode());
             if(Objects.nonNull(existingGroup))
             {
-                log.error("User group with code already existing "+userGroup.getCode());
+                log.error("User group with code already existing {}",userGroup.getCode());
                 throw new AccessControlException("User group with code already existing "+userGroup.getCode());
             }
 

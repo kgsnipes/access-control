@@ -41,53 +41,13 @@ public class DefaultChangeLogService implements ChangeLogService {
         if(isChangeLogEnabled())
         {
             ChangeLog log=new ChangeLog();
-            if(Objects.nonNull(pk))
-            {
-                log.setPk(pk);
-            }
-            if(Objects.nonNull(StringUtils.trimToNull(type)))
-            {
-                log.setType(type);
-            }
-            if(Objects.nonNull(StringUtils.trimToNull(action)))
-            {
-                log.setAction(action);
-            }
-            if(Objects.nonNull(previousState))
-            {
-                try {
-                    log.setPreviousState(mapper.writeValueAsString(previousState));
-                } catch (JsonProcessingException e) {
-                    LOG.error("Exception in parsing object",e);
-                }
-            }
 
-            if(Objects.nonNull(newState))
-            {
-                try {
-                    log.setNewState(mapper.writeValueAsString(newState));
-                } catch (JsonProcessingException e) {
-                    LOG.error("Exception in parsing object",e);
-                }
-            }
-
-            if(Objects.nonNull(context))
-            {
-                if(Objects.nonNull(StringUtils.trimToNull(context.getUserId())))
-                {
-                    log.setUserId(context.getUserId());
-                }
-                if(Objects.nonNull(StringUtils.trimToNull(context.getMessage())))
-                {
-                    log.setMessage(context.getMessage());
-                }
-
-                try {
-                    log.setContextObject(mapper.writeValueAsString(context));
-                } catch (JsonProcessingException e) {
-                    LOG.error("Exception in parsing object",e);
-                }
-            }
+            setPk(pk,log);
+            setType(type,log);
+            setAction(action,log);
+            setPreviousState(previousState,log);
+            setNewState(newState,log);
+            setContext(context,log);
 
             if(StringUtils.isNotEmpty(log.getAction())){
                 changeLogRepository.save(log);
@@ -100,5 +60,75 @@ public class DefaultChangeLogService implements ChangeLogService {
     private boolean isChangeLogEnabled()
     {
         return accessControlConfigProperties.getProperty(AccessControlConfigConstants.CHANGELOG_ENABLED).equals("true");
+    }
+
+    private void setPk(Long pk,ChangeLog log)
+    {
+        if(Objects.nonNull(pk))
+        {
+            log.setPk(pk);
+        }
+    }
+
+    private void setType(String type,ChangeLog log)
+    {
+        if(Objects.nonNull(StringUtils.trimToNull(type)))
+        {
+            log.setType(type);
+        }
+    }
+
+    private void setAction(String action,ChangeLog log)
+    {
+        if(Objects.nonNull(StringUtils.trimToNull(action)))
+        {
+            log.setAction(action);
+        }
+    }
+
+    private void setPreviousState(Object previousState,ChangeLog log)
+    {
+        if(Objects.nonNull(previousState))
+        {
+            try {
+                log.setPreviousState(mapper.writeValueAsString(previousState));
+            } catch (JsonProcessingException e) {
+                LOG.error("Exception in parsing object",e);
+            }
+        }
+
+    }
+
+    private void setNewState(Object newState, ChangeLog log)
+    {
+        if(Objects.nonNull(newState))
+        {
+            try {
+                log.setNewState(mapper.writeValueAsString(newState));
+            } catch (JsonProcessingException e) {
+                LOG.error("Exception in parsing object",e);
+            }
+        }
+    }
+
+    private void setContext(AccessControlContext context,ChangeLog log)
+    {
+        if(Objects.nonNull(context))
+        {
+            if(Objects.nonNull(StringUtils.trimToNull(context.getUserId())))
+            {
+                log.setUserId(context.getUserId());
+            }
+            if(Objects.nonNull(StringUtils.trimToNull(context.getMessage())))
+            {
+                log.setMessage(context.getMessage());
+            }
+
+            try {
+                log.setContextObject(mapper.writeValueAsString(context));
+            } catch (JsonProcessingException e) {
+                LOG.error("Exception in parsing object",e);
+            }
+        }
     }
 }
