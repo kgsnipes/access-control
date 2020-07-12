@@ -110,6 +110,8 @@ public class DefaultUserService implements UserService {
     private final static String SEARCH_TERM_NOT_EMPTY="search term cannot be empty or page number cannot be null or less than 1";
     private final static String USERID_EMPTY_MESSAGE="user id is empty or pagenumber is invalid";
     private final static String ERROR_FETCHING_USERGROUPS_MESSAGE="Error while fetching user groups";
+    private final static String PERMISSION_OBJ_CANNOT_BE_NULL_MESSAGE="permission object or user group cannot be null";
+    private final static String ERROR_IN_EXPORT="Error processing export for {}";
 
     @Transactional
     @Override
@@ -774,7 +776,7 @@ public class DefaultUserService implements UserService {
         AccessPermission savedPermission=null;
         if(Objects.isNull(permission) || Objects.isNull(userGroup))
         {
-            throw new IllegalArgumentException("permission object or user group cannot be null");
+            throw new IllegalArgumentException(PERMISSION_OBJ_CANNOT_BE_NULL_MESSAGE);
         }
 
         Validator validator=validatorFactory.getValidator();
@@ -831,7 +833,7 @@ public class DefaultUserService implements UserService {
         AccessPermission savedPermission=null;
         if(Objects.isNull(permission))
         {
-            throw new IllegalArgumentException("permission object or user group cannot be null");
+            throw new IllegalArgumentException(PERMISSION_OBJ_CANNOT_BE_NULL_MESSAGE);
         }
 
         Validator validator=validatorFactory.getValidator();
@@ -865,7 +867,7 @@ public class DefaultUserService implements UserService {
 
         if(Objects.isNull(permission) || Objects.isNull(userGroup))
         {
-            throw new IllegalArgumentException("permission object or user group cannot be null");
+            throw new IllegalArgumentException(PERMISSION_OBJ_CANNOT_BE_NULL_MESSAGE);
         }
 
         Validator validator=validatorFactory.getValidator();
@@ -905,7 +907,7 @@ public class DefaultUserService implements UserService {
     public void disablePermission(AccessPermission permission, UserGroup userGroup, AccessControlContext ctx) {
         if(Objects.isNull(permission) || Objects.isNull(userGroup))
         {
-            throw new IllegalArgumentException("permission object or user group cannot be null");
+            throw new IllegalArgumentException(PERMISSION_OBJ_CANNOT_BE_NULL_MESSAGE);
         }
 
         Validator validator=validatorFactory.getValidator();
@@ -1233,13 +1235,15 @@ public class DefaultUserService implements UserService {
                 case "ChangeLog":
                     beanToCsv.write(changeLogRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) changeLogRepository.count() : limit)).getContent());
                     break;
+                    default:
+                        log.info("other types not supported");
 
             }
         }
         catch (Exception e)
         {
-            log.error("Error processing export for "+dataModelClass.getSimpleName(),e);
-            throw new AccessControlException("Error processing export for "+dataModelClass.getSimpleName(),e);
+            log.error(ERROR_IN_EXPORT,dataModelClass.getSimpleName(),e);
+            throw new AccessControlException(ERROR_IN_EXPORT+dataModelClass.getSimpleName(),e);
         }
         finally {
             if(Objects.nonNull(writer))
@@ -1247,7 +1251,7 @@ public class DefaultUserService implements UserService {
                 try {
                     writer.close();
                 } catch (IOException e) {
-                    log.error("Error processing export for "+dataModelClass.getSimpleName(),e);
+                    log.error(ERROR_IN_EXPORT,dataModelClass.getSimpleName(),e);
                 }
             }
         }
