@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -105,13 +106,13 @@ public class DefaultUserService implements UserService {
     @Autowired
     private ChangeLogRepository changeLogRepository;
 
-    private final static String USERID_NOT_NULL_MESSAGE="UserId cannot be null or empty";
-    private final static String NO_SUCH_USER_AVAILABLE_MESSAGES="No such user available";
-    private final static String SEARCH_TERM_NOT_EMPTY="search term cannot be empty or page number cannot be null or less than 1";
-    private final static String USERID_EMPTY_MESSAGE="user id is empty or pagenumber is invalid";
-    private final static String ERROR_FETCHING_USERGROUPS_MESSAGE="Error while fetching user groups";
-    private final static String PERMISSION_OBJ_CANNOT_BE_NULL_MESSAGE="permission object or user group cannot be null";
-    private final static String ERROR_IN_EXPORT="Error processing export for {}";
+    private static final String USERID_NOT_NULL_MESSAGE="UserId cannot be null or empty";
+    private static final String NO_SUCH_USER_AVAILABLE_MESSAGES="No such user available";
+    private static final String SEARCH_TERM_NOT_EMPTY="search term cannot be empty or page number cannot be null or less than 1";
+    private static final String USERID_EMPTY_MESSAGE="user id is empty or pagenumber is invalid";
+    private static final String ERROR_FETCHING_USERGROUPS_MESSAGE="Error while fetching user groups";
+    private static final String PERMISSION_OBJ_CANNOT_BE_NULL_MESSAGE="permission object or user group cannot be null";
+    private static final String ERROR_IN_EXPORT="Error processing export for {}";
 
     @Transactional
     @Override
@@ -149,7 +150,7 @@ public class DefaultUserService implements UserService {
 
     private void encryptPasswordIfNotEncrypted(User user)
     {
-        if(!passwordEncryptionService.isPasswordEncrypted(user.getPassword()))
+        if(!BooleanUtils.isTrue(passwordEncryptionService.isPasswordEncrypted(user.getPassword())))
         {
             user.setPassword(passwordEncryptionService.encryptPassword(user.getPassword()));
         }
@@ -306,7 +307,7 @@ public class DefaultUserService implements UserService {
         {
             return new PageResult<User>(Collections.unmodifiableList(userList.getContent()),pageNumber,userList.getSize(), (int) userList.getTotalElements());
         }
-        return new PageResult<User>(Collections.EMPTY_LIST,pageNumber,0, 0);
+        return new PageResult(Collections.emptyList(),pageNumber,0, 0);
     }
 
     @Transactional
@@ -486,9 +487,9 @@ public class DefaultUserService implements UserService {
 
         if(Objects.nonNull(userGroupList))
         {
-            return new PageResult<UserGroup>(Collections.unmodifiableList(userGroupList.getContent()),pageNumber,userGroupList.getSize(), (int) userGroupList.getTotalElements());
+            return new PageResult(Collections.unmodifiableList(userGroupList.getContent()),pageNumber,userGroupList.getSize(), (int) userGroupList.getTotalElements());
         }
-        return new PageResult<UserGroup>(Collections.EMPTY_LIST,pageNumber,0, 0);
+        return new PageResult(Collections.emptyList(),pageNumber,0, 0);
     }
 
 
@@ -613,7 +614,7 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
-        HashSet<UserGroup> allGroups=new HashSet<UserGroup>();
+        HashSet<UserGroup> allGroups=new HashSet();
         User user=getUserById(userId);
         if(Objects.nonNull(user))
         {
@@ -621,9 +622,7 @@ public class DefaultUserService implements UserService {
             if(Objects.nonNull(immediateUserGroups) && CollectionUtils.isNotEmpty(immediateUserGroups.getResults()))
             {
                 allGroups.addAll(immediateUserGroups.getResults());
-                immediateUserGroups.getResults().stream().forEach(group->{
-                   getParentGroupsForUserGroup(group.getCode(),allGroups);
-                });
+                immediateUserGroups.getResults().stream().forEach(group->getParentGroupsForUserGroup(group.getCode(),allGroups));
             }
         }
 
@@ -642,7 +641,7 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
-        HashSet<UserGroup> groups=new HashSet<UserGroup>();
+        HashSet<UserGroup> groups=new HashSet();
         User user=getUserById(userId);
         if(Objects.nonNull(user)){
             List<User2UserGroupRelation> user2UserGroupRelation=user2UserGroupRelationRepository.findByUserId(userId);
@@ -667,16 +666,13 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
-        HashSet<UserGroup> groups=new HashSet<UserGroup>();
+        HashSet<UserGroup> groups=new HashSet();
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
             List<UserGroup2UserGroupRelation> immediateGroups=userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
             if(CollectionUtils.isNotEmpty(immediateGroups)){
-                immediateGroups.stream().forEach(ug->{
-                    getParentGroupsForUserGroup(ug.getParentUserGroupCode(),groups);
-                });
-
+                immediateGroups.stream().forEach(ug->getParentGroupsForUserGroup(ug.getParentUserGroupCode(),groups));
             }
 
         }
@@ -696,16 +692,14 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
-        HashSet<UserGroup> groups=new HashSet<UserGroup>();
+        HashSet<UserGroup> groups=new HashSet();
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
             List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByChildUserGroupCode(userGroupCode);
             if(CollectionUtils.isNotEmpty(relations))
             {
-                relations.stream().forEach(r->{
-                    groups.add(getUserGroupByCode(r.getParentUserGroupCode()));
-                });
+                relations.stream().forEach(r->groups.add(getUserGroupByCode(r.getParentUserGroupCode())));
             }
         }
         try {
@@ -723,16 +717,14 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
-        HashSet<UserGroup> groups=new HashSet<UserGroup>();
+        HashSet<UserGroup> groups=new HashSet();
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
             List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
             if(CollectionUtils.isNotEmpty(relations))
             {
-                relations.stream().forEach(r->{
-                    getChildGroupsForUserGroup(r.getChildUserGroupCode(),groups);
-                });
+                relations.stream().forEach(r->getChildGroupsForUserGroup(r.getChildUserGroupCode(),groups));
             }
         }
         try {
@@ -750,16 +742,14 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
-        HashSet<UserGroup> groups=new HashSet<UserGroup>();
+        HashSet<UserGroup> groups=new HashSet();
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         if(Objects.nonNull(userGroup))
         {
             List<UserGroup2UserGroupRelation> relations =userGroup2UserGroupRelationRepository.findByParentUserGroupCode(userGroupCode);
             if(CollectionUtils.isNotEmpty(relations))
             {
-                relations.stream().forEach(r->{
-                    groups.add(getUserGroupByCode(r.getChildUserGroupCode()));
-                });
+                relations.stream().forEach(r->groups.add(getUserGroupByCode(r.getChildUserGroupCode())));
             }
         }
         try {
@@ -943,7 +933,7 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<AccessPermission> result=new PageResult<>();
-        HashSet<AccessPermission> permissions=new HashSet<AccessPermission>();
+        HashSet<AccessPermission> permissions=new HashSet();
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         Page<AccessPermission> per=null;
         if(Objects.nonNull(userGroup))
@@ -967,7 +957,7 @@ public class DefaultUserService implements UserService {
             }
             else
             {
-                result.setResults(Collections.EMPTY_LIST);
+                result.setResults(Collections.emptyList());
                 result.setPageSize(per.getSize());
                 result.setPageNumber(pageNumber);
                 result.setTotalResults((int)per.getTotalElements());
@@ -984,7 +974,7 @@ public class DefaultUserService implements UserService {
             throw new IllegalArgumentException("user id is empty or resource is empty or pagenumber is invalid");
         }
         PageResult<AccessPermission> result=new PageResult<>();
-        HashSet<AccessPermission> permissions=new HashSet<AccessPermission>();
+        HashSet<AccessPermission> permissions=new HashSet();
         UserGroup userGroup=getUserGroupByCode(userGroupCode);
         Page<AccessPermission> per=null;
         if(Objects.nonNull(userGroup))
@@ -1008,7 +998,7 @@ public class DefaultUserService implements UserService {
             }
             else
             {
-                result.setResults(Collections.EMPTY_LIST);
+                result.setResults(Collections.emptyList());
                 result.setPageSize(per.getSize());
                 result.setPageNumber(pageNumber);
                 result.setTotalResults((int)per.getTotalElements());
@@ -1022,7 +1012,7 @@ public class DefaultUserService implements UserService {
     public UserDetailsService getUserDetailsService() {
         return new UserDetailsService() {
             @Override
-            public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+            public UserDetails loadUserByUsername(String s) {
                 User user=null;
                 try
                 {
@@ -1035,9 +1025,8 @@ public class DefaultUserService implements UserService {
                 if(Objects.nonNull(user))
                 {
                     Collection<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
-                    getAllUserGroupsForUser(user.getUserId(),-1).getResults().stream().forEach(grp->{
-                        simpleGrantedAuthorities.add(new SimpleGrantedAuthority(grp.getCode()));
-                    });
+                    getAllUserGroupsForUser(user.getUserId(),-1).getResults().stream().forEach(grp->
+                            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(grp.getCode())));
                     return new AccessControlUser(user.getUserId(),user.getPassword(),user.getEnabled(),Collections.unmodifiableCollection(simpleGrantedAuthorities));
                 }
                 return null;
@@ -1068,9 +1057,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(relations))
         {
 
-            relations.stream().forEach(r->{
-                getParentGroupsForUserGroup(r.getParentUserGroupCode(),groups);
-            });
+            relations.stream().forEach(r->getParentGroupsForUserGroup(r.getParentUserGroupCode(),groups));
         }
 
     }
@@ -1081,9 +1068,7 @@ public class DefaultUserService implements UserService {
         if(CollectionUtils.isNotEmpty(relations))
         {
             groups.add(getUserGroupByCode(userGroupCode));
-            relations.stream().forEach(r->{
-                getChildGroupsForUserGroup(r.getChildUserGroupCode(),groups);
-            });
+            relations.stream().forEach(r->getChildGroupsForUserGroup(r.getChildUserGroupCode(),groups));
         }
         else
         {
@@ -1167,7 +1152,7 @@ public class DefaultUserService implements UserService {
         User user=getUserById(userId);
         AccessPermission permission1=accessPermissionRepository.findByResourceAndPermission(resource,permission);
         PageResult<UserGroup> groups=getAllUserGroupsForUser(user.getUserId(),-1);
-        if(Objects.nonNull(user) && Objects.nonNull(permission1) && CollectionUtils.isNotEmpty(groups.getResults()))
+        if(Objects.nonNull(permission1) && CollectionUtils.isNotEmpty(groups.getResults()))
         {
 
             List<AccessPermission> permissions=accessPermissionRepository.findPermissionInUserGroupsByResourceAndPermission(permission,resource,groups.getResults().stream().map(group->group.getCode()).collect(Collectors.toList()));
@@ -1190,7 +1175,7 @@ public class DefaultUserService implements UserService {
         UserGroup group=getUserGroupByCode(userGroupCode);
         AccessPermission permission1=accessPermissionRepository.findByResourceAndPermission(resource,permission);
         PageResult<UserGroup> groups=getAllUserGroupsForUserGroup(group.getCode(),-1);
-        if(Objects.nonNull(group) && Objects.nonNull(permission1) && Objects.nonNull(groups.getResults()))
+        if(Objects.nonNull(permission1) && Objects.nonNull(groups.getResults()))
         {
             List<UserGroup> groupsForQuery=new ArrayList<>(groups.getResults());
             groupsForQuery.add(group);
@@ -1215,25 +1200,25 @@ public class DefaultUserService implements UserService {
         try{
             switch (className) {
                 case "User":
-                    beanToCsv.write(userRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userRepository.count() : limit)).getContent());
+                    beanToCsv.write(userRepository.findAll(PageRequest.of(pageNumber - 1, getLimitByRepositoryAndPage(userRepository,limit))).getContent());
                     break;
                 case "UserGroup":
-                    beanToCsv.write(userGroupRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroupRepository.count() : limit)).getContent());
+                    beanToCsv.write(userGroupRepository.findAll(PageRequest.of(pageNumber - 1, getLimitByRepositoryAndPage(userGroupRepository,limit))).getContent());
                     break;
                 case "User2UserGroupRelation":
-                    beanToCsv.write(user2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) user2UserGroupRelationRepository.count() : limit)).getContent());
+                    beanToCsv.write(user2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, getLimitByRepositoryAndPage(user2UserGroupRelationRepository,limit))).getContent());
                     break;
                 case "UserGroup2UserGroupRelation":
-                    beanToCsv.write(userGroup2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) userGroup2UserGroupRelationRepository.count() : limit)).getContent());
+                    beanToCsv.write(userGroup2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, getLimitByRepositoryAndPage(userGroup2UserGroupRelationRepository,limit))).getContent());
                     break;
                 case "AccessPermission":
-                    beanToCsv.write(accessPermissionRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermissionRepository.count() : limit)).getContent());
+                    beanToCsv.write(accessPermissionRepository.findAll(PageRequest.of(pageNumber - 1, getLimitByRepositoryAndPage(accessPermissionRepository,limit))).getContent());
                     break;
                 case "AccessPermission2UserGroupRelation":
-                    beanToCsv.write(accessPermission2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) accessPermission2UserGroupRelationRepository.count() : limit)).getContent());
+                    beanToCsv.write(accessPermission2UserGroupRelationRepository.findAll(PageRequest.of(pageNumber - 1, getLimitByRepositoryAndPage(accessPermission2UserGroupRelationRepository,limit))).getContent());
                     break;
                 case "ChangeLog":
-                    beanToCsv.write(changeLogRepository.findAll(PageRequest.of(pageNumber - 1, (limit < 0) ? (int) changeLogRepository.count() : limit)).getContent());
+                    beanToCsv.write(changeLogRepository.findAll(PageRequest.of(pageNumber - 1, getLimitByRepositoryAndPage(changeLogRepository,limit))).getContent());
                     break;
                     default:
                         log.info("other types not supported");
@@ -1246,14 +1231,24 @@ public class DefaultUserService implements UserService {
             throw new AccessControlException(ERROR_IN_EXPORT+dataModelClass.getSimpleName(),e);
         }
         finally {
-            if(Objects.nonNull(writer))
-            {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    log.error(ERROR_IN_EXPORT,dataModelClass.getSimpleName(),e);
-                }
+            handleWriterClose(writer,dataModelClass);
+        }
+    }
+
+    private void handleWriterClose(Writer writer, Class dataModelClass) {
+        if(Objects.nonNull(writer))
+        {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                log.error(ERROR_IN_EXPORT,dataModelClass.getSimpleName(),e);
             }
         }
+    }
+
+
+    private int getLimitByRepositoryAndPage(CrudRepository repository, int limit)
+    {
+        return (limit < 0) ? (int) repository.count() : limit;
     }
 }

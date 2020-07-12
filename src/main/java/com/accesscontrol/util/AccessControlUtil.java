@@ -9,6 +9,11 @@ import java.util.Collection;
 
 public class AccessControlUtil {
 
+    private AccessControlUtil()
+    {
+
+    }
+
     public static Collection getPagedResult(Collection collection, int page, int limit) throws IllegalAccessException, InstantiationException {
         if(page>=1) {
             Collection retVal = collection.getClass().newInstance();

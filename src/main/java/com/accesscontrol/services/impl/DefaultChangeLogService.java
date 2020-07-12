@@ -30,7 +30,7 @@ public class DefaultChangeLogService implements ChangeLogService {
 
     private ObjectMapper mapper=new ObjectMapper();
 
-    private final static String EXCEPTION_MESSAGE="Exception in parsing object";
+    private static final String EXCEPTION_MESSAGE="Exception in parsing object";
 
 
     @Override

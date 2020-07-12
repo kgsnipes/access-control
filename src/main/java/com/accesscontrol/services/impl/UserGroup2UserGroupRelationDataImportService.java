@@ -58,7 +58,7 @@ public class UserGroup2UserGroupRelationDataImportService implements DataImportS
                 }
 
                 PageResult<UserGroup> existingRelationship=userService.getChildUserGroupsForUserGroup(existingParentUserGroup.getCode(),-1);
-                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(userGroup -> userGroup.getCode().equals(u.getChildUserGroupCode())).findAny().isPresent();
+                boolean relationShipAvailable=existingRelationship.getResults().stream().anyMatch(userGroup -> userGroup.getCode().equals(u.getChildUserGroupCode()));
                 if(Objects.nonNull(existingChildUserGroup) && Objects.nonNull(existingParentUserGroup) && !relationShipAvailable)
                 {
                     log.info("Importing Relation for "+existingChildUserGroup.getCode()+"-"+existingParentUserGroup.getCode());
@@ -87,7 +87,7 @@ public class UserGroup2UserGroupRelationDataImportService implements DataImportS
         Iterator<String[]> itr=csvReader.iterator();
         while (itr.hasNext())
         {
-            String arr[]=itr.next();
+            String[] arr=itr.next();
             if(StringUtils.isNotEmpty(StringUtils.join(arr)))
             {
                 UserGroup2UserGroupRelation relation=new UserGroup2UserGroupRelation();

@@ -84,7 +84,7 @@ public class UserGroupDataImportService implements DataImportService<UserGroup> 
         Iterator<String[]> itr=csvReader.iterator();
         while (itr.hasNext())
         {
-            String arr[]=itr.next();
+            String[] arr=itr.next();
             if(StringUtils.isNotEmpty(StringUtils.join(arr)))
             {
                 UserGroup group=new UserGroup();

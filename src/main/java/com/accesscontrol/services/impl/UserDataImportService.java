@@ -85,7 +85,7 @@ public class UserDataImportService implements DataImportService<User>{
         Iterator<String[]> itr=csvReader.iterator();
         while (itr.hasNext())
         {
-            String arr[]=itr.next();
+            String[] arr=itr.next();
             if(StringUtils.isNotEmpty(StringUtils.join(arr)))
             {
                 User user=new User();
