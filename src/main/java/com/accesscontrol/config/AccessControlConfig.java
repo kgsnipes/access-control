@@ -29,6 +29,9 @@ import javax.validation.ValidatorFactory;
 import java.util.Properties;
 
 
+/**
+ * This Annotated Spring config class provides all the DI setup for the library.
+ */
 @Configuration
 @EnableAspectJAutoProxy
 @EnableTransactionManagement

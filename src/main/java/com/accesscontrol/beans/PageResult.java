@@ -3,6 +3,10 @@ package com.accesscontrol.beans;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Any API call that returns a paged result will use this DTO to return the results.
+ * @param <T>
+ */
 public class PageResult<T>{
 
     private Collection<T> results;

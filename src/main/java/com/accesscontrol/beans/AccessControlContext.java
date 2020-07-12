@@ -1,5 +1,8 @@
 package com.accesscontrol.beans;
 
+/**
+ * this class maintains the context of the user/system associated with the API calls also carries a generic description/message.
+ */
 public class AccessControlContext {
 
     private String userId;

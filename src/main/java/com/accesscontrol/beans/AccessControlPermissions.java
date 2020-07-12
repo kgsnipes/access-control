@@ -1,6 +1,8 @@
 package com.accesscontrol.beans;
 
-
+/**
+ * This is just a sample class for describing some permission. You can use this if you are not planning to create one for yourself.
+ */
 public class AccessControlPermissions {
 
     public static final String READ="READ";

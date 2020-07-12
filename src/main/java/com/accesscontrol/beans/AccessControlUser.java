@@ -5,6 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * This class extends the UserDetails from the Spring framework. This helps in providing the UserDetails DTO with the authorities required for the Spring framework.
+ */
 public class AccessControlUser implements UserDetails {
 
     private String userName;
