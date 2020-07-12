@@ -10,4 +10,6 @@ public class AccessControlPermissions {
     public static final String DELETE="DELETE";
     public static final String EXECUTE="EXECUTE";
 
+    private AccessControlPermissions() {
+    }
 }

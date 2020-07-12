@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class ChangeLog {
+public class ChangeLog extends AbstractModel{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

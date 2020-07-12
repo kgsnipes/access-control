@@ -112,6 +112,6 @@ public interface UserService {
     Boolean isUserAuthorizedForResourceAndPermission(String userId,String resource,String permission);
     Boolean isUserGroupAuthorizedForResourceAndPermission(String userGroupCode,String resource, String permission);
 
-    void exportData(Writer writer,Class dataModelClass,Integer pageNumber,Integer limit);
+    void exportData(Writer writer,Class<? extends AbstractModel> dataModelClass,Integer pageNumber,Integer limit);
 
 }

@@ -48,9 +48,8 @@ public class AccessControlConfig {
     @Bean
     public DataSource dataSource() {
 
-        // Properties accessControlConfigProperties= (Properties) applicationContext.getBean(AccessControlConfigConstants.ACCESS_CONTROL_CONFIG);
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        log.info("fetching driver class name for data source " + accessControlConfigProperties.getProperty(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS));
+        log.info("fetching driver class name for data source {}" , accessControlConfigProperties.getProperty(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS));
         dataSource.setDriverClassName(accessControlConfigProperties.getProperty(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_DRIVER_CLASS));
         dataSource.setUsername(accessControlConfigProperties.getProperty(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_USERNAME));
         dataSource.setPassword(accessControlConfigProperties.getProperty(AccessControlConfigConstants.DataSourceConfigConstants.DATASOURCE_PASSWORD));
@@ -65,7 +64,7 @@ public class AccessControlConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{AccessControlConfigConstants.BASE_PACKAGE_FOR_SCAN});
+        em.setPackagesToScan(AccessControlConfigConstants.BASE_PACKAGE_FOR_SCAN);
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -73,7 +72,7 @@ public class AccessControlConfig {
         Properties additionalProperties = new Properties();
         additionalProperties.setProperty(AccessControlConfigConstants.HibernateConfiguration.DDL_AUTO, accessControlConfigProperties.getProperty(AccessControlConfigConstants.JPAConfigConstants.JPA_DDL_AUTO));
         additionalProperties.setProperty(AccessControlConfigConstants.HibernateConfiguration.DIALECT, accessControlConfigProperties.getProperty(AccessControlConfigConstants.JPAConfigConstants.JPA_DATABASE_DIALECT));
-        // additionalProperties.setProperty("hibernate.connection.pool_size","50");
+
         additionalProperties.setProperty(AccessControlConfigConstants.HibernateConfiguration.AUTO_COMMIT, accessControlConfigProperties.getProperty(AccessControlConfigConstants.JPAConfigConstants.JPA_AUTO_COMMIT));
 
         additionalProperties.setProperty(AccessControlConfigConstants.HibernateConfiguration.MIN_POOL_SIZE, accessControlConfigProperties.getProperty(AccessControlConfigConstants.JPAConfigConstants.JPA_POOL_SIZE_MIN));
@@ -129,7 +128,7 @@ public class AccessControlConfig {
     UserDataImportService userDataImportService(){return new UserDataImportService();}
 
     @Bean
-    UserGroupDataImportService userGroupDataImportService(){return new UserGroupDataImportService();};
+    UserGroupDataImportService userGroupDataImportService(){return new UserGroupDataImportService();}
 
     @Bean
     UserGroup2UserGroupRelationDataImportService userGroup2UserGroupRelationDataImportService(){return new UserGroup2UserGroupRelationDataImportService();}

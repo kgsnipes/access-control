@@ -18,7 +18,7 @@ public class PageResult<T>{
     public PageResult() {
     }
 
-    public PageResult(List results, Integer pageNumber, Integer pageSize, Integer totalResults) {
+    public PageResult(List<T> results, Integer pageNumber, Integer pageSize, Integer totalResults) {
         this.results = results;
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;

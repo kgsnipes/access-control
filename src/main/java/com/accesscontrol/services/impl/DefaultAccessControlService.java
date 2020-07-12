@@ -28,7 +28,7 @@ public class DefaultAccessControlService implements AccessControlService {
 
     private Properties properties=new Properties();
 
-    private Boolean loaded=false;
+    private boolean loaded=false;
 
     public DefaultAccessControlService()  {
             this.init();
@@ -48,8 +48,10 @@ public class DefaultAccessControlService implements AccessControlService {
             AccessControlConfigConstants.PasswordEncryption.PASSWORD_DIGEST
     };
 
+    private final static String Exception_Message="Exception occurred while loading access control application context";
+
     @Override
-    public void init() throws AccessControlException {
+    public void init(){
 
         if(!loaded)
         {
@@ -87,11 +89,11 @@ public class DefaultAccessControlService implements AccessControlService {
 
 
             } catch (ConfigurationException|FileNotFoundException e) {
-                log.error("Exception occurred while loading access control application context",e);
-                throw new AccessControlException("Exception occurred while loading access control application context",e);
+                log.error(Exception_Message,e);
+                throw new AccessControlException(Exception_Message,e);
             }
             this.init(properties);
-            //return getApplicationContext(properties);
+
         }
         else
         {
@@ -100,7 +102,7 @@ public class DefaultAccessControlService implements AccessControlService {
 
     }
 
-    private void validateMandatoryConfiguration(Properties properties) throws AccessControlException
+    private void validateMandatoryConfiguration(Properties properties)
     {
         log.info("validating the mandatory configuration");
         for(String key:Arrays.asList(MANDATORY_CONFIG))
@@ -150,8 +152,8 @@ public class DefaultAccessControlService implements AccessControlService {
         {
             loaded=false;
             applicationContext=null;
-            log.error("Exception occurred while loading Access Control Application context",ex);
-            throw new AccessControlException("Exception occurred while loading access control application context",ex);
+            log.error(Exception_Message,ex);
+            throw new AccessControlException(Exception_Message,ex);
         }
 
     }

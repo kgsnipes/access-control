@@ -46,7 +46,7 @@ public class AccessPermissionDataImportService implements DataImportService<Acce
         result.setResults(new ArrayList<>());
         permissions.stream().forEach(u->{
             try {
-                log.info("Importing Relation for "+u.getPermission()+"-"+u.getResource());
+                log.info("Importing Relation for {} - {} ",u.getPermission(),u.getResource());
 
                 result.getResults().add(userService.createPermission(u, ctx));
                 result.getErrors().add(null);
@@ -70,7 +70,7 @@ public class AccessPermissionDataImportService implements DataImportService<Acce
         Iterator<String[]> itr=csvReader.iterator();
         while (itr.hasNext())
         {
-            String arr[]=itr.next();
+            String[] arr=itr.next();
             if(StringUtils.isNotEmpty(StringUtils.join(arr)))
             {
                 AccessPermission permission=new AccessPermission();

@@ -6,9 +6,9 @@ import java.util.Properties;
 
 public interface AccessControlService {
 
-    void init() throws AccessControlException;
+    void init();
 
-    void init(Properties properties) throws AccessControlException;
+    void init(Properties properties);
 
     UserService getUserService();
 

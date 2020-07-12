@@ -51,21 +51,13 @@ public class AccessPermission2UserGroupRelationDataImportService implements Data
                 AccessPermission existingAccessPermission=null;
                 UserGroup existingUserGroup=null;
 
-                try
-                {
-                    existingAccessPermission=accessPermissionRepository.findById(u.getAccessPermissionId()).get();
-                    existingUserGroup=userService.getUserGroupByCode(u.getUserGroupCode());
-
-                }
-                catch (Exception ex)
-                {
-
-                }
+                existingAccessPermission=accessPermissionRepository.findById(u.getAccessPermissionId()).get();
+                existingUserGroup=userService.getUserGroupByCode(u.getUserGroupCode());
 
                 PageResult<AccessPermission> existingRelationship=userService.getPermissionsByResourceAndUserGroup(existingAccessPermission.getResource(),existingUserGroup.getCode(),false,-1);
                 AccessPermission finalExistingAccessPermission = existingAccessPermission;
-                boolean relationShipAvailable=existingRelationship.getResults().stream().filter(accessPermission -> accessPermission.getResource().equals(finalExistingAccessPermission.getResource())&& accessPermission.getPermission().equals(finalExistingAccessPermission.getPermission())).findAny().isPresent();
-                log.info("Importing Relation for "+u.getUserGroupCode());
+                boolean relationShipAvailable=existingRelationship.getResults().stream().anyMatch(accessPermission -> accessPermission.getResource().equals(finalExistingAccessPermission.getResource())&& accessPermission.getPermission().equals(finalExistingAccessPermission.getPermission()));
+                log.info("Importing Relation for {}",u.getUserGroupCode());
                 if(Objects.nonNull(existingAccessPermission) && Objects.nonNull(existingUserGroup) && !relationShipAvailable)
                 {
 
@@ -94,7 +86,7 @@ public class AccessPermission2UserGroupRelationDataImportService implements Data
         Iterator<String[]> itr=csvReader.iterator();
         while (itr.hasNext())
         {
-            String arr[]=itr.next();
+            String[] arr=itr.next();
             if(StringUtils.isNotEmpty(StringUtils.join(arr)))
             {
                 AccessPermission2UserGroupRelation relation=new AccessPermission2UserGroupRelation();
