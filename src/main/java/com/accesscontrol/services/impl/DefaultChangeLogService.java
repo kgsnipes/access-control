@@ -30,6 +30,8 @@ public class DefaultChangeLogService implements ChangeLogService {
 
     private ObjectMapper mapper=new ObjectMapper();
 
+    private final static String EXCEPTION_MESSAGE="Exception in parsing object";
+
 
     @Override
     public void logChange(Long pk, String type, String action, Object previousState, Object newState, AccessControlContext context) {
@@ -93,7 +95,7 @@ public class DefaultChangeLogService implements ChangeLogService {
             try {
                 log.setPreviousState(mapper.writeValueAsString(previousState));
             } catch (JsonProcessingException e) {
-                LOG.error("Exception in parsing object",e);
+                LOG.error(EXCEPTION_MESSAGE,e);
             }
         }
 
@@ -106,7 +108,7 @@ public class DefaultChangeLogService implements ChangeLogService {
             try {
                 log.setNewState(mapper.writeValueAsString(newState));
             } catch (JsonProcessingException e) {
-                LOG.error("Exception in parsing object",e);
+                LOG.error(EXCEPTION_MESSAGE,e);
             }
         }
     }
@@ -127,7 +129,7 @@ public class DefaultChangeLogService implements ChangeLogService {
             try {
                 log.setContextObject(mapper.writeValueAsString(context));
             } catch (JsonProcessingException e) {
-                LOG.error("Exception in parsing object",e);
+                LOG.error(EXCEPTION_MESSAGE,e);
             }
         }
     }

@@ -105,6 +105,11 @@ public class DefaultUserService implements UserService {
     @Autowired
     private ChangeLogRepository changeLogRepository;
 
+    private final static String USERID_NOT_NULL_MESSAGE="UserId cannot be null or empty";
+    private final static String NO_SUCH_USER_AVAILABLE_MESSAGES="No such user available";
+    private final static String SEARCH_TERM_NOT_EMPTY="search term cannot be empty or page number cannot be null or less than 1";
+    private final static String USERID_EMPTY_MESSAGE="user id is empty or pagenumber is invalid";
+    private final static String ERROR_FETCHING_USERGROUPS_MESSAGE="Error while fetching user groups";
 
     @Transactional
     @Override
@@ -193,15 +198,15 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userId))
         {
-            log.error("UserId cannot be null or empty");
-            throw new IllegalArgumentException("UserId cannot be null or empty");
+            log.error(USERID_NOT_NULL_MESSAGE);
+            throw new IllegalArgumentException(USERID_NOT_NULL_MESSAGE);
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
             log.error("User not found with id : {}",userId);
-            throw new UserNotFoundException("No such user available");
+            throw new UserNotFoundException(NO_SUCH_USER_AVAILABLE_MESSAGES);
         }
         else
         {
@@ -218,15 +223,15 @@ public class DefaultUserService implements UserService {
     public void enableUser(String userId, AccessControlContext ctx) {
         if(StringUtils.isEmpty(userId))
         {
-            log.error("UserId cannot be null or empty");
-            throw new IllegalArgumentException("UserId cannot be null or empty");
+            log.error(USERID_NOT_NULL_MESSAGE);
+            throw new IllegalArgumentException(USERID_NOT_NULL_MESSAGE);
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
-            log.error("No such user available");
-            throw new UserNotFoundException("No such user available");
+            log.error(NO_SUCH_USER_AVAILABLE_MESSAGES);
+            throw new UserNotFoundException(NO_SUCH_USER_AVAILABLE_MESSAGES);
         }
         else
         {
@@ -243,15 +248,15 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userId))
         {
-            log.error("UserId cannot be null or empty");
-            throw new IllegalArgumentException("UserId cannot be null or empty");
+            log.error(USERID_NOT_NULL_MESSAGE);
+            throw new IllegalArgumentException(USERID_NOT_NULL_MESSAGE);
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
-            log.error("No such user available");
-            throw new UserNotFoundException("No such user available");
+            log.error(NO_SUCH_USER_AVAILABLE_MESSAGES);
+            throw new UserNotFoundException(NO_SUCH_USER_AVAILABLE_MESSAGES);
         }
         else
         {
@@ -268,15 +273,15 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userId))
         {
-            log.error("UserId cannot be null or empty");
-            throw new IllegalArgumentException("UserId cannot be null or empty");
+            log.error(USERID_NOT_NULL_MESSAGE);
+            throw new IllegalArgumentException(USERID_NOT_NULL_MESSAGE);
         }
 
         User user=userRepository.findByUserId(userId);
         if(Objects.isNull(user))
         {
-            log.error("No such user available");
-            throw new UserNotFoundException("No such user available");
+            log.error(NO_SUCH_USER_AVAILABLE_MESSAGES);
+            throw new UserNotFoundException(NO_SUCH_USER_AVAILABLE_MESSAGES);
         }
         else
         {
@@ -289,8 +294,8 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<-1))
         {
-            log.error("search term cannot be empty or page number cannot be null or less than 1");
-            throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
+            log.error(SEARCH_TERM_NOT_EMPTY);
+            throw new IllegalArgumentException(SEARCH_TERM_NOT_EMPTY);
         }
 
         Page<User> userList=userRepository.findUsers(searchTerm, AccessControlUtil.getPageParameter(userRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
@@ -384,13 +389,13 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userGroupCode))
         {
-            throw new IllegalArgumentException("UserId cannot be null or empty");
+            throw new IllegalArgumentException(USERID_NOT_NULL_MESSAGE);
         }
 
         UserGroup userGroup=userGroupRepository.findByCode(userGroupCode);
         if(Objects.isNull(userGroup))
         {
-            throw new UserGroupNotFoundException("No such user available");
+            throw new UserGroupNotFoundException(NO_SUCH_USER_AVAILABLE_MESSAGES);
         }
         else
         {
@@ -408,13 +413,13 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(userGroupCode))
         {
-            throw new IllegalArgumentException("UserId cannot be null or empty");
+            throw new IllegalArgumentException(USERID_NOT_NULL_MESSAGE);
         }
 
         UserGroup userGroup=userGroupRepository.findByCode(userGroupCode);
         if(Objects.isNull(userGroup))
         {
-            throw new UserGroupNotFoundException("No such user available");
+            throw new UserGroupNotFoundException(NO_SUCH_USER_AVAILABLE_MESSAGES);
         }
         else
         {
@@ -438,7 +443,7 @@ public class DefaultUserService implements UserService {
         UserGroup userGroup=userGroupRepository.findByCode(userGroupCode);
         if(Objects.isNull(userGroup))
         {
-            throw new UserGroupNotFoundException("No such user available");
+            throw new UserGroupNotFoundException(NO_SUCH_USER_AVAILABLE_MESSAGES);
         }
         else
         {
@@ -472,7 +477,7 @@ public class DefaultUserService implements UserService {
 
         if(StringUtils.isEmpty(searchTerm) || (Objects.isNull(pageNumber) || pageNumber<-1))
         {
-            throw new IllegalArgumentException("search term cannot be empty or page number cannot be null or less than 1");
+            throw new IllegalArgumentException(SEARCH_TERM_NOT_EMPTY);
         }
 
         Page<UserGroup> userGroupList=userGroupRepository.findUserGroups(searchTerm,AccessControlUtil.getPageParameter(userGroupRepository,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)));
@@ -603,7 +608,7 @@ public class DefaultUserService implements UserService {
     public PageResult<UserGroup> getAllUserGroupsForUser(String userId, Integer pageNumber) {
         if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
-            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+            throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
         HashSet<UserGroup> allGroups=new HashSet<UserGroup>();
@@ -623,7 +628,7 @@ public class DefaultUserService implements UserService {
         try {
             result.setResults(Collections.unmodifiableCollection(new ArrayList<>(AccessControlUtil.getPagedResult(allGroups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
         } catch (IllegalAccessException | InstantiationException e) {
-           log.error("Error while fetching user groups",e);
+           log.error(ERROR_FETCHING_USERGROUPS_MESSAGE,e);
         }
         return result;
     }
@@ -632,7 +637,7 @@ public class DefaultUserService implements UserService {
     public PageResult<UserGroup> getParentUserGroupsForUser(String userId, Integer pageNumber) {
         if(StringUtils.isEmpty(userId) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
-            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+            throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
         HashSet<UserGroup> groups=new HashSet<UserGroup>();
@@ -647,7 +652,7 @@ public class DefaultUserService implements UserService {
         try {
             result.setResults(Collections.unmodifiableCollection(new ArrayList<>(AccessControlUtil.getPagedResult(groups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
         } catch (IllegalAccessException | InstantiationException e) {
-            log.error("Error while fetching user groups",e);
+            log.error(ERROR_FETCHING_USERGROUPS_MESSAGE,e);
         }
 
         return result;
@@ -657,7 +662,7 @@ public class DefaultUserService implements UserService {
     public PageResult<UserGroup> getAllUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
         if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
-            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+            throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
         HashSet<UserGroup> groups=new HashSet<UserGroup>();
@@ -677,7 +682,7 @@ public class DefaultUserService implements UserService {
         try {
             result.setResults(Collections.unmodifiableCollection(new ArrayList<>(AccessControlUtil.getPagedResult(groups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
         } catch (IllegalAccessException | InstantiationException e) {
-            log.error("Error while fetching user groups",e);
+            log.error(ERROR_FETCHING_USERGROUPS_MESSAGE,e);
         }
         return result;
     }
@@ -686,7 +691,7 @@ public class DefaultUserService implements UserService {
     public PageResult<UserGroup> getParentUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
         if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
-            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+            throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
         HashSet<UserGroup> groups=new HashSet<UserGroup>();
@@ -704,7 +709,7 @@ public class DefaultUserService implements UserService {
         try {
             result.setResults(Collections.unmodifiableCollection(new ArrayList<>(AccessControlUtil.getPagedResult(groups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
         } catch (IllegalAccessException | InstantiationException e) {
-            log.error("Error while fetching user groups",e);
+            log.error(ERROR_FETCHING_USERGROUPS_MESSAGE,e);
         }
         return result;
     }
@@ -713,7 +718,7 @@ public class DefaultUserService implements UserService {
     public PageResult<UserGroup> getAllChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
         if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
-            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+            throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
         HashSet<UserGroup> groups=new HashSet<UserGroup>();
@@ -731,7 +736,7 @@ public class DefaultUserService implements UserService {
         try {
             result.setResults(Collections.unmodifiableCollection(new ArrayList<>(AccessControlUtil.getPagedResult(groups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
         } catch (IllegalAccessException | InstantiationException e) {
-            log.error("Error while fetching user groups",e);
+            log.error(ERROR_FETCHING_USERGROUPS_MESSAGE,e);
         }
         return result;
     }
@@ -740,7 +745,7 @@ public class DefaultUserService implements UserService {
     public PageResult<UserGroup> getChildUserGroupsForUserGroup(String userGroupCode, Integer pageNumber) {
         if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
-            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+            throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<UserGroup> result=new PageResult<>();
         HashSet<UserGroup> groups=new HashSet<UserGroup>();
@@ -758,7 +763,7 @@ public class DefaultUserService implements UserService {
         try {
             result.setResults(Collections.unmodifiableCollection(new ArrayList<>(AccessControlUtil.getPagedResult(groups,pageNumber,(Integer) accessControlConfigProperties.get(AccessControlConfigConstants.PAGINATION_PAGELIMIT)))));
         } catch (IllegalAccessException | InstantiationException e) {
-            log.error("Error while fetching user groups",e);
+            log.error(ERROR_FETCHING_USERGROUPS_MESSAGE,e);
         }
         return result;
     }
@@ -933,7 +938,7 @@ public class DefaultUserService implements UserService {
     public PageResult<AccessPermission> getPermissionsForUserGroup(String userGroupCode, Boolean onlyEnabled,Integer pageNumber) {
         if(StringUtils.isEmpty(userGroupCode) || Objects.isNull(pageNumber) || pageNumber<-1)
         {
-            throw new IllegalArgumentException("user id is empty or pagenumber is invalid");
+            throw new IllegalArgumentException(USERID_EMPTY_MESSAGE);
         }
         PageResult<AccessPermission> result=new PageResult<>();
         HashSet<AccessPermission> permissions=new HashSet<AccessPermission>();
