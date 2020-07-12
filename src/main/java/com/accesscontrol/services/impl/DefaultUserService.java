@@ -1033,11 +1033,7 @@ public class DefaultUserService implements UserService {
                     });
                     return new AccessControlUser(user.getUserId(),user.getPassword(),user.getEnabled(),Collections.unmodifiableCollection(simpleGrantedAuthorities));
                 }
-                else
-                {
-                    return null;
-                }
-
+                return null;
             }
         };
     }
