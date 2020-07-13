@@ -1999,7 +1999,7 @@ public class UserServiceTest {
     @Test
     public void enablePermissionWithErrors1()throws AccessControlException{
         AccessPermission permission=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"User"),ctx);
-        UserGroup userGroup=userService.createUserGroup(new UserGroup("enablePermissionWithErrors","enablePermissionWithErrors",true),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("enablePermissionWithErrors1","enablePermissionWithErrors1",true),ctx);
         userService.createPermission(permission,userGroup,ctx);
         Assertions.assertDoesNotThrow(()->{
             userService.enablePermission(permission,userGroup,ctx);
