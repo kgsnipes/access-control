@@ -1967,4 +1967,54 @@ public class UserServiceTest {
 
     }
 
+    @Order(121)
+    @Test
+    public void createPermissionWithoutExistingPermissionForUserGroup()throws AccessControlException{
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("createPermissionWithoutExistingPermissionForUserGroup","createPermissionWithoutExistingPermissionForUserGroup",true),ctx);
+        Assertions.assertNotNull(userService.createPermission(new AccessPermission(AccessControlPermissions.EXECUTE,"Projects"),userGroup,ctx));
+
+    }
+
+    @Order(122)
+    @Test
+    public void createPermissionWithDataErrors()throws AccessControlException{
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("createPermissionWithDataErrors","createPermissionWithDataErrors",true),ctx);
+        Assertions.assertThrows(AccessControlException.class,()->{
+            userService.createPermission(new AccessPermission(AccessControlPermissions.EXECUTE,null),userGroup,ctx);
+        });
+
+    }
+
+    @Order(123)
+    @Test
+    public void enablePermissionWithErrors()throws AccessControlException{
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("enablePermissionWithErrors","enablePermissionWithErrors",true),ctx);
+        Assertions.assertThrows(AccessControlException.class,()->{
+            userService.enablePermission(new AccessPermission(AccessControlPermissions.EXECUTE,null),userGroup,ctx);
+        });
+
+    }
+
+    @Order(124)
+    @Test
+    public void enablePermissionWithErrors1()throws AccessControlException{
+        AccessPermission permission=userService.createPermission(new AccessPermission(AccessControlPermissions.READ,"User"),ctx);
+        UserGroup userGroup=userService.createUserGroup(new UserGroup("enablePermissionWithErrors","enablePermissionWithErrors",true),ctx);
+        userService.createPermission(permission,userGroup,ctx);
+        Assertions.assertDoesNotThrow(()->{
+            userService.enablePermission(permission,userGroup,ctx);
+        });
+
+    }
+
+    @Order(125)
+    @Test
+    public void exportUser2UserGroupDataTest()
+    {
+        Assertions.assertDoesNotThrow(()->{
+            String filePath=new File(".").getCanonicalPath()+"/src/test/resources/export/user2usergroup_data_export.csv";
+            userService.exportData(new FileWriter(filePath),User2UserGroupRelation.class,1,-1);
+        });
+    }
+
 }
