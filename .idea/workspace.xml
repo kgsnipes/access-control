@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="43e32813-8a71-4fb1-bf22-085eee95078c" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-188">
-              <caret line="1990" column="126" selection-start-line="1990" selection-start-column="126" selection-end-line="1990" selection-end-column="126" />
+            <state relative-caret-position="262">
+              <caret line="2020" lean-forward="true" selection-start-line="2020" selection-end-line="2020" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -631,6 +629,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="827" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6365915" visible="true" weight="0.10801145" />
       <window_info id="Structure" order="1" sideWeight="0.36340854" side_tool="true" visible="true" weight="0.10801145" />
@@ -1123,8 +1122,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/accesscontrol/services/UserServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-188">
-          <caret line="1990" column="126" selection-start-line="1990" selection-start-column="126" selection-end-line="1990" selection-end-column="126" />
+        <state relative-caret-position="262">
+          <caret line="2020" lean-forward="true" selection-start-line="2020" selection-end-line="2020" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
