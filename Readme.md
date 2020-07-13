@@ -11,7 +11,7 @@ Checkout the [Setup and Configuration for the library](https://github.com/kgsnip
 
 For more info on configuration and setup information explore the [cookbook](https://github.com/kgsnipes/access-control/wiki/Cookbook).
 
-[Additional code quality and code coverage can be found here.](https://github.com/kgsnipes/access-control/wiki/Code-Quality-and-Code-Coverage-Information)
+[Additional code quality and code coverage information can be found here.](https://github.com/kgsnipes/access-control/wiki/Code-Quality-and-Code-Coverage-Information)
 
 **Feature List**
 
