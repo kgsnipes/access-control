@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -178,13 +179,14 @@ public class DefaultUserService implements UserService {
         {
             User retrievedUser=getUserById(user.getUserId());
 
-            if(Objects.nonNull(retrievedUser))
+            if(Objects.nonNull(retrievedUser) && AccessControlUtil.hasSameVersion(user,retrievedUser))
             {
                 encryptPasswordIfNotEncrypted(user);
                 retrievedUser.setFirstName(user.getFirstName());
                 retrievedUser.setLastName(user.getLastName());
                 retrievedUser.setEnabled(user.getEnabled());
                 retrievedUser.setPassword(user.getPassword());
+                retrievedUser.setVersion(new AtomicInteger(retrievedUser.getVersion().incrementAndGet()));
                 savedUser=userRepository.save(retrievedUser);
                 log.debug("Update user with ID {}",savedUser.getId());
                 changeLogService.logChange(user.getId(),user.getClass().getSimpleName(), AccessControlConfigConstants.CRUD.UPDATE,user,savedUser,ctx);

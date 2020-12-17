@@ -1,6 +1,7 @@
 package com.accesscontrol.util;
 
 
+import com.accesscontrol.exception.AccessControlException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,5 +37,21 @@ public class AccessControlUtil {
             return PageRequest.of(pageNumber-1,limit);
         }
 
+    }
+
+    public static boolean hasSameVersion(Object obj1,Object obj2)
+    {
+        try {
+            if(obj1.getClass().equals(obj2) && obj1.getClass().getField("version").get(obj1).equals(obj2.getClass().getField("version").get(obj2)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (IllegalAccessException|NoSuchFieldException e) {
+            throw new AccessControlException("Entities have different versions cannot be persisted");
+        }
     }
 }

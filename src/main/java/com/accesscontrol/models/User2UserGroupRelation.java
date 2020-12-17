@@ -1,14 +1,13 @@
 package com.accesscontrol.models;
 
+import com.accesscontrol.config.AtomicIntegerConverter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 public class User2UserGroupRelation extends AbstractModel{
@@ -31,12 +30,18 @@ public class User2UserGroupRelation extends AbstractModel{
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    @Convert(converter = AtomicIntegerConverter.class)
+    private AtomicInteger version;
+
+
     public User2UserGroupRelation() {
+        this.version=new AtomicInteger(1);
     }
 
     public User2UserGroupRelation(String userGroupCode,  String userId) {
         this.userGroupCode = userGroupCode;
         this.userId = userId;
+        this.version=new AtomicInteger(1);
     }
 
     public Long getId() {
@@ -78,5 +83,13 @@ public class User2UserGroupRelation extends AbstractModel{
 
     public void setUpdateDateTime(LocalDateTime updateDateTime) {
         this.updateDateTime = updateDateTime;
+    }
+
+    public AtomicInteger getVersion() {
+        return version;
+    }
+
+    public void setVersion(AtomicInteger version) {
+        this.version = version;
     }
 }

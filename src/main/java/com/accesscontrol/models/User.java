@@ -1,11 +1,13 @@
 package com.accesscontrol.models;
 
+import com.accesscontrol.config.AtomicIntegerConverter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(indexes = { @Index(name="userIdIndex",columnList = "userId") })
@@ -41,7 +43,11 @@ public class User extends AbstractModel {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    @Convert(converter = AtomicIntegerConverter.class)
+    private AtomicInteger version;
+
     public User() {
+        this.version=new AtomicInteger(1);
     }
 
     public User(String firstName, String lastName, String userId, String password, Boolean enabled) {
@@ -50,6 +56,7 @@ public class User extends AbstractModel {
         this.userId = userId;
         this.password = password;
         this.enabled = enabled;
+        this.version=new AtomicInteger(1);
     }
 
     public Long getId() {
@@ -116,5 +123,11 @@ public class User extends AbstractModel {
         this.enabled = enabled;
     }
 
+    public AtomicInteger getVersion() {
+        return version;
+    }
 
+    public void setVersion(AtomicInteger version) {
+        this.version = version;
+    }
 }

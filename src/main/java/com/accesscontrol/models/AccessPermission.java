@@ -1,14 +1,13 @@
 package com.accesscontrol.models;
 
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 //@Table(indexes = { @Index(name="accessPermissionIndex",columnList ="permission,resource") })
@@ -32,12 +31,18 @@ public class AccessPermission extends AbstractModel{
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    @Version
+    private Integer version;
+
+
     public AccessPermission() {
+
     }
 
     public AccessPermission( String permission,  String resource) {
         this.permission = permission;
         this.resource = resource;
+
     }
 
     public Long getId() {
@@ -79,4 +84,5 @@ public class AccessPermission extends AbstractModel{
     public void setUpdateDateTime(LocalDateTime updateDateTime) {
         this.updateDateTime = updateDateTime;
     }
+
 }
